@@ -394,7 +394,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "1a982b51b8714cc6b7883ea37862890c", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "c8250125d31c44689d69ab486da9f9a8", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <p>Afterwards we create a new <code class="docutils literal notranslate"><span class="pre">Project</span></code> instance for the following calculation named <code class="docutils literal notranslate"><span class="pre">evcurve</span></code> short for energy volume curve. We delete all previous calculation in this project, just to make sure everything is recalculated every time the jupyter notebook is executed rather than reloading the calculation:</p>
 <div class="cell docutils container">
@@ -404,8 +404,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "0382a780c58c478982cef75b00bdfe7c", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="loop-over-different-strain-values">
@@ -579,6 +577,14 @@ document.write(`
 </div>
 </div>
 </div>
+<p>In addition to the interatomic potential we also once again select the flux enabled executable as we are using the flux kernel. Still for now we execute all the calculation inline with the primary python process.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job_template</span><span class="o">.</span><span class="n">executable</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="s1">&#39;2022.11.03_flux&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="for-loop">
 <h2>For loop<a class="headerlink" href="#for-loop" title="Permalink to this heading">#</a></h2>
@@ -613,17 +619,17 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job lmp_0_95 was saved and received the ID: 2957
-The job lmp_0_96 was saved and received the ID: 2958
-The job lmp_0_97 was saved and received the ID: 2959
-The job lmp_0_98 was saved and received the ID: 2960
-The job lmp_0_99 was saved and received the ID: 2961
-The job lmp_1_0 was saved and received the ID: 2962
-The job lmp_1_01 was saved and received the ID: 2963
-The job lmp_1_02 was saved and received the ID: 2964
-The job lmp_1_03 was saved and received the ID: 2965
-The job lmp_1_04 was saved and received the ID: 2966
-The job lmp_1_05 was saved and received the ID: 2967
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job lmp_0_95 was saved and received the ID: 21752
+The job lmp_0_96 was saved and received the ID: 21753
+The job lmp_0_97 was saved and received the ID: 21754
+The job lmp_0_98 was saved and received the ID: 21755
+The job lmp_0_99 was saved and received the ID: 21756
+The job lmp_1_0 was saved and received the ID: 21757
+The job lmp_1_01 was saved and received the ID: 21758
+The job lmp_1_02 was saved and received the ID: 21759
+The job lmp_1_03 was saved and received the ID: 21760
+The job lmp_1_04 was saved and received the ID: 21761
+The job lmp_1_05 was saved and received the ID: 21762
 </pre></div>
 </div>
 </div>
@@ -674,17 +680,17 @@ The job lmp_1_05 was saved and received the ID: 2967
   <tbody>
     <tr>
       <th>0</th>
-      <td>2957</td>
+      <td>21752</td>
       <td>finished</td>
       <td>Al4</td>
       <td>lmp_0_95</td>
       <td>/lmp_0_95</td>
-      <td>/Users/janssen/pyiron/projects/</td>
-      <td>2023/2023-08-08-lammps-talk/evcurve/</td>
-      <td>2023-08-10 20:07:17.653077</td>
-      <td>2023-08-10 20:07:18.029994</td>
+      <td>/home/janssen/pyiron/projects/</td>
+      <td>2023-08-11-lammps-workshop/evcurve/</td>
+      <td>2023-08-11 09:36:58.578650</td>
+      <td>2023-08-11 09:36:59.299133</td>
       <td>0.0</td>
-      <td>pyiron@pn2035881.lanl.gov#1</td>
+      <td>pyiron@ljubi#1</td>
       <td>Lammps</td>
       <td>0.1</td>
       <td>None</td>
@@ -692,17 +698,17 @@ The job lmp_1_05 was saved and received the ID: 2967
     </tr>
     <tr>
       <th>1</th>
-      <td>2958</td>
+      <td>21753</td>
       <td>finished</td>
       <td>Al4</td>
       <td>lmp_0_96</td>
       <td>/lmp_0_96</td>
-      <td>/Users/janssen/pyiron/projects/</td>
-      <td>2023/2023-08-08-lammps-talk/evcurve/</td>
-      <td>2023-08-10 20:07:18.595704</td>
-      <td>2023-08-10 20:07:18.934538</td>
+      <td>/home/janssen/pyiron/projects/</td>
+      <td>2023-08-11-lammps-workshop/evcurve/</td>
+      <td>2023-08-11 09:36:59.619686</td>
+      <td>2023-08-11 09:37:00.127617</td>
       <td>0.0</td>
-      <td>pyiron@pn2035881.lanl.gov#1</td>
+      <td>pyiron@ljubi#1</td>
       <td>Lammps</td>
       <td>0.1</td>
       <td>None</td>
@@ -710,17 +716,17 @@ The job lmp_1_05 was saved and received the ID: 2967
     </tr>
     <tr>
       <th>2</th>
-      <td>2959</td>
+      <td>21754</td>
       <td>finished</td>
       <td>Al4</td>
       <td>lmp_0_97</td>
       <td>/lmp_0_97</td>
-      <td>/Users/janssen/pyiron/projects/</td>
-      <td>2023/2023-08-08-lammps-talk/evcurve/</td>
-      <td>2023-08-10 20:07:19.504208</td>
-      <td>2023-08-10 20:07:19.846323</td>
+      <td>/home/janssen/pyiron/projects/</td>
+      <td>2023-08-11-lammps-workshop/evcurve/</td>
+      <td>2023-08-11 09:37:00.457299</td>
+      <td>2023-08-11 09:37:00.962842</td>
       <td>0.0</td>
-      <td>pyiron@pn2035881.lanl.gov#1</td>
+      <td>pyiron@ljubi#1</td>
       <td>Lammps</td>
       <td>0.1</td>
       <td>None</td>
@@ -728,17 +734,17 @@ The job lmp_1_05 was saved and received the ID: 2967
     </tr>
     <tr>
       <th>3</th>
-      <td>2960</td>
+      <td>21755</td>
       <td>finished</td>
       <td>Al4</td>
       <td>lmp_0_98</td>
       <td>/lmp_0_98</td>
-      <td>/Users/janssen/pyiron/projects/</td>
-      <td>2023/2023-08-08-lammps-talk/evcurve/</td>
-      <td>2023-08-10 20:07:20.408405</td>
-      <td>2023-08-10 20:07:20.748129</td>
+      <td>/home/janssen/pyiron/projects/</td>
+      <td>2023-08-11-lammps-workshop/evcurve/</td>
+      <td>2023-08-11 09:37:01.334911</td>
+      <td>2023-08-11 09:37:01.816432</td>
       <td>0.0</td>
-      <td>pyiron@pn2035881.lanl.gov#1</td>
+      <td>pyiron@ljubi#1</td>
       <td>Lammps</td>
       <td>0.1</td>
       <td>None</td>
@@ -746,17 +752,17 @@ The job lmp_1_05 was saved and received the ID: 2967
     </tr>
     <tr>
       <th>4</th>
-      <td>2961</td>
+      <td>21756</td>
       <td>finished</td>
       <td>Al4</td>
       <td>lmp_0_99</td>
       <td>/lmp_0_99</td>
-      <td>/Users/janssen/pyiron/projects/</td>
-      <td>2023/2023-08-08-lammps-talk/evcurve/</td>
-      <td>2023-08-10 20:07:21.341168</td>
-      <td>2023-08-10 20:07:21.717776</td>
+      <td>/home/janssen/pyiron/projects/</td>
+      <td>2023-08-11-lammps-workshop/evcurve/</td>
+      <td>2023-08-11 09:37:02.136382</td>
+      <td>2023-08-11 09:37:02.686070</td>
       <td>0.0</td>
-      <td>pyiron@pn2035881.lanl.gov#1</td>
+      <td>pyiron@ljubi#1</td>
       <td>Lammps</td>
       <td>0.1</td>
       <td>None</td>
@@ -764,17 +770,17 @@ The job lmp_1_05 was saved and received the ID: 2967
     </tr>
     <tr>
       <th>5</th>
-      <td>2962</td>
+      <td>21757</td>
       <td>finished</td>
       <td>Al4</td>
       <td>lmp_1_0</td>
       <td>/lmp_1_0</td>
-      <td>/Users/janssen/pyiron/projects/</td>
-      <td>2023/2023-08-08-lammps-talk/evcurve/</td>
-      <td>2023-08-10 20:07:22.310080</td>
-      <td>2023-08-10 20:07:22.650744</td>
+      <td>/home/janssen/pyiron/projects/</td>
+      <td>2023-08-11-lammps-workshop/evcurve/</td>
+      <td>2023-08-11 09:37:03.010487</td>
+      <td>2023-08-11 09:37:03.521878</td>
       <td>0.0</td>
-      <td>pyiron@pn2035881.lanl.gov#1</td>
+      <td>pyiron@ljubi#1</td>
       <td>Lammps</td>
       <td>0.1</td>
       <td>None</td>
@@ -782,17 +788,17 @@ The job lmp_1_05 was saved and received the ID: 2967
     </tr>
     <tr>
       <th>6</th>
-      <td>2963</td>
+      <td>21758</td>
       <td>finished</td>
       <td>Al4</td>
       <td>lmp_1_01</td>
       <td>/lmp_1_01</td>
-      <td>/Users/janssen/pyiron/projects/</td>
-      <td>2023/2023-08-08-lammps-talk/evcurve/</td>
-      <td>2023-08-10 20:07:23.223665</td>
-      <td>2023-08-10 20:07:23.566154</td>
+      <td>/home/janssen/pyiron/projects/</td>
+      <td>2023-08-11-lammps-workshop/evcurve/</td>
+      <td>2023-08-11 09:37:03.844633</td>
+      <td>2023-08-11 09:37:04.355407</td>
       <td>0.0</td>
-      <td>pyiron@pn2035881.lanl.gov#1</td>
+      <td>pyiron@ljubi#1</td>
       <td>Lammps</td>
       <td>0.1</td>
       <td>None</td>
@@ -800,17 +806,17 @@ The job lmp_1_05 was saved and received the ID: 2967
     </tr>
     <tr>
       <th>7</th>
-      <td>2964</td>
+      <td>21759</td>
       <td>finished</td>
       <td>Al4</td>
       <td>lmp_1_02</td>
       <td>/lmp_1_02</td>
-      <td>/Users/janssen/pyiron/projects/</td>
-      <td>2023/2023-08-08-lammps-talk/evcurve/</td>
-      <td>2023-08-10 20:07:24.128426</td>
-      <td>2023-08-10 20:07:24.475637</td>
+      <td>/home/janssen/pyiron/projects/</td>
+      <td>2023-08-11-lammps-workshop/evcurve/</td>
+      <td>2023-08-11 09:37:04.677583</td>
+      <td>2023-08-11 09:37:05.176471</td>
       <td>0.0</td>
-      <td>pyiron@pn2035881.lanl.gov#1</td>
+      <td>pyiron@ljubi#1</td>
       <td>Lammps</td>
       <td>0.1</td>
       <td>None</td>
@@ -818,17 +824,17 @@ The job lmp_1_05 was saved and received the ID: 2967
     </tr>
     <tr>
       <th>8</th>
-      <td>2965</td>
+      <td>21760</td>
       <td>finished</td>
       <td>Al4</td>
       <td>lmp_1_03</td>
       <td>/lmp_1_03</td>
-      <td>/Users/janssen/pyiron/projects/</td>
-      <td>2023/2023-08-08-lammps-talk/evcurve/</td>
-      <td>2023-08-10 20:07:25.097371</td>
-      <td>2023-08-10 20:07:25.439330</td>
+      <td>/home/janssen/pyiron/projects/</td>
+      <td>2023-08-11-lammps-workshop/evcurve/</td>
+      <td>2023-08-11 09:37:05.500825</td>
+      <td>2023-08-11 09:37:06.030392</td>
       <td>0.0</td>
-      <td>pyiron@pn2035881.lanl.gov#1</td>
+      <td>pyiron@ljubi#1</td>
       <td>Lammps</td>
       <td>0.1</td>
       <td>None</td>
@@ -836,17 +842,17 @@ The job lmp_1_05 was saved and received the ID: 2967
     </tr>
     <tr>
       <th>9</th>
-      <td>2966</td>
+      <td>21761</td>
       <td>finished</td>
       <td>Al4</td>
       <td>lmp_1_04</td>
       <td>/lmp_1_04</td>
-      <td>/Users/janssen/pyiron/projects/</td>
-      <td>2023/2023-08-08-lammps-talk/evcurve/</td>
-      <td>2023-08-10 20:07:26.010423</td>
-      <td>2023-08-10 20:07:26.351361</td>
+      <td>/home/janssen/pyiron/projects/</td>
+      <td>2023-08-11-lammps-workshop/evcurve/</td>
+      <td>2023-08-11 09:37:06.357974</td>
+      <td>2023-08-11 09:37:06.925999</td>
       <td>0.0</td>
-      <td>pyiron@pn2035881.lanl.gov#1</td>
+      <td>pyiron@ljubi#1</td>
       <td>Lammps</td>
       <td>0.1</td>
       <td>None</td>
@@ -854,17 +860,17 @@ The job lmp_1_05 was saved and received the ID: 2967
     </tr>
     <tr>
       <th>10</th>
-      <td>2967</td>
+      <td>21762</td>
       <td>finished</td>
       <td>Al4</td>
       <td>lmp_1_05</td>
       <td>/lmp_1_05</td>
-      <td>/Users/janssen/pyiron/projects/</td>
-      <td>2023/2023-08-08-lammps-talk/evcurve/</td>
-      <td>2023-08-10 20:07:26.921413</td>
-      <td>2023-08-10 20:07:27.270097</td>
+      <td>/home/janssen/pyiron/projects/</td>
+      <td>2023-08-11-lammps-workshop/evcurve/</td>
+      <td>2023-08-11 09:37:07.257593</td>
+      <td>2023-08-11 09:37:07.826233</td>
       <td>0.0</td>
-      <td>pyiron@pn2035881.lanl.gov#1</td>
+      <td>pyiron@ljubi#1</td>
       <td>Lammps</td>
       <td>0.1</td>
       <td>None</td>
@@ -930,7 +936,7 @@ The job lmp_1_05 was saved and received the ID: 2967
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "30c5d8d6b4aa4d99bd25f4b8ad918895", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "ad04fce573d843c5bebed891d10ec111", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <p>As a next step we can visualize the aggregated data using the matplotlib library:</p>
 <div class="cell docutils container">
@@ -952,7 +958,7 @@ The job lmp_1_05 was saved and received the ID: 2967
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Energy (eV)&#39;)
 </pre></div>
 </div>
-<img alt="_images/118090801faabbfcd7d8161c80c6c3cb06b7fbdadab8b83702c3849162200617.png" src="_images/118090801faabbfcd7d8161c80c6c3cb06b7fbdadab8b83702c3849162200617.png" />
+<img alt="_images/38b93dad7a81fc38b4d31696138f7525e98b3c0169a0329a1ce7f7c6a994da8f.png" src="_images/38b93dad7a81fc38b4d31696138f7525e98b3c0169a0329a1ce7f7c6a994da8f.png" />
 </div>
 </div>
 </section>
@@ -969,7 +975,7 @@ The job lmp_1_05 was saved and received the ID: 2967
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "35c2576ae2ef459f8d44f57025337813", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "e6908df316ac49d880529adeb86ece60", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <p>The output is exactly the same, so we can use the same commands as above to plot the same energy volume curve.</p>
 <div class="cell docutils container">
@@ -984,7 +990,7 @@ The job lmp_1_05 was saved and received the ID: 2967
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Energy (eV)&#39;)
 </pre></div>
 </div>
-<img alt="_images/118090801faabbfcd7d8161c80c6c3cb06b7fbdadab8b83702c3849162200617.png" src="_images/118090801faabbfcd7d8161c80c6c3cb06b7fbdadab8b83702c3849162200617.png" />
+<img alt="_images/38b93dad7a81fc38b4d31696138f7525e98b3c0169a0329a1ce7f7c6a994da8f.png" src="_images/38b93dad7a81fc38b4d31696138f7525e98b3c0169a0329a1ce7f7c6a994da8f.png" />
 </div>
 </div>
 <p>This ability to drastically accelerate the execution of your simulation workflows by setting specific parameters is a core feature for pyiron. By default we try to provide the users with as much flexibility as possible but at the same time we provide expert users with optional settings to drastically accelerate their simulation workflows.</p>
@@ -1010,10 +1016,10 @@ The job lmp_1_05 was saved and received the ID: 2967
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job table was saved and received the ID: 2968
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job table was saved and received the ID: 21763
 </pre></div>
 </div>
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "a684f83afb9441d1be63c04bd2984b8e", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "07985bac9837499dacc4d258e7b8a6c9", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "04f2f3716c8e4aed8e49db0317f51e6f", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "9e5a2deaf02d4cd99d7a06f9b4253aad", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> contains the <code class="docutils literal notranslate"><span class="pre">volume</span></code> and the <code class="docutils literal notranslate"><span class="pre">energy_tot</span></code> as columns in addition to the <code class="docutils literal notranslate"><span class="pre">job_id</span></code> which is always included and each row represents one of the 11 calculation in the project.</p>
 <div class="cell docutils container">
@@ -1049,67 +1055,67 @@ The job lmp_1_05 was saved and received the ID: 2967
   <tbody>
     <tr>
       <th>0</th>
-      <td>2957</td>
+      <td>21752</td>
       <td>56.955528</td>
       <td>-13.060681</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>2958</td>
+      <td>21753</td>
       <td>58.773123</td>
       <td>-13.204749</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>2959</td>
+      <td>21754</td>
       <td>60.628981</td>
       <td>-13.309295</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>2960</td>
+      <td>21755</td>
       <td>62.523502</td>
       <td>-13.381820</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>2961</td>
+      <td>21756</td>
       <td>64.457084</td>
       <td>-13.425410</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>2962</td>
+      <td>21757</td>
       <td>66.430125</td>
       <td>-13.440000</td>
     </tr>
     <tr>
       <th>6</th>
-      <td>2963</td>
+      <td>21758</td>
       <td>68.443024</td>
       <td>-13.425492</td>
     </tr>
     <tr>
       <th>7</th>
-      <td>2964</td>
+      <td>21759</td>
       <td>70.496180</td>
       <td>-13.382455</td>
     </tr>
     <tr>
       <th>8</th>
-      <td>2965</td>
+      <td>21760</td>
       <td>72.589991</td>
       <td>-13.311268</td>
     </tr>
     <tr>
       <th>9</th>
-      <td>2966</td>
+      <td>21761</td>
       <td>74.724856</td>
       <td>-13.213377</td>
     </tr>
     <tr>
       <th>10</th>
-      <td>2967</td>
+      <td>21762</td>
       <td>76.901173</td>
       <td>-13.092677</td>
     </tr>
@@ -1130,7 +1136,7 @@ The job lmp_1_05 was saved and received the ID: 2967
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Energy (eV)&#39;)
 </pre></div>
 </div>
-<img alt="_images/118090801faabbfcd7d8161c80c6c3cb06b7fbdadab8b83702c3849162200617.png" src="_images/118090801faabbfcd7d8161c80c6c3cb06b7fbdadab8b83702c3849162200617.png" />
+<img alt="_images/38b93dad7a81fc38b4d31696138f7525e98b3c0169a0329a1ce7f7c6a994da8f.png" src="_images/38b93dad7a81fc38b4d31696138f7525e98b3c0169a0329a1ce7f7c6a994da8f.png" />
 </div>
 </div>
 <p>Again using a <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> might look overly complicated for just plotting an energy volume curve, but the intention of this functionality is to analyse hundreds or thousands of calculation. In addition the <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> format is supported by a wide range of machine learning packages, so the output of the pyiron table can be directly integrated in an machine learning workflow.</p>
@@ -1240,18 +1246,18 @@ The job lmp_1_05 was saved and received the ID: 2967
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job murn was saved and received the ID: 2969
-The job murn_0_9 was saved and received the ID: 2970
-The job murn_0_92 was saved and received the ID: 2971
-The job murn_0_94 was saved and received the ID: 2972
-The job murn_0_96 was saved and received the ID: 2973
-The job murn_0_98 was saved and received the ID: 2974
-The job murn_1_0 was saved and received the ID: 2975
-The job murn_1_02 was saved and received the ID: 2976
-The job murn_1_04 was saved and received the ID: 2977
-The job murn_1_06 was saved and received the ID: 2978
-The job murn_1_08 was saved and received the ID: 2979
-The job murn_1_1 was saved and received the ID: 2980
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job murn was saved and received the ID: 21764
+The job murn_0_9 was saved and received the ID: 21765
+The job murn_0_92 was saved and received the ID: 21766
+The job murn_0_94 was saved and received the ID: 21767
+The job murn_0_96 was saved and received the ID: 21768
+The job murn_0_98 was saved and received the ID: 21769
+The job murn_1_0 was saved and received the ID: 21770
+The job murn_1_02 was saved and received the ID: 21771
+The job murn_1_04 was saved and received the ID: 21772
+The job murn_1_06 was saved and received the ID: 21773
+The job murn_1_08 was saved and received the ID: 21774
+The job murn_1_1 was saved and received the ID: 21775
 </pre></div>
 </div>
 </div>
@@ -1264,7 +1270,7 @@ The job murn_1_1 was saved and received the ID: 2980
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/848335403bdfc6953593c0868982c35b0f1f7e0b16bd353d2d2c39265092ddff.png" src="_images/848335403bdfc6953593c0868982c35b0f1f7e0b16bd353d2d2c39265092ddff.png" />
+<img alt="_images/f3276b5d31b7e52b26201c588d4cfb640c483c436c25c837e65713a0bba5f53d.png" src="_images/f3276b5d31b7e52b26201c588d4cfb640c483c436c25c837e65713a0bba5f53d.png" />
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: title={&#39;center&#39;: &#39;Murnaghan: error: 1.065833723414086e-08&#39;}, xlabel=&#39;Volume ($\\AA^3$)&#39;, ylabel=&#39;energy (eV)&#39;&gt;
 </pre></div>
 </div>
@@ -1281,8 +1287,6 @@ The job murn_1_1 was saved and received the ID: 2980
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "288fbcff877f470ebeac4fc3ef59837a", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <p>We restrict ourselves to the first ten interatomic potentials for aluminium from the <code class="docutils literal notranslate"><span class="pre">list_potentials()</span></code> function, to reduce the number of calculation.</p>
 <div class="cell docutils container">
@@ -1331,104 +1335,104 @@ The job murn_1_1 was saved and received the ID: 2980
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job murn_1995__Angelo_J_E__Ni_Al_H__LAMMPS__ipr1 was saved and received the ID: 2981
-The job murn_1995__Angelo_J_E__Ni_Al_H__LAMMPS__ipr1_lmp_0 was saved and received the ID: 2982
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job murn_1995__Angelo_J_E__Ni_Al_H__LAMMPS__ipr1 was saved and received the ID: 21776
+The job murn_1995__Angelo_J_E__Ni_Al_H__LAMMPS__ipr1_lmp_0 was saved and received the ID: 21777
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:502: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/janssen/mambaforge/lib/python3.10/site-packages/pyiron_atomistics/lammps/interactive.py:502: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
   warnings.warn(
-/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:131: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
-  warnings.warn(
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job murn_1996__Farkas_D__Nb_Ti_Al__LAMMPS__ipr1 was saved and received the ID: 2983
-The job murn_1996__Farkas_D__Nb_Ti_Al__LAMMPS__ipr1_lmp_1 was saved and received the ID: 2984
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:502: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
-  warnings.warn(
-/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:131: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
-  warnings.warn(
-2023-08-10 20:07:42,882 - pyiron_log - WARNING - Minimum could not be found!
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job murn_1997__Liu_X_Y__Al_Mg__LAMMPS__ipr1 was saved and received the ID: 2985
-The job murn_1997__Liu_X_Y__Al_Mg__LAMMPS__ipr1_lmp_2 was saved and received the ID: 2986
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:502: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
-  warnings.warn(
-/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:131: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+/home/janssen/mambaforge/lib/python3.10/site-packages/pyiron_atomistics/lammps/interactive.py:131: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
   warnings.warn(
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job murn_1998__Liu_X_Y__Al_Mg__LAMMPS__ipr1 was saved and received the ID: 2987
-The job murn_1998__Liu_X_Y__Al_Mg__LAMMPS__ipr1_lmp_3 was saved and received the ID: 2988
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job murn_1996__Farkas_D__Nb_Ti_Al__LAMMPS__ipr1 was saved and received the ID: 21778
+The job murn_1996__Farkas_D__Nb_Ti_Al__LAMMPS__ipr1_lmp_1 was saved and received the ID: 21779
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:502: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/janssen/mambaforge/lib/python3.10/site-packages/pyiron_atomistics/lammps/interactive.py:502: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
   warnings.warn(
-/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:131: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+/home/janssen/mambaforge/lib/python3.10/site-packages/pyiron_atomistics/lammps/interactive.py:131: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
   warnings.warn(
+2023-08-11 09:37:20,727 - pyiron_log - WARNING - Minimum could not be found!
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job murn_1999__Liu_X_Y__Al_Cu__LAMMPS__ipr1 was saved and received the ID: 2989
-The job murn_1999__Liu_X_Y__Al_Cu__LAMMPS__ipr1_lmp_4 was saved and received the ID: 2990
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job murn_1997__Liu_X_Y__Al_Mg__LAMMPS__ipr1 was saved and received the ID: 21780
+The job murn_1997__Liu_X_Y__Al_Mg__LAMMPS__ipr1_lmp_2 was saved and received the ID: 21781
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:502: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/janssen/mambaforge/lib/python3.10/site-packages/pyiron_atomistics/lammps/interactive.py:502: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
   warnings.warn(
-/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:131: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
-  warnings.warn(
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job murn_1999__Mishin_Y__Al__LAMMPS__ipr1 was saved and received the ID: 2991
-The job murn_1999__Mishin_Y__Al__LAMMPS__ipr1_lmp_5 was saved and received the ID: 2992
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:502: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
-  warnings.warn(
-/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:131: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+/home/janssen/mambaforge/lib/python3.10/site-packages/pyiron_atomistics/lammps/interactive.py:131: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
   warnings.warn(
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job murn_2000__Landa_A__Al_Pb__LAMMPS__ipr1 was saved and received the ID: 2993
-The job murn_2000__Landa_A__Al_Pb__LAMMPS__ipr1_lmp_6 was saved and received the ID: 2994
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job murn_1998__Liu_X_Y__Al_Mg__LAMMPS__ipr1 was saved and received the ID: 21782
+The job murn_1998__Liu_X_Y__Al_Mg__LAMMPS__ipr1_lmp_3 was saved and received the ID: 21783
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:502: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/janssen/mambaforge/lib/python3.10/site-packages/pyiron_atomistics/lammps/interactive.py:502: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
   warnings.warn(
-/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:131: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
-  warnings.warn(
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job murn_2000__Sturgeon_J_B__Al__LAMMPS__ipr1 was saved and received the ID: 2995
-The job murn_2000__Sturgeon_J_B__Al__LAMMPS__ipr1_lmp_7 was saved and received the ID: 2996
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:502: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
-  warnings.warn(
-/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:131: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+/home/janssen/mambaforge/lib/python3.10/site-packages/pyiron_atomistics/lammps/interactive.py:131: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
   warnings.warn(
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job murn_2002__Mishin_Y__Ni_Al__LAMMPS__ipr1 was saved and received the ID: 2997
-The job murn_2002__Mishin_Y__Ni_Al__LAMMPS__ipr1_lmp_8 was saved and received the ID: 2998
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job murn_1999__Liu_X_Y__Al_Cu__LAMMPS__ipr1 was saved and received the ID: 21784
+The job murn_1999__Liu_X_Y__Al_Cu__LAMMPS__ipr1_lmp_4 was saved and received the ID: 21785
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:502: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/janssen/mambaforge/lib/python3.10/site-packages/pyiron_atomistics/lammps/interactive.py:502: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
   warnings.warn(
-/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:131: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+/home/janssen/mambaforge/lib/python3.10/site-packages/pyiron_atomistics/lammps/interactive.py:131: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
   warnings.warn(
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job murn_2003__Lee_B_J__Al__LAMMPS__ipr1 was saved and received the ID: 2999
-The job murn_2003__Lee_B_J__Al__LAMMPS__ipr1_lmp_9 was saved and received the ID: 3000
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job murn_1999__Mishin_Y__Al__LAMMPS__ipr1 was saved and received the ID: 21786
+The job murn_1999__Mishin_Y__Al__LAMMPS__ipr1_lmp_5 was saved and received the ID: 21787
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:502: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/janssen/mambaforge/lib/python3.10/site-packages/pyiron_atomistics/lammps/interactive.py:502: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
   warnings.warn(
-/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:131: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+/home/janssen/mambaforge/lib/python3.10/site-packages/pyiron_atomistics/lammps/interactive.py:131: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job murn_2000__Landa_A__Al_Pb__LAMMPS__ipr1 was saved and received the ID: 21788
+The job murn_2000__Landa_A__Al_Pb__LAMMPS__ipr1_lmp_6 was saved and received the ID: 21789
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/janssen/mambaforge/lib/python3.10/site-packages/pyiron_atomistics/lammps/interactive.py:502: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+  warnings.warn(
+/home/janssen/mambaforge/lib/python3.10/site-packages/pyiron_atomistics/lammps/interactive.py:131: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job murn_2000__Sturgeon_J_B__Al__LAMMPS__ipr1 was saved and received the ID: 21790
+The job murn_2000__Sturgeon_J_B__Al__LAMMPS__ipr1_lmp_7 was saved and received the ID: 21791
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/janssen/mambaforge/lib/python3.10/site-packages/pyiron_atomistics/lammps/interactive.py:502: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+  warnings.warn(
+/home/janssen/mambaforge/lib/python3.10/site-packages/pyiron_atomistics/lammps/interactive.py:131: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job murn_2002__Mishin_Y__Ni_Al__LAMMPS__ipr1 was saved and received the ID: 21792
+The job murn_2002__Mishin_Y__Ni_Al__LAMMPS__ipr1_lmp_8 was saved and received the ID: 21793
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/janssen/mambaforge/lib/python3.10/site-packages/pyiron_atomistics/lammps/interactive.py:502: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+  warnings.warn(
+/home/janssen/mambaforge/lib/python3.10/site-packages/pyiron_atomistics/lammps/interactive.py:131: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job murn_2003__Lee_B_J__Al__LAMMPS__ipr1 was saved and received the ID: 21794
+The job murn_2003__Lee_B_J__Al__LAMMPS__ipr1_lmp_9 was saved and received the ID: 21795
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/janssen/mambaforge/lib/python3.10/site-packages/pyiron_atomistics/lammps/interactive.py:502: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+  warnings.warn(
+/home/janssen/mambaforge/lib/python3.10/site-packages/pyiron_atomistics/lammps/interactive.py:131: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
   warnings.warn(
 </pre></div>
 </div>
@@ -1517,10 +1521,10 @@ The job murn_2003__Lee_B_J__Al__LAMMPS__ipr1_lmp_9 was saved and received the ID
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job potentials was saved and received the ID: 3001
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job potentials was saved and received the ID: 21796
 </pre></div>
 </div>
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "cfd35b2b4bbd4d86aaff1e3a7f636f63", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "362e0c5bec2545f1ad430fba8be7faf9", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "c202f84a981040cdaadb087415e9b6b7", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "bfcbdc59cf6d4f5ab14f9f8a96c2d8c5", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <p>The table lists the properties calculated for the individual interatomic potentials in a <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>.</p>
 <div class="cell docutils container">
@@ -1558,7 +1562,7 @@ The job murn_2003__Lee_B_J__Al__LAMMPS__ipr1_lmp_9 was saved and received the ID
   <tbody>
     <tr>
       <th>0</th>
-      <td>2981</td>
+      <td>21776</td>
       <td>1995--Angelo-J-E--Ni-Al-H--LAMMPS--ipr1</td>
       <td>-13.440397</td>
       <td>66.427847</td>
@@ -1566,7 +1570,7 @@ The job murn_2003__Lee_B_J__Al__LAMMPS__ipr1_lmp_9 was saved and received the ID
     </tr>
     <tr>
       <th>1</th>
-      <td>2985</td>
+      <td>21780</td>
       <td>1997--Liu-X-Y--Al-Mg--LAMMPS--ipr1</td>
       <td>-13.440589</td>
       <td>65.580479</td>
@@ -1574,7 +1578,7 @@ The job murn_2003__Lee_B_J__Al__LAMMPS__ipr1_lmp_9 was saved and received the ID
     </tr>
     <tr>
       <th>2</th>
-      <td>2987</td>
+      <td>21782</td>
       <td>1998--Liu-X-Y--Al-Mg--LAMMPS--ipr1</td>
       <td>-13.441401</td>
       <td>65.619037</td>
@@ -1582,7 +1586,7 @@ The job murn_2003__Lee_B_J__Al__LAMMPS__ipr1_lmp_9 was saved and received the ID
     </tr>
     <tr>
       <th>3</th>
-      <td>2989</td>
+      <td>21784</td>
       <td>1999--Liu-X-Y--Al-Cu--LAMMPS--ipr1</td>
       <td>-13.440403</td>
       <td>65.579624</td>
@@ -1590,7 +1594,7 @@ The job murn_2003__Lee_B_J__Al__LAMMPS__ipr1_lmp_9 was saved and received the ID
     </tr>
     <tr>
       <th>4</th>
-      <td>2991</td>
+      <td>21786</td>
       <td>1999--Mishin-Y--Al--LAMMPS--ipr1</td>
       <td>-13.439988</td>
       <td>66.426610</td>
@@ -1598,7 +1602,7 @@ The job murn_2003__Lee_B_J__Al__LAMMPS__ipr1_lmp_9 was saved and received the ID
     </tr>
     <tr>
       <th>5</th>
-      <td>2993</td>
+      <td>21788</td>
       <td>2000--Landa-A--Al-Pb--LAMMPS--ipr1</td>
       <td>-13.437999</td>
       <td>65.511564</td>
@@ -1606,7 +1610,7 @@ The job murn_2003__Lee_B_J__Al__LAMMPS__ipr1_lmp_9 was saved and received the ID
     </tr>
     <tr>
       <th>6</th>
-      <td>2995</td>
+      <td>21790</td>
       <td>2000--Sturgeon-J-B--Al--LAMMPS--ipr1</td>
       <td>-13.560872</td>
       <td>66.447223</td>
@@ -1614,7 +1618,7 @@ The job murn_2003__Lee_B_J__Al__LAMMPS__ipr1_lmp_9 was saved and received the ID
     </tr>
     <tr>
       <th>7</th>
-      <td>2997</td>
+      <td>21792</td>
       <td>2002--Mishin-Y--Ni-Al--LAMMPS--ipr1</td>
       <td>-13.447738</td>
       <td>66.534453</td>
@@ -1622,7 +1626,7 @@ The job murn_2003__Lee_B_J__Al__LAMMPS__ipr1_lmp_9 was saved and received the ID
     </tr>
     <tr>
       <th>8</th>
-      <td>2999</td>
+      <td>21794</td>
       <td>2003--Lee-B-J--Al--LAMMPS--ipr1</td>
       <td>-13.440482</td>
       <td>66.170774</td>
@@ -1647,16 +1651,16 @@ The job murn_2003__Lee_B_J__Al__LAMMPS__ipr1_lmp_9 was saved and received the ID
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "python"
+            mode: "flux"
         },
         kernelOptions: {
-            name: "python3",
+            name: "flux",
             path: "./."
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'python3'</script>
+    <script>kernelName = 'flux'</script>
 
                 </article>
               
