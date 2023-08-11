@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>pyiron publication template &#8212; lammps-workshop-2023</title>
+    <title>LAMMPS Workshop 2023 &#8212; lammps-workshop-2023</title>
   
   
   
@@ -151,7 +151,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1 current active">
                 <a class="reference internal" href="#">
-                    pyiron publication template
+                    LAMMPS Workshop 2023
                 </a>
             </li>
         </ul>
@@ -307,7 +307,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>pyiron publication template</h1>
+    <h1>LAMMPS Workshop 2023</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -317,18 +317,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-by-step">Step by step</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#repository-structure">Repository structure</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notebooks">notebooks</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conda-environment">conda environment</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#existing-calculation">Existing calculation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-pyiron-resources">Additional pyiron resources</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyterbook">Jupyterbook</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mybinder">mybinder</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#continous-integration">Continous integration</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#license">License</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#local-installation">Local installation</a></li>
 </ul>
             </nav>
         </div>
@@ -340,72 +330,26 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="pyiron-publication-template">
-<h1>pyiron publication template<a class="headerlink" href="#pyiron-publication-template" title="Permalink to this heading">#</a></h1>
-<p>This is a template repository how you can publish your calculation with pyiron. It consists of the repository <a class="reference external" href="https://github.com/pyiron/pyiron-publication-template">itself</a>, a small <a class="reference external" href="http://pyiron.org/pyiron-publication-template/">website</a> created with Jupyterbook and a <a class="reference external" href="https://mybinder.org/v2/gh/pyiron/pyiron-publication-template/HEAD?filepath=notebooks%2Fexample.ipynb">mybinder environment</a> for testing the calculation.</p>
-<p>You can fork this repository and populate it with your own data.</p>
-<section id="step-by-step">
-<h2>Step by step<a class="headerlink" href="#step-by-step" title="Permalink to this heading">#</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="lammps-workshop-2023">
+<h1>LAMMPS Workshop 2023<a class="headerlink" href="#lammps-workshop-2023" title="Permalink to this heading">#</a></h1>
+<p>As part of the <a class="reference external" href="https://www.lammps.org/workshops/Aug23/">LAMMPS Workshop 2023</a> <a class="reference external" href="https://github.com/jan-janssen">&#64;jan-janssen</a> gave a contributed talk on <a class="reference external" href="https://www.lammps.org/workshops/Aug23/talk/jan-janssen/">parameter studies for interatomic potentials using LAMMPS and pyiron</a> as well as a <a class="reference external" href="https://www.lammps.org/workshops/Aug23/breakout/pyiron/">pyiron tutorial</a>.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
+<p>This repository provides the supplementary material for the tutorial, consisting of a <a class="reference external" href="http://pyiron.org/lammps-workshop-2023">tutorial website</a> as well as an interactive <a class="reference external" href="https://mybinder.org/v2/gh/pyiron/lammps-workshop-2023/HEAD">mybinder environment</a>.</p>
+<p>The tutorial is divided into two parts:</p>
 <ul class="simple">
-<li><p>Move your notebooks to the repository folder and remove the example notebook <code class="docutils literal notranslate"><span class="pre">example.ipynb</span></code>.</p></li>
-<li><p>Update the conda <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> file with the conda dependencies required for your notebook.</p></li>
-<li><p>Include the export of your pyiron database in the <code class="docutils literal notranslate"><span class="pre">pyiron/calculation</span></code> folder or in case no calculation are required you can remove the <code class="docutils literal notranslate"><span class="pre">pyiron/calculation/save.tar.gz</span></code> archive and the <code class="docutils literal notranslate"><span class="pre">pyiron/calculation/export.csv</span></code> database backup file.</p></li>
-<li><p>Include additional pyiron resources in the <code class="docutils literal notranslate"><span class="pre">pyiron/resources</span></code> folder if required, otherwise the <code class="docutils literal notranslate"><span class="pre">pyiron/resources</span></code> folder can be deleted.</p></li>
+<li><p>Part one covers the basics of running a LAMMPS simulation with pyiron. <a class="reference external" href="https://github.com/pyiron/lammps-workshop-2023/blob/main/part_1.ipynb">Github</a> <a class="reference external" href="http://pyiron.org/lammps-workshop-2023/part_1.html">Website</a></p></li>
+<li><p>Part two covers the up-scaling of an existing simulation protocol. <a class="reference external" href="https://github.com/pyiron/lammps-workshop-2023/blob/main/part_2.ipynb">Github</a> <a class="reference external" href="http://pyiron.org/lammps-workshop-2023/part_2.html">Website</a></p></li>
 </ul>
+<p>For questions and feedback either use the LAMMPS workshop slack or post them directly here on Github in the <a class="reference external" href="https://github.com/pyiron/lammps-workshop-2023/issues">issues category</a>.</p>
 </section>
-<section id="repository-structure">
-<h2>Repository structure<a class="headerlink" href="#repository-structure" title="Permalink to this heading">#</a></h2>
-<p>In the following the repsoitory structure is explained in more detail:</p>
-<section id="notebooks">
-<h3>notebooks<a class="headerlink" href="#notebooks" title="Permalink to this heading">#</a></h3>
-<p>The repository folder contains one or more jupyter notebooks. These notebooks are executed during the unit tests and included in the website for easy readablity. The example notebook <code class="docutils literal notranslate"><span class="pre">example.ipynb</span></code> should be removed before publication.</p>
-</section>
-<section id="conda-environment">
-<h3>conda environment<a class="headerlink" href="#conda-environment" title="Permalink to this heading">#</a></h3>
-<p>The repository folder also includes the conda <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> file which defines the conda environment required to execute the notebooks in the repository folder. An existing environment can be exported using <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">env</span> <span class="pre">export</span> <span class="pre">&gt;</span> <span class="pre">environment.yml</span></code> but it is recommended to reduce the environment to the minimal requirements as a large environment is less performant. Example conda <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> file:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">channels</span><span class="p">:</span>
-<span class="o">-</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span>
-<span class="n">dependencies</span><span class="p">:</span>
-<span class="o">-</span> <span class="n">python</span>
-<span class="o">-</span> <span class="n">pyiron_atomistics</span> <span class="o">=</span><span class="mf">0.2.8</span>
-<span class="o">-</span> <span class="n">lammps</span> <span class="o">=</span><span class="mf">2021.02.10</span><span class="o">=*</span><span class="n">openmpi</span><span class="o">*</span><span class="n">_4</span>
-<span class="o">-</span> <span class="n">nglview</span> <span class="o">=</span><span class="mf">2.7.7</span>
+<section id="local-installation">
+<h2>Local installation<a class="headerlink" href="#local-installation" title="Permalink to this heading">#</a></h2>
+<p>While the interactive <a class="reference external" href="https://mybinder.org/v2/gh/pyiron/lammps-workshop-2023/HEAD">mybinder environment</a> provides the easiest way to test pyiron directly in your webbrowser. It is also possible to install pyiron locally. To follow the tutorial we recommend to use the <code class="docutils literal notranslate"><span class="pre">conda</span></code> package manager an install the following packages:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">pyiron_atomistics</span><span class="o">=</span><span class="mf">0.3.1</span> <span class="n">lammps</span> <span class="n">nglview</span><span class="o">=</span><span class="mf">3.0.6</span>
 </pre></div>
 </div>
-</section>
-<section id="existing-calculation">
-<h3>Existing calculation<a class="headerlink" href="#existing-calculation" title="Permalink to this heading">#</a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">pyiron/calculation</span></code> folder includes previous calculation results which are published with this repository. In this example the calculation were calculated and exported using:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyiron_atomistics</span> <span class="kn">import</span> <span class="n">Project</span>
-<span class="n">pr</span> <span class="o">=</span> <span class="n">Project</span><span class="p">(</span><span class="s2">&quot;old_calculation&quot;</span><span class="p">)</span>
-<span class="n">job</span> <span class="o">=</span> <span class="n">pr</span><span class="o">.</span><span class="n">create</span><span class="o">.</span><span class="n">job</span><span class="o">.</span><span class="n">Lammps</span><span class="p">(</span><span class="n">job_name</span><span class="o">=</span><span class="s2">&quot;lmp_si&quot;</span><span class="p">)</span>
-<span class="n">job</span><span class="o">.</span><span class="n">structure</span> <span class="o">=</span> <span class="n">pr</span><span class="o">.</span><span class="n">create</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">ase</span><span class="o">.</span><span class="n">bulk</span><span class="p">(</span><span class="s2">&quot;Si&quot;</span><span class="p">)</span>
-<span class="n">job</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-<span class="n">pr</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">destination_path</span><span class="o">=</span><span class="s2">&quot;save&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>The resulting files <code class="docutils literal notranslate"><span class="pre">export.csv</span></code> and <code class="docutils literal notranslate"><span class="pre">save.tar.gz</span></code> have been copied to the <code class="docutils literal notranslate"><span class="pre">pyiron/calculation</span></code> folder.</p>
-</section>
-<section id="additional-pyiron-resources">
-<h3>Additional pyiron resources<a class="headerlink" href="#additional-pyiron-resources" title="Permalink to this heading">#</a></h3>
-<p>Just like the pyiron resources folder the <code class="docutils literal notranslate"><span class="pre">pyiron/resources</span></code> folder can include additional resources like links to special executables or parameter files. In this example the <code class="docutils literal notranslate"><span class="pre">pyiron/resources</span></code> folder contains a special LAMMPS potential named <code class="docutils literal notranslate"><span class="pre">Si-quip-xml</span></code> which is required for the example notebook <code class="docutils literal notranslate"><span class="pre">example.ipynb</span></code>.</p>
-</section>
-<section id="jupyterbook">
-<h3>Jupyterbook<a class="headerlink" href="#jupyterbook" title="Permalink to this heading">#</a></h3>
-<p>The jupyterbook is build using the github action <code class="docutils literal notranslate"><span class="pre">.github/workflows/book.yml</span></code> and it is deployed to github pages using <code class="docutils literal notranslate"><span class="pre">.github/workflows/deploy.yml</span></code>. Both github actions internally use the conda environment defined in <code class="docutils literal notranslate"><span class="pre">.github/ci_support/environment.yml</span></code>. But there should be no need to modify these files.</p>
-</section>
-<section id="mybinder">
-<h3>mybinder<a class="headerlink" href="#mybinder" title="Permalink to this heading">#</a></h3>
-<p>Besides the conda environment in <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> the <code class="docutils literal notranslate"><span class="pre">.binder/postBuild</span></code> script is used to import the calculations stored in <code class="docutils literal notranslate"><span class="pre">pyiron/calculation</span></code> and install <code class="docutils literal notranslate"><span class="pre">NGLview</span></code> for both jupyter notebooks and jupyter lab. Finally the pyiron environment on mybinder is configured using the <code class="docutils literal notranslate"><span class="pre">.binder/.pyiron</span></code> file in this repository. Only the conda environment file <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> has to be updated by the user.</p>
-</section>
-<section id="continous-integration">
-<h3>Continous integration<a class="headerlink" href="#continous-integration" title="Permalink to this heading">#</a></h3>
-<p>The rest of the files in the repository are used to test the environment. For continous integration the github actions are defined in <code class="docutils literal notranslate"><span class="pre">.github/workflows/notebooks.yml</span></code>. Again the conda environment file <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> is used to install all the dependencies, afterwards pyiron is configured in the test environment using <code class="docutils literal notranslate"><span class="pre">.github/ci_support/pyironconfig.py</span></code> and finally the notebooks are executed using <code class="docutils literal notranslate"><span class="pre">.github/ci_support/build_notebooks.sh</span></code>. Usually there is no need for the user to adjust any of these files other than the conda environment <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> file.</p>
-</section>
-<section id="license">
-<h3>License<a class="headerlink" href="#license" title="Permalink to this heading">#</a></h3>
-<p>pyiron and also the pyiron publication template are licensed under the BSD-3-Clause license which is included in the <code class="docutils literal notranslate"><span class="pre">LICENSE</span></code> file. In addition an <code class="docutils literal notranslate"><span class="pre">CODE_OF_CONDUCT.md</span></code> file is included to foster an open and welcoming environment.</p>
-</section>
+<p>The <code class="docutils literal notranslate"><span class="pre">pyiron_atomistics</span></code> package installs pyiron for atomistic simulation codes, the <code class="docutils literal notranslate"><span class="pre">lammps</span></code> package install a lammps version compatible to the pyiron installation. You can also link pyiron to an existing LAMMPS installation as explained in the <a class="reference external" href="https://pyiron.readthedocs.io/en/latest/source/installation.html#use-your-own-executable-for-lammps-s-phi-nx-or-gpaw">documentation</a> still for the tutorial it is recommended to install LAMMPS via conda. Finally, the last package to install is <code class="docutils literal notranslate"><span class="pre">nglview</span></code> which is used inside pyiron to visalize atomistic structures inside the jupyter notebooks.</p>
 </section>
 <div class="toctree-wrapper compound">
 </div>
@@ -469,18 +413,8 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-by-step">Step by step</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#repository-structure">Repository structure</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notebooks">notebooks</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conda-environment">conda environment</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#existing-calculation">Existing calculation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-pyiron-resources">Additional pyiron resources</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyterbook">Jupyterbook</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mybinder">mybinder</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#continous-integration">Continous integration</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#license">License</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#local-installation">Local installation</a></li>
 </ul>
   </nav></div>
 
