@@ -1,0 +1,780 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Calculating Materials Properties with pyiron &#8212; lammps-workshop-2023</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'part_3';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Beyond a single LAMMPS calculation" href="part_2.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="README.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo_dark.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo_dark.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="README.html">
+                    LAMMPS Workshop 2023
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="part_1.html">Introduction to pyiron for LAMMPS users</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="part_2.html">Beyond a single LAMMPS calculation</a></li>
+
+
+
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Calculating Materials Properties with pyiron</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/pyiron/lammps-workshop-2023/master?urlpath=lab/tree/part_3.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/part_3.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Calculating Materials Properties with pyiron</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-elastic-constants">Calculate Elastic Constants</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-the-band-structure">Calculate the band structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-machine-learning-interatomic-potentials">Fitting machine learning interatomic potentials</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="calculating-materials-properties-with-pyiron">
+<h1>Calculating Materials Properties with pyiron<a class="headerlink" href="#calculating-materials-properties-with-pyiron" title="Permalink to this heading">#</a></h1>
+<p>Author: <a class="reference external" href="https://jan-janssen.com">jan-janssen</a></p>
+<p>When working with interatomic potentials, it is commonly difficult to assess the quality of a new interatomic potential. pyiron can accelerate this assessment by providing simulation protocols to calculate pre-defined materials properties. In this example we demonstrate the calculation of the elastic constants and the band structure.</p>
+<section id="calculate-elastic-constants">
+<h2>Calculate Elastic Constants<a class="headerlink" href="#calculate-elastic-constants" title="Permalink to this heading">#</a></h2>
+<p>Rather than reimplementing its own method to calculate the elastic constants, pyiron relies on existing codes from the community and primarily provides and interface to connect these codes. For calculating the elastic constants we use the <a class="reference external" href="https://doi.org/10.1016/j.cpc.2013.03.010">ElaStic</a> code. As this code is published under the General Public License (GPL) we load an additional <code class="docutils literal notranslate"><span class="pre">pyiron_gpl</span></code> module.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyiron_gpl</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "39b213d69bd94dd9bda8a8c0913ee11a", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<p>Afterwards, just like before the <code class="docutils literal notranslate"><span class="pre">Project</span></code> class is imported from the <code class="docutils literal notranslate"><span class="pre">pyiron_atomistics</span></code> module.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyiron_atomistics</span> <span class="kn">import</span> <span class="n">Project</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We then create a <code class="docutils literal notranslate"><span class="pre">Project</span></code> named <code class="docutils literal notranslate"><span class="pre">elastic</span></code> for the calculation of the elastic matrix and again we remove all existing calculation in this project to have a fresh start.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pr</span> <span class="o">=</span> <span class="n">Project</span><span class="p">(</span><span class="s2">&quot;materials&quot;</span><span class="p">)</span>
+<span class="n">pr</span><span class="o">.</span><span class="n">remove_jobs</span><span class="p">(</span><span class="n">silently</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Following the same steps as in the previous tutorial on calculating energy volume curves, we again create a reference LAMMPS job to specify the atomistic structure and the interatomic potential.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job_lmp</span> <span class="o">=</span> <span class="n">pr</span><span class="o">.</span><span class="n">create</span><span class="o">.</span><span class="n">job</span><span class="o">.</span><span class="n">Lammps</span><span class="p">(</span><span class="n">job_name</span><span class="o">=</span><span class="s2">&quot;lmp&quot;</span><span class="p">)</span>
+<span class="n">job_lmp</span><span class="o">.</span><span class="n">structure</span> <span class="o">=</span> <span class="n">pr</span><span class="o">.</span><span class="n">create</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">ase</span><span class="o">.</span><span class="n">bulk</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Al&quot;</span><span class="p">,</span> <span class="n">cubic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">job_lmp</span><span class="o">.</span><span class="n">potential</span> <span class="o">=</span> <span class="s1">&#39;1999--Mishin-Y--Al--LAMMPS--ipr1&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The reference job is assinged to the <code class="docutils literal notranslate"><span class="pre">ElasticMatrixJob</span></code> afterwards. This <code class="docutils literal notranslate"><span class="pre">ElasticMatrixJob</span></code> is again an <code class="docutils literal notranslate"><span class="pre">GenericMaster</span></code> job which does not interface to a specific simulation code but rather coordinates the execution of multiple individual calculation to calculate a combined property, in this case the elastic constants.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job_elastic</span> <span class="o">=</span> <span class="n">pr</span><span class="o">.</span><span class="n">create</span><span class="o">.</span><span class="n">job</span><span class="o">.</span><span class="n">ElasticMatrixJob</span><span class="p">(</span><span class="n">job_name</span><span class="o">=</span><span class="s2">&quot;elastic&quot;</span><span class="p">)</span>
+<span class="n">job_elastic</span><span class="o">.</span><span class="n">ref_job</span> <span class="o">=</span> <span class="n">job_lmp</span>
+<span class="n">job_elastic</span><span class="o">.</span><span class="n">input</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Parameter</th>
+      <th>Value</th>
+      <th>Comment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>num_of_points</td>
+      <td>5</td>
+      <td>number of sample point per deformation directions</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>fit_order</td>
+      <td>2</td>
+      <td>order of the fit polynom</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>eps_range</td>
+      <td>0.005</td>
+      <td>strain variation</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>relax_atoms</td>
+      <td>True</td>
+      <td>relax atoms in deformed structure</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>sqrt_eta</td>
+      <td>True</td>
+      <td>calculate self-consistently sqrt of stress matrix eta</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">ElasticMatrixJob</span></code> can then be executed by calling the <code class="docutils literal notranslate"><span class="pre">run()</span></code> method. Once again by leveraging the same abstract job class for individual calculation like the LAMMPS job object as well as <code class="docutils literal notranslate"><span class="pre">GenericMaster</span></code> jobs like the <code class="docutils literal notranslate"><span class="pre">ElasticMatrixJob</span></code> both jobs can be distributed to queuing systems and so on. Here the job is just executed in-line with the python process of the jupyter notebook, which is called <code class="docutils literal notranslate"><span class="pre">modal</span></code> execution in pyiron.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job_elastic</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job elastic was saved and received the ID: 21797
+The job s_e_0 was saved and received the ID: 21798
+The job s_01_e_m0_00500 was saved and received the ID: 21799
+The job s_01_e_m0_00250 was saved and received the ID: 21800
+The job s_01_e_0_00250 was saved and received the ID: 21801
+The job s_01_e_0_00500 was saved and received the ID: 21802
+The job s_08_e_m0_00500 was saved and received the ID: 21803
+The job s_08_e_m0_00250 was saved and received the ID: 21804
+The job s_08_e_0_00250 was saved and received the ID: 21805
+The job s_08_e_0_00500 was saved and received the ID: 21806
+The job s_23_e_m0_00500 was saved and received the ID: 21807
+The job s_23_e_m0_00250 was saved and received the ID: 21808
+The job s_23_e_0_00250 was saved and received the ID: 21809
+The job s_23_e_0_00500 was saved and received the ID: 21810
+</pre></div>
+</div>
+</div>
+</div>
+<p>After the successful execution the elastic matrix can be loaded from the output:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job_elastic</span><span class="p">[</span><span class="s2">&quot;output/elasticmatrix&quot;</span><span class="p">][</span><span class="s2">&quot;C&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[114.10393026,  60.51098917,  60.51098917,   0.        ,
+          0.        ,   0.        ],
+       [ 60.51098917, 114.10393026,  60.51098917,   0.        ,
+          0.        ,   0.        ],
+       [ 60.51098917,  60.51098917, 114.10393026,   0.        ,
+          0.        ,   0.        ],
+       [  0.        ,   0.        ,   0.        ,  31.67539615,
+          0.        ,   0.        ],
+       [  0.        ,   0.        ,   0.        ,   0.        ,
+         31.67539615,   0.        ],
+       [  0.        ,   0.        ,   0.        ,   0.        ,
+          0.        ,  31.67539615]])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="calculate-the-band-structure">
+<h2>Calculate the band structure<a class="headerlink" href="#calculate-the-band-structure" title="Permalink to this heading">#</a></h2>
+<p>In analogy to the elastic constants above pyiron also interfaces with the <a class="reference external" href="https://phonopy.github.io/phonopy/index.html">phonopy</a> package to calculate the bandstructure and total density of states for a given interatomic potential. The great advantage of using these tools via pyiron rather than using them directly is that the interface to set the reference job object to calculate the energies and forces for the particular materials property is always the same. So once again we define a LAMMPS reference job which is used to calculate the bandstructure.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job_lmp</span> <span class="o">=</span> <span class="n">pr</span><span class="o">.</span><span class="n">create</span><span class="o">.</span><span class="n">job</span><span class="o">.</span><span class="n">Lammps</span><span class="p">(</span><span class="n">job_name</span><span class="o">=</span><span class="s2">&quot;lmp&quot;</span><span class="p">)</span>
+<span class="n">job_lmp</span><span class="o">.</span><span class="n">structure</span> <span class="o">=</span> <span class="n">pr</span><span class="o">.</span><span class="n">create</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">ase</span><span class="o">.</span><span class="n">bulk</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Al&quot;</span><span class="p">,</span> <span class="n">cubic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">job_lmp</span><span class="o">.</span><span class="n">potential</span> <span class="o">=</span> <span class="s1">&#39;1999--Mishin-Y--Al--LAMMPS--ipr1&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The reference job is afterwards assigned to the <code class="docutils literal notranslate"><span class="pre">PhonopyJob</span></code> which itself is again a <code class="docutils literal notranslate"><span class="pre">GenericMaster</span></code> job:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job_phonon</span> <span class="o">=</span> <span class="n">pr</span><span class="o">.</span><span class="n">create</span><span class="o">.</span><span class="n">job</span><span class="o">.</span><span class="n">PhonopyJob</span><span class="p">(</span><span class="n">job_name</span><span class="o">=</span><span class="s2">&quot;phonon&quot;</span><span class="p">)</span>
+<span class="n">job_phonon</span><span class="o">.</span><span class="n">ref_job</span> <span class="o">=</span> <span class="n">job_lmp</span>
+<span class="n">job_phonon</span><span class="o">.</span><span class="n">input</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Parameter</th>
+      <th>Value</th>
+      <th>Comment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>interaction_range</td>
+      <td>10.000000</td>
+      <td>Minimal size of supercell, Ang</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>factor</td>
+      <td>15.633302</td>
+      <td>Frequency unit conversion factor (default for VASP)</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>displacement</td>
+      <td>0.010000</td>
+      <td>atoms displacement, Ang</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>dos_mesh</td>
+      <td>20.000000</td>
+      <td>mesh size for DOS calculation</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>primitive_matrix</td>
+      <td>NaN</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>number_of_snapshots</td>
+      <td>NaN</td>
+      <td>int or None, optional. Number of snapshots of supercells with random displacements. Random displacements are generated displacing all atoms in random directions with a fixed displacement distance ...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">PhonopyJob</span></code> is executed by calling the run method:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job_phonon</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job phonon was saved and received the ID: 21811
+The job lmp_0 was saved and received the ID: 21812
+</pre></div>
+</div>
+</div>
+</div>
+<p>Finally, just like we did for the energy volume curve calculation in the previous tutorial, we can use the internal plot functions of the <code class="docutils literal notranslate"><span class="pre">PhonopyJob</span></code> to plot the band structure and the total density of states.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job_phonon</span><span class="o">.</span><span class="n">plot_band_structure</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: title={&#39;center&#39;: &#39;Bandstructure&#39;}, xlabel=&#39;Bandpath&#39;, ylabel=&#39;Frequency [THz]&#39;&gt;
+</pre></div>
+</div>
+<img alt="_images/50fbabb5f8d20db853d4ea6c62f3ecb7ea74386a2cdf1140f72cb29378e917f9.png" src="_images/50fbabb5f8d20db853d4ea6c62f3ecb7ea74386a2cdf1140f72cb29378e917f9.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job_phonon</span><span class="o">.</span><span class="n">plot_dos</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/01febaad65a2a724607cf6e3e916b8500b0d2d7e41e0317352cc54d61b396f05.png" src="_images/01febaad65a2a724607cf6e3e916b8500b0d2d7e41e0317352cc54d61b396f05.png" />
+</div>
+</div>
+<p>To go beyond the harmonic approximation and include the volume expansion in terms of the quasi-harmonic approximation, we can use the <code class="docutils literal notranslate"><span class="pre">QuasiHarmonicJob</span></code> class which executes a <code class="docutils literal notranslate"><span class="pre">PhonopyJob</span></code> for various volumes and provides the utility functions to calculate the free energy in the resulting quasi-harmonic approximation. This functionality is explained in more detail in the <a class="reference external" href="https://pyiron.org/phasediagram-workshop-2020/ThermodynamicProperties.html">virtual course</a> on the pyiron website.</p>
+</section>
+<section id="fitting-machine-learning-interatomic-potentials">
+<h2>Fitting machine learning interatomic potentials<a class="headerlink" href="#fitting-machine-learning-interatomic-potentials" title="Permalink to this heading">#</a></h2>
+<p>The fitting of machine learning interatomic potentials requires a separate tutorial, so it is not included in this presentation. Instead it was discussed in the <a class="reference external" href="http://potentials.rub.de/2022/index.php">Workshop: From Electrons to Phase Diagrams</a>. The recordings of this workshop as well as the interactive jupyter notebooks are <a class="reference external" href="http://pyiron.org/potentials-workshop-2022/intro.html">available online</a>. We plan to extend this interface and in particular the <a class="reference external" href="https://github.com/FitSNAP">FitSNAP</a> package. So if these topics are interesting to you feel free to reach out on Github or contact the pyiron developers directly.</p>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h2>
+<p>Beyond the ability to rapid-prototype and up-scale your own simulation protocols, pyiron already provides interfaces to a series of material property calculators and continues to expand this functionality, with the goal to make atomistic calculations more accessible to a larger audience.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "flux"
+        },
+        kernelOptions: {
+            name: "flux",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'flux'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="part_2.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Beyond a single LAMMPS calculation</p>
+      </div>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-elastic-constants">Calculate Elastic Constants</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-the-band-structure">Calculate the band structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-machine-learning-interatomic-potentials">Fitting machine learning interatomic potentials</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By pyiron
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

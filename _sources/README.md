@@ -4,10 +4,11 @@ As part of the [LAMMPS Workshop 2023](https://www.lammps.org/workshops/Aug23/) [
 ## Overview 
 This repository provides the supplementary material for the tutorial, consisting of a [tutorial website](http://pyiron.org/lammps-workshop-2023) as well as an interactive [mybinder environment](https://mybinder.org/v2/gh/pyiron/lammps-workshop-2023/HEAD).
 
-The tutorial is divided into two parts: 
+The tutorial is divided into three parts: 
 
 * **Part one** covers the basics of running a LAMMPS simulation with pyiron. [Github](https://github.com/pyiron/lammps-workshop-2023/blob/main/part_1.ipynb), [Website](http://pyiron.org/lammps-workshop-2023/part_1.html)
 * **Part two** covers the up-scaling of an existing simulation protocol. [Github](https://github.com/pyiron/lammps-workshop-2023/blob/main/part_2.ipynb), [Website](http://pyiron.org/lammps-workshop-2023/part_2.html)
+* **Part three** introduces additional materials properties to calculate with pyiron. [Github](https://github.com/pyiron/lammps-workshop-2023/blob/main/part_3.ipynb), [Website](http://pyiron.org/lammps-workshop-2023/part_3.html)
 
 For questions and feedback either use the LAMMPS workshop slack or post them directly here on Github in the [issues category](https://github.com/pyiron/lammps-workshop-2023/issues). 
 
