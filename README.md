@@ -6,8 +6,8 @@ This repository provides the supplementary material for the tutorial, consisting
 
 The tutorial is divided into two parts: 
 
-* Part one covers the basics of running a LAMMPS simulation with pyiron. [Github](https://github.com/pyiron/lammps-workshop-2023/blob/main/part_1.ipynb) [Website](http://pyiron.org/lammps-workshop-2023/part_1.html)
-* Part two covers the up-scaling of an existing simulation protocol. [Github](https://github.com/pyiron/lammps-workshop-2023/blob/main/part_2.ipynb) [Website](http://pyiron.org/lammps-workshop-2023/part_2.html)
+* **Part one** covers the basics of running a LAMMPS simulation with pyiron. [Github](https://github.com/pyiron/lammps-workshop-2023/blob/main/part_1.ipynb), [Website](http://pyiron.org/lammps-workshop-2023/part_1.html)
+* **Part two** covers the up-scaling of an existing simulation protocol. [Github](https://github.com/pyiron/lammps-workshop-2023/blob/main/part_2.ipynb), [Website](http://pyiron.org/lammps-workshop-2023/part_2.html)
 
 For questions and feedback either use the LAMMPS workshop slack or post them directly here on Github in the [issues category](https://github.com/pyiron/lammps-workshop-2023/issues). 
 

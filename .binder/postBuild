@@ -1,12 +1,3 @@
-# install environment 
-mamba env update --name notebook --file environment.yml
-
-# move pyiron config to home directory 
-mv .binder/.pyiron .
-
-# import dataset
-bash .github/ci_support/import_dataset.sh
-
 # jupyter kernel 
 mkdir -p /home/jovyan/.local/share/jupyter/kernels/flux
 cp .binder/kernel.json /home/jovyan/.local/share/jupyter/kernels/flux
