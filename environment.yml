@@ -2,6 +2,7 @@ channels:
 - conda-forge
 dependencies:
 - python
-- pyiron_atomistics =0.2.30
-- lammps =2021.09.29=*openmpi*
-- nglview =3.0.3
+- pyiron_atomistics =0.3.1
+- lammps
+- flux-core
+- nglview =3.0.6
