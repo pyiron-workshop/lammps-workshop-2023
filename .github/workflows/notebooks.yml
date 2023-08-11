@@ -16,7 +16,7 @@ jobs:
     - uses: conda-incubator/setup-miniconda@v2
       with:
         auto-update-conda: true
-        python-version: 3.10
+        python-version: "3.10"
         environment-file: environment.yml
         auto-activate-base: false
     - name: Tests
