@@ -1,0 +1,1769 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Beyond a single LAMMPS calculation &#8212; lammps-workshop-2023</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'part_2';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Introduction to pyiron for LAMMPS users" href="part_1.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="README.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo_dark.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo_dark.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="README.html">
+                    pyiron publication template
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="part_1.html">Introduction to pyiron for LAMMPS users</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Beyond a single LAMMPS calculation</a></li>
+
+
+
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/pyiron/lammps-workshop-2023/master?urlpath=lab/tree/part_2.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/part_2.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Beyond a single LAMMPS calculation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Beyond a single LAMMPS calculation</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#start-with-an-empty-project">Start with an empty Project</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#loop-over-different-strain-values">Loop over different strain values</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-template-job">Create a template job</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#for-loop">For loop</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#collect-the-results">Collect the results</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iterate-over-jobs-in-project">Iterate over jobs in project</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-mode">Inspect mode</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyiron-table">pyiron table</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#murnaghan-class">Murnaghan class</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#loop-over-interatomic-potentials">Loop over interatomic potentials</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="beyond-a-single-lammps-calculation">
+<h1>Beyond a single LAMMPS calculation<a class="headerlink" href="#beyond-a-single-lammps-calculation" title="Permalink to this heading">#</a></h1>
+<p>Author: <a class="reference external" href="https://jan-janssen.com">jan-janssen</a></p>
+<p>While pyiron can simplify the submission an analysis of individual calculation, for example in a lecture setting, the primary benefit of using pyiron is the ability to combine both the rapid prototyping of a simulation protocol as well as the up-scaling of the simulation protocol. So going beyond the previous example this, tutorial covers orchestrating a series of individual calculation and how pyiron can leverage advanced LAMMPS features like the Python library to accelerate your parameter studies.</p>
+<p>As an example we are going to calculate the energy volume dependence. This is typically used in ab-initio calculation to determine the equilibrium volume, equilibrium bulk modulus and its derivative.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="start-with-an-empty-project">
+<h1>Start with an empty Project<a class="headerlink" href="#start-with-an-empty-project" title="Permalink to this heading">#</a></h1>
+<p>In analogy to the first tutorial we again start by importing the <code class="docutils literal notranslate"><span class="pre">Project</span></code> class from the <code class="docutils literal notranslate"><span class="pre">pyiron_atomistics</span></code> module:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyiron_atomistics</span> <span class="kn">import</span> <span class="n">Project</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "1a982b51b8714cc6b7883ea37862890c", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<p>Afterwards we create a new <code class="docutils literal notranslate"><span class="pre">Project</span></code> instance for the following calculation named <code class="docutils literal notranslate"><span class="pre">evcurve</span></code> short for energy volume curve. We delete all previous calculation in this project, just to make sure everything is recalculated every time the jupyter notebook is executed rather than reloading the calculation:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pr</span> <span class="o">=</span> <span class="n">Project</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;evcurve&quot;</span><span class="p">)</span>
+<span class="n">pr</span><span class="o">.</span><span class="n">remove_jobs</span><span class="p">(</span><span class="n">silently</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "0382a780c58c478982cef75b00bdfe7c", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="loop-over-different-strain-values">
+<h1>Loop over different strain values<a class="headerlink" href="#loop-over-different-strain-values" title="Permalink to this heading">#</a></h1>
+<p>To measure the equilibrium volume, equilibrium bulk modulus and its derivative, we calculate the dependence of the energy on the volume. To change the volume we apply strains ranging from <span class="math notranslate nohighlight">\(-5\%\)</span> to <span class="math notranslate nohighlight">\(+5\%\)</span>. Afterwards we fit the resulting energy volume dependence with a ploynomial. The minimum of this polynomial is the equilibrium volume, the second derivative is the bulk modulus and the third derivative corresponds to the pressure derivative of the bulk modulus.</p>
+<section id="create-a-template-job">
+<h2>Create a template job<a class="headerlink" href="#create-a-template-job" title="Permalink to this heading">#</a></h2>
+<p>As a first step a template job object is created. Here we keep the default settings for the LAMMPS job object which corresponds to a static calculation <code class="docutils literal notranslate"><span class="pre">run</span> <span class="pre">0</span></code>. We only change the structure to apply the strain and the interatomic potential.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job_template</span> <span class="o">=</span> <span class="n">pr</span><span class="o">.</span><span class="n">create</span><span class="o">.</span><span class="n">job</span><span class="o">.</span><span class="n">Lammps</span><span class="p">(</span><span class="n">job_name</span><span class="o">=</span><span class="s2">&quot;lmp&quot;</span><span class="p">)</span>
+<span class="n">structure_template</span> <span class="o">=</span> <span class="n">pr</span><span class="o">.</span><span class="n">create</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">ase</span><span class="o">.</span><span class="n">bulk</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Al&quot;</span><span class="p">,</span> <span class="n">cubic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">job_template</span><span class="o">.</span><span class="n">structure</span> <span class="o">=</span> <span class="n">structure_template</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To choose an interatomic potential we again use the <code class="docutils literal notranslate"><span class="pre">list_potential()</span></code> function applied on the template job object. As the aluminium structure was already assigned to the job object, the <code class="docutils literal notranslate"><span class="pre">list_potential()</span></code> function only returns interatomic potentials which include interactions for aluminium:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job_template</span><span class="o">.</span><span class="n">list_potentials</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;1995--Angelo-J-E--Ni-Al-H--LAMMPS--ipr1&#39;,
+ &#39;1996--Farkas-D--Nb-Ti-Al--LAMMPS--ipr1&#39;,
+ &#39;1997--Liu-X-Y--Al-Mg--LAMMPS--ipr1&#39;,
+ &#39;1998--Liu-X-Y--Al-Mg--LAMMPS--ipr1&#39;,
+ &#39;1999--Liu-X-Y--Al-Cu--LAMMPS--ipr1&#39;,
+ &#39;1999--Mishin-Y--Al--LAMMPS--ipr1&#39;,
+ &#39;2000--Landa-A--Al-Pb--LAMMPS--ipr1&#39;,
+ &#39;2000--Sturgeon-J-B--Al--LAMMPS--ipr1&#39;,
+ &#39;2002--Mishin-Y--Ni-Al--LAMMPS--ipr1&#39;,
+ &#39;2003--Lee-B-J--Al--LAMMPS--ipr1&#39;,
+ &#39;2003--Zope-R-R--Al--LAMMPS--ipr1&#39;,
+ &#39;2003--Zope-R-R--Ti-Al--LAMMPS--ipr1&#39;,
+ &#39;2004--Liu-X-Y--Al--LAMMPS--ipr1&#39;,
+ &#39;2004--Mishin-Y--Ni-Al--LAMMPS--ipr1&#39;,
+ &#39;2004--Mishin-Y--Ni-Al--LAMMPS--ipr2&#39;,
+ &#39;2004--Zhou-X-W--Al--LAMMPS--ipr2&#39;,
+ &#39;2005--Mendelev-M-I--Al-Fe--LAMMPS--ipr1&#39;,
+ &#39;2007--Silva-A-C--Al-Ni--LAMMPS--ipr1&#39;,
+ &#39;2008--Mendelev-M-I--Al--LAMMPS--ipr1&#39;,
+ &#39;2009--Kim-Y-M--Mg-Al--LAMMPS--ipr1&#39;,
+ &#39;2009--Mendelev-M-I--Al-Mg--LAMMPS--ipr1&#39;,
+ &#39;2009--Purja-Pun-G-P--Ni-Al--LAMMPS--ipr1&#39;,
+ &#39;2009--Zhakhovskii-V-V--Al--LAMMPS--ipr2&#39;,
+ &#39;2010--Lee-E--Fe-Al--LAMMPS--ipr1&#39;,
+ &#39;2010--Mendelev-M-I--fictional-Al-1--LAMMPS--ipr1&#39;,
+ &#39;2010--Mendelev-M-I--fictional-Al-2--LAMMPS--ipr1&#39;,
+ &#39;2010--Mendelev-M-I--fictional-Al-3--LAMMPS--ipr1&#39;,
+ &#39;2010--Winey-J-M--Al--LAMMPS--ipr1&#39;,
+ &#39;2011--Apostol-F--Al-Cu--LAMMPS--ipr1&#39;,
+ &#39;2011--Ko-W-S--Al-H--LAMMPS--ipr1&#39;,
+ &#39;2012--Dong-W-P--Co-Al--LAMMPS--ipr1&#39;,
+ &#39;2012--Jelinek-B--Al-Si-Mg-Cu-Fe--LAMMPS--ipr2&#39;,
+ &#39;2012--Schopf-D--Al-Mn-Pd--LAMMPS--ipr1&#39;,
+ &#39;2013--Shim-J-H--V-Al--LAMMPS--ipr1&#39;,
+ &#39;2013--Shim-J-H--V-Al-H--LAMMPS--ipr1&#39;,
+ &#39;2015--Choudhary-K--Al--LAMMPS--ipr1&#39;,
+ &#39;2015--Choudhary-K--Al-O--LAMMPS--ipr1&#39;,
+ &#39;2015--Kim-Y-K--Ni-Al-Co--LAMMPS--ipr1&#39;,
+ &#39;2015--Kumar-A--Al-Ni--LAMMPS--ipr1&#39;,
+ &#39;2015--Kumar-A--Al-Ni-O--LAMMPS--ipr1&#39;,
+ &#39;2015--Mendelev-M-I--Al-Sm--LAMMPS--ipr1&#39;,
+ &#39;2015--Pascuet-M-I--Al--LAMMPS--ipr1&#39;,
+ &#39;2015--Pascuet-M-I--Al-U--LAMMPS--ipr2&#39;,
+ &#39;2015--Purja-Pun-G-P--Al-Co--LAMMPS--ipr2&#39;,
+ &#39;2015--Purja-Pun-G-P--Ni-Al-Co--LAMMPS--ipr2&#39;,
+ &#39;2016--Kim-Y-K--Al-Ti--LAMMPS--ipr1&#39;,
+ &#39;2016--Zhou-X-W--Al-Cu--LAMMPS--ipr2&#39;,
+ &#39;2017--Botu-V--Al--LAMMPS--ipr1&#39;,
+ &#39;2017--Kim-J-S--Pt-Al--LAMMPS--ipr1&#39;,
+ &#39;2017--Kim-Y-K--Ni-Al-Ti--LAMMPS--ipr1&#39;,
+ &#39;2018--Dickel-D-E--Mg-Al-Zn--LAMMPS--ipr1&#39;,
+ &#39;2018--Jeong-G-U--Pd-Al--LAMMPS--ipr1&#39;,
+ &#39;2018--Zhou-X-W--Al-Cu-H--LAMMPS--ipr1&#39;,
+ &#39;2019--Plummer-G--Ti-Al-C--LAMMPS--ipr1&#39;,
+ &#39;2020--Farkas-D--Fe-Ni-Cr-Co-Al--LAMMPS--ipr1&#39;,
+ &#39;2020--Purja-Pun-G-P--Al--LAMMPS--ipr1&#39;,
+ &#39;2020--Starikov-S--Si-Au-Al--LAMMPS--ipr1&#39;,
+ &#39;2020--Starikov-S--Si-Au-Al--LAMMPS--ipr2&#39;,
+ &#39;2021--Plummer-G--Ti-Al-C--LAMMPS--ipr1&#39;,
+ &#39;2021--Song-H--Al-Sm--LAMMPS--ipr1&#39;,
+ &#39;2022--Fereidonnejad-R--Al-Hf--LAMMPS--ipr1&#39;,
+ &#39;2022--Fereidonnejad-R--Al-Nb--LAMMPS--ipr1&#39;,
+ &#39;2022--Fereidonnejad-R--Al-Ta--LAMMPS--ipr1&#39;,
+ &#39;2022--Fereidonnejad-R--Al-Ti--LAMMPS--ipr1&#39;,
+ &#39;2022--Fereidonnejad-R--Al-Zr--LAMMPS--ipr1&#39;,
+ &#39;2022--Mahata-A--Al-Cu--LAMMPS--ipr1&#39;,
+ &#39;2022--Mahata-A--Al-Fe--LAMMPS--ipr1&#39;,
+ &#39;2022--Mahata-A--Al-Ni--LAMMPS--ipr1&#39;,
+ &#39;2022--Mendelev-M-I--Ni-Al--LAMMPS--ipr1&#39;,
+ &#39;EAM_CubicNaturalSpline_ErcolessiAdams_1994_Al__MO_800509458712_002&#39;,
+ &#39;EAM_Dynamo_AngeloMoodyBaskes_1995_NiAlH__MO_418978237058_005&#39;,
+ &#39;EAM_Dynamo_CaiYe_1996_AlCu__MO_942551040047_005&#39;,
+ &#39;EAM_Dynamo_ErcolessiAdams_1994_Al__MO_123629422045_005&#39;,
+ &#39;EAM_Dynamo_FarkasJones_1996_NbTiAl__MO_042691367780_000&#39;,
+ &#39;EAM_Dynamo_JacobsenNorskovPuska_1987_Al__MO_411692133366_000&#39;,
+ &#39;EAM_Dynamo_LandaWynblattSiegel_2000_AlPb__MO_699137396381_005&#39;,
+ &#39;EAM_Dynamo_LiuAdams_1998_AlMg__MO_019873715786_000&#39;,
+ &#39;EAM_Dynamo_LiuErcolessiAdams_2004_Al__MO_051157671505_000&#39;,
+ &#39;EAM_Dynamo_LiuLiuBorucki_1999_AlCu__MO_020851069572_000&#39;,
+ &#39;EAM_Dynamo_LiuOhotnickyAdams_1997_AlMg__MO_559870613549_000&#39;,
+ &#39;EAM_Dynamo_MendelevAstaRahman_2009_AlMg__MO_658278549784_005&#39;,
+ &#39;EAM_Dynamo_MendelevFangYe_2015_AlSm__MO_338600200739_000&#39;,
+ &#39;EAM_Dynamo_MendelevKramerBecker_2008_Al__MO_106969701023_005&#39;,
+ &#39;EAM_Dynamo_MendelevSrolovitzAckland_2005_AlFe__MO_577453891941_005&#39;,
+ &#39;EAM_Dynamo_MishinFarkasMehl_1999_Al__MO_651801486679_005&#39;,
+ &#39;EAM_Dynamo_MishinMehlPapaconstantopoulos_2002_NiAl__MO_109933561507_005&#39;,
+ &#39;EAM_Dynamo_Mishin_2004_NiAl__MO_101214310689_005&#39;,
+ &#39;EAM_Dynamo_PunMishin_2009_NiAl__MO_751354403791_005&#39;,
+ &#39;EAM_Dynamo_PunYamakovMishin_2013_AlCo__MO_678952612413_000&#39;,
+ &#39;EAM_Dynamo_PunYamakovMishin_2013_NiAlCo__MO_826591359508_000&#39;,
+ &#39;EAM_Dynamo_SchopfBrommerFrigan_2012_AlMnPd__MO_137572817842_000&#39;,
+ &#39;EAM_Dynamo_SturgeonLaird_2000_Al__MO_120808805541_005&#39;,
+ &#39;EAM_Dynamo_VailheFarkas_1997_CoAl__MO_284963179498_005&#39;,
+ &#39;EAM_Dynamo_WineyKubotaGupta_2010_Al__MO_149316865608_005&#39;,
+ &#39;EAM_Dynamo_Zhakhovsky_2009_Al__MO_519613893196_000&#39;,
+ &#39;EAM_Dynamo_ZhouJohnsonWadley_2004NISTretabulation_Al__MO_060567868558_000&#39;,
+ &#39;EAM_Dynamo_ZhouJohnsonWadley_2004_Al__MO_131650261510_005&#39;,
+ &#39;EAM_Dynamo_ZhouWadleyJohnson_2001_Al__MO_049243498555_000&#39;,
+ &#39;EAM_Dynamo_ZopeMishin_2003_Al__MO_664470114311_005&#39;,
+ &#39;EAM_Dynamo_ZopeMishin_2003_TiAl__MO_117656786760_005&#39;,
+ &#39;EAM_ErcolessiAdams_1994_Al__MO_324507536345_003&#39;,
+ &#39;EAM_IMD_BrommerGaehler_2006A_AlNiCo__MO_122703700223_003&#39;,
+ &#39;EAM_IMD_BrommerGaehler_2006B_AlNiCo__MO_128037485276_003&#39;,
+ &#39;EAM_IMD_SchopfBrommerFrigan_2012_AlMnPd__MO_878712978062_003&#39;,
+ &#39;EAM_QuinticClampedSpline_ErcolessiAdams_1994_Al__MO_450093727396_002&#39;,
+ &#39;EAM_QuinticHermiteSpline_ErcolessiAdams_1994_Al__MO_781138671863_002&#39;,
+ &#39;EMT_Asap_Standard_JacobsenStoltzeNorskov_1996_AlAgAuCuNiPdPt__MO_115316750986_001&#39;,
+ &#39;EMT_Asap_Standard_JacobsenStoltzeNorskov_1996_Al__MO_623376124862_001&#39;,
+ &#39;MEAM_LAMMPS_AlmyrasSangiovanniSarakinos_2019_NAlTi__MO_958395190627_000&#39;,
+ &#39;MEAM_LAMMPS_CostaAgrenClavaguera_2007_AlNi__MO_131642768288_000&#39;,
+ &#39;MEAM_LAMMPS_DongKimKo_2012_CoAl__MO_099716416216_000&#39;,
+ &#39;MEAM_LAMMPS_JelinekGrohHorstemeyer_2012_AlSiMgCuFe__MO_262519520678_000&#39;,
+ &#39;MEAM_LAMMPS_JeongParkDo_2018_PdAl__MO_616482358807_000&#39;,
+ &#39;MEAM_LAMMPS_KimJungLee_2015_NiAlCo__MO_876687166519_000&#39;,
+ &#39;MEAM_LAMMPS_KimKimJung_2016_AlTi__MO_618133763375_000&#39;,
+ &#39;MEAM_LAMMPS_KimKimJung_2017_NiAlTi__MO_478967255435_000&#39;,
+ &#39;MEAM_LAMMPS_KimKimLee_2009_AlMg__MO_058537087384_000&#39;,
+ &#39;MEAM_LAMMPS_KimSeolJi_2017_PtAl__MO_793141037706_000&#39;,
+ &#39;MEAM_LAMMPS_KoShimLee_2011_AlH__MO_127847080751_000&#39;,
+ &#39;MEAM_LAMMPS_LeeLee_2010_FeAl__MO_332211522050_000&#39;,
+ &#39;MEAM_LAMMPS_PascuetFernandez_2015_AlU__MO_596300673917_000&#39;,
+ &#39;MEAM_LAMMPS_PascuetFernandez_2015_Al__MO_315820974149_000&#39;,
+ &#39;MEAM_LAMMPS_ShimKoKim_2013_AlVH__MO_344724145339_000&#39;,
+ &#39;Morse_Shifted_GirifalcoWeizer_1959HighCutoff_Al__MO_140175748626_004&#39;,
+ &#39;Morse_Shifted_GirifalcoWeizer_1959LowCutoff_Al__MO_411898953661_004&#39;,
+ &#39;Morse_Shifted_GirifalcoWeizer_1959MedCutoff_Al__MO_279544746097_004&#39;,
+ &#39;Sim_LAMMPS_ADP_ApostolMishin_2011_AlCu__SM_667696763561_000&#39;,
+ &#39;Sim_LAMMPS_ADP_StarikovGordeevLysogorskiy_2020_SiAuAl__SM_113843830602_000&#39;,
+ &#39;Sim_LAMMPS_AGNI_BotuBatraChapman_2017_Al__SM_666183636896_000&#39;,
+ &#39;Sim_LAMMPS_BOP_ZhouWardFoster_2016_AlCu__SM_566399258279_000&#39;,
+ &#39;Sim_LAMMPS_MEAM_AlmyrasSangiovanniSarakinos_2019_NAlTi__SM_871795249052_000&#39;,
+ &#39;Sim_LAMMPS_MEAM_JelinekGrohHorstemeyer_2012_AlSiMgCuFe__SM_656517352485_000&#39;,
+ &#39;Sim_LAMMPS_MEAM_PascuetFernandez_2015_AlU__SM_721930391003_000&#39;,
+ &#39;Sim_LAMMPS_MEAM_PascuetFernandez_2015_Al__SM_811588957187_000&#39;,
+ &#39;Sim_LAMMPS_SMTBQ_SallesPolitanoAmzallag_2016_AlO__SM_853967355976_000&#39;,
+ &#39;Sim_LAMMPS_SMTBQ_SallesPolitanoAmzallag_2016_Al__SM_404097633924_000&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>As a first step we select one of the aluminium potentials, here we choose the potential from Yuri Mishin, but that is just a personal preference: <a class="reference external" href="https://journals.aps.org/prb/abstract/10.1103/PhysRevB.65.224114">1999–Mishin-Y–Al–LAMMPS–ipr1</a> More details about the potential are again available via the publication list generated at the end of the project.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job_template</span><span class="o">.</span><span class="n">potential</span> <span class="o">=</span> <span class="s1">&#39;1999--Mishin-Y--Al--LAMMPS--ipr1&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="for-loop">
+<h2>For loop<a class="headerlink" href="#for-loop" title="Permalink to this heading">#</a></h2>
+<p>After defining the template job the next step is the execution of the for loop iterating over different strains. Here we import the numpy modul to generate an array of linearly spaced strains ranging from <span class="math notranslate nohighlight">\(-5\%\)</span> to <span class="math notranslate nohighlight">\(+5\%\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">strain_lst</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To iterate over the individual strains we have to copy both the LAMMPS job object, to create a new LAMMPS calculation for each strain as well as the structure object to gurantee that we always start from the equilibrium structure when we apply the selected strain. For the structure object we can use the simple <code class="docutils literal notranslate"><span class="pre">copy()</span></code> function. In contrast for copying the job object we use the <code class="docutils literal notranslate"><span class="pre">copy_to()</span></code> function. The <code class="docutils literal notranslate"><span class="pre">copy_to()</span></code> function receives two additional arguments, once the new job name for the copy of the job object <code class="docutils literal notranslate"><span class="pre">new_job_name</span></code> and in addition we do not want the job to be saved in the databased at this point, so we add the option <code class="docutils literal notranslate"><span class="pre">new_database_entry=False</span></code>. After the strain is applied on the structure using the <code class="docutils literal notranslate"><span class="pre">apply_strain()</span></code> function the updated structure is set to the structure property of the copied job and the job is executed by calling the <code class="docutils literal notranslate"><span class="pre">run()</span></code> function of the job object.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">strain</span> <span class="ow">in</span> <span class="n">strain_lst</span><span class="p">:</span> 
+    <span class="n">job_strain</span> <span class="o">=</span> <span class="n">job_template</span><span class="o">.</span><span class="n">copy_to</span><span class="p">(</span>
+        <span class="n">new_job_name</span><span class="o">=</span><span class="s2">&quot;lmp_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">strain</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">),</span> 
+        <span class="n">new_database_entry</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
+    <span class="n">structure_copy</span> <span class="o">=</span> <span class="n">structure_template</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">structure_copy</span><span class="o">.</span><span class="n">apply_strain</span><span class="p">(</span><span class="n">strain</span><span class="p">)</span>
+    <span class="n">job_strain</span><span class="o">.</span><span class="n">structure</span> <span class="o">=</span> <span class="n">structure_copy</span> 
+    <span class="n">job_strain</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job lmp_0_95 was saved and received the ID: 2957
+The job lmp_0_96 was saved and received the ID: 2958
+The job lmp_0_97 was saved and received the ID: 2959
+The job lmp_0_98 was saved and received the ID: 2960
+The job lmp_0_99 was saved and received the ID: 2961
+The job lmp_1_0 was saved and received the ID: 2962
+The job lmp_1_01 was saved and received the ID: 2963
+The job lmp_1_02 was saved and received the ID: 2964
+The job lmp_1_03 was saved and received the ID: 2965
+The job lmp_1_04 was saved and received the ID: 2966
+The job lmp_1_05 was saved and received the ID: 2967
+</pre></div>
+</div>
+</div>
+</div>
+<p>All calcultion are summarized in the job table of the project object. In addition to the database ID this table contains the location of the job object given by the <code class="docutils literal notranslate"><span class="pre">projectpath</span></code> and <code class="docutils literal notranslate"><span class="pre">project</span></code> as well as the execution time and further details about the calculation. Still it is important to mention that the <code class="docutils literal notranslate"><span class="pre">job_table()</span></code> and the database in pyiron in general is just an index of all calculation executed by pyiron. The results of the calculation are stored in the HDF5 files of the individual calculation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pr</span><span class="o">.</span><span class="n">job_table</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>status</th>
+      <th>chemicalformula</th>
+      <th>job</th>
+      <th>subjob</th>
+      <th>projectpath</th>
+      <th>project</th>
+      <th>timestart</th>
+      <th>timestop</th>
+      <th>totalcputime</th>
+      <th>computer</th>
+      <th>hamilton</th>
+      <th>hamversion</th>
+      <th>parentid</th>
+      <th>masterid</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2957</td>
+      <td>finished</td>
+      <td>Al4</td>
+      <td>lmp_0_95</td>
+      <td>/lmp_0_95</td>
+      <td>/Users/janssen/pyiron/projects/</td>
+      <td>2023/2023-08-08-lammps-talk/evcurve/</td>
+      <td>2023-08-10 20:07:17.653077</td>
+      <td>2023-08-10 20:07:18.029994</td>
+      <td>0.0</td>
+      <td>pyiron@pn2035881.lanl.gov#1</td>
+      <td>Lammps</td>
+      <td>0.1</td>
+      <td>None</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2958</td>
+      <td>finished</td>
+      <td>Al4</td>
+      <td>lmp_0_96</td>
+      <td>/lmp_0_96</td>
+      <td>/Users/janssen/pyiron/projects/</td>
+      <td>2023/2023-08-08-lammps-talk/evcurve/</td>
+      <td>2023-08-10 20:07:18.595704</td>
+      <td>2023-08-10 20:07:18.934538</td>
+      <td>0.0</td>
+      <td>pyiron@pn2035881.lanl.gov#1</td>
+      <td>Lammps</td>
+      <td>0.1</td>
+      <td>None</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2959</td>
+      <td>finished</td>
+      <td>Al4</td>
+      <td>lmp_0_97</td>
+      <td>/lmp_0_97</td>
+      <td>/Users/janssen/pyiron/projects/</td>
+      <td>2023/2023-08-08-lammps-talk/evcurve/</td>
+      <td>2023-08-10 20:07:19.504208</td>
+      <td>2023-08-10 20:07:19.846323</td>
+      <td>0.0</td>
+      <td>pyiron@pn2035881.lanl.gov#1</td>
+      <td>Lammps</td>
+      <td>0.1</td>
+      <td>None</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2960</td>
+      <td>finished</td>
+      <td>Al4</td>
+      <td>lmp_0_98</td>
+      <td>/lmp_0_98</td>
+      <td>/Users/janssen/pyiron/projects/</td>
+      <td>2023/2023-08-08-lammps-talk/evcurve/</td>
+      <td>2023-08-10 20:07:20.408405</td>
+      <td>2023-08-10 20:07:20.748129</td>
+      <td>0.0</td>
+      <td>pyiron@pn2035881.lanl.gov#1</td>
+      <td>Lammps</td>
+      <td>0.1</td>
+      <td>None</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2961</td>
+      <td>finished</td>
+      <td>Al4</td>
+      <td>lmp_0_99</td>
+      <td>/lmp_0_99</td>
+      <td>/Users/janssen/pyiron/projects/</td>
+      <td>2023/2023-08-08-lammps-talk/evcurve/</td>
+      <td>2023-08-10 20:07:21.341168</td>
+      <td>2023-08-10 20:07:21.717776</td>
+      <td>0.0</td>
+      <td>pyiron@pn2035881.lanl.gov#1</td>
+      <td>Lammps</td>
+      <td>0.1</td>
+      <td>None</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2962</td>
+      <td>finished</td>
+      <td>Al4</td>
+      <td>lmp_1_0</td>
+      <td>/lmp_1_0</td>
+      <td>/Users/janssen/pyiron/projects/</td>
+      <td>2023/2023-08-08-lammps-talk/evcurve/</td>
+      <td>2023-08-10 20:07:22.310080</td>
+      <td>2023-08-10 20:07:22.650744</td>
+      <td>0.0</td>
+      <td>pyiron@pn2035881.lanl.gov#1</td>
+      <td>Lammps</td>
+      <td>0.1</td>
+      <td>None</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2963</td>
+      <td>finished</td>
+      <td>Al4</td>
+      <td>lmp_1_01</td>
+      <td>/lmp_1_01</td>
+      <td>/Users/janssen/pyiron/projects/</td>
+      <td>2023/2023-08-08-lammps-talk/evcurve/</td>
+      <td>2023-08-10 20:07:23.223665</td>
+      <td>2023-08-10 20:07:23.566154</td>
+      <td>0.0</td>
+      <td>pyiron@pn2035881.lanl.gov#1</td>
+      <td>Lammps</td>
+      <td>0.1</td>
+      <td>None</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2964</td>
+      <td>finished</td>
+      <td>Al4</td>
+      <td>lmp_1_02</td>
+      <td>/lmp_1_02</td>
+      <td>/Users/janssen/pyiron/projects/</td>
+      <td>2023/2023-08-08-lammps-talk/evcurve/</td>
+      <td>2023-08-10 20:07:24.128426</td>
+      <td>2023-08-10 20:07:24.475637</td>
+      <td>0.0</td>
+      <td>pyiron@pn2035881.lanl.gov#1</td>
+      <td>Lammps</td>
+      <td>0.1</td>
+      <td>None</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>2965</td>
+      <td>finished</td>
+      <td>Al4</td>
+      <td>lmp_1_03</td>
+      <td>/lmp_1_03</td>
+      <td>/Users/janssen/pyiron/projects/</td>
+      <td>2023/2023-08-08-lammps-talk/evcurve/</td>
+      <td>2023-08-10 20:07:25.097371</td>
+      <td>2023-08-10 20:07:25.439330</td>
+      <td>0.0</td>
+      <td>pyiron@pn2035881.lanl.gov#1</td>
+      <td>Lammps</td>
+      <td>0.1</td>
+      <td>None</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>2966</td>
+      <td>finished</td>
+      <td>Al4</td>
+      <td>lmp_1_04</td>
+      <td>/lmp_1_04</td>
+      <td>/Users/janssen/pyiron/projects/</td>
+      <td>2023/2023-08-08-lammps-talk/evcurve/</td>
+      <td>2023-08-10 20:07:26.010423</td>
+      <td>2023-08-10 20:07:26.351361</td>
+      <td>0.0</td>
+      <td>pyiron@pn2035881.lanl.gov#1</td>
+      <td>Lammps</td>
+      <td>0.1</td>
+      <td>None</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>2967</td>
+      <td>finished</td>
+      <td>Al4</td>
+      <td>lmp_1_05</td>
+      <td>/lmp_1_05</td>
+      <td>/Users/janssen/pyiron/projects/</td>
+      <td>2023/2023-08-08-lammps-talk/evcurve/</td>
+      <td>2023-08-10 20:07:26.921413</td>
+      <td>2023-08-10 20:07:27.270097</td>
+      <td>0.0</td>
+      <td>pyiron@pn2035881.lanl.gov#1</td>
+      <td>Lammps</td>
+      <td>0.1</td>
+      <td>None</td>
+      <td>None</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="collect-the-results">
+<h1>Collect the results<a class="headerlink" href="#collect-the-results" title="Permalink to this heading">#</a></h1>
+<p>After submitting and successfully executing the individual calculation the next step is collecting the results. While in principle it would be possible to collect the output required to plot the energy volume curve, namely the volume and the total energy at the end of each calculation, the goal of pyiron is to split the execution from the analysis of the calculation. This is particularly beneficial when the calculations can not be completed in the order of seconds but require multiple hours and might be submitted to the queuing system individually.</p>
+<section id="iterate-over-jobs-in-project">
+<h2>Iterate over jobs in project<a class="headerlink" href="#iterate-over-jobs-in-project" title="Permalink to this heading">#</a></h2>
+<p>To structure the analysis in the pyiron framework we recommend to follow the map-reduce pattern. This means we start by loading one job from the dataset, develop a set of functions we want to apply to all job objects to extract certain quantities and then map these functions to all job objects in a given project. By using the <code class="docutils literal notranslate"><span class="pre">inspect()</span></code> function rather than the <code class="docutils literal notranslate"><span class="pre">load()</span></code> function only a pointer to the HDF5 file of the job object is loaded in contrast to loading the whole job object. This results in a drastic speedup as explained in the next section. Here we use the name of the last job executed in the for loop to load the corresponding job.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job_inspect</span> <span class="o">=</span> <span class="n">pr</span><span class="o">.</span><span class="n">inspect</span><span class="p">(</span><span class="n">job_strain</span><span class="o">.</span><span class="n">job_name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Once the pointer to the HDF5 file is loaded we can browse the output and in particular the code-independent <code class="docutils literal notranslate"><span class="pre">generic</span></code> output to find the entries for the volume (<code class="docutils literal notranslate"><span class="pre">volume</span></code>) and the total energy (<code class="docutils literal notranslate"><span class="pre">energy_tot</span></code>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job_inspect</span><span class="p">[</span><span class="s2">&quot;output/generic/volume&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">job_inspect</span><span class="p">[</span><span class="s2">&quot;output/generic/energy_tot&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(76.901173453125, -13.0926766182116)
+</pre></div>
+</div>
+</div>
+</div>
+<p>After we identified the properties we want to extract from the individual calculation we define one function per property, which takes a pointer to the HDF5 file of a job object as an input and returns the property it should extract:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_volume</span><span class="p">(</span><span class="n">job</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">job</span><span class="p">[</span><span class="s2">&quot;output/generic/volume&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_energy_tot</span><span class="p">(</span><span class="n">job</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">job</span><span class="p">[</span><span class="s2">&quot;output/generic/energy_tot&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the map step these functions are applied to all jobs in a given project by iterating over the jobs in the project using the <code class="docutils literal notranslate"><span class="pre">iter_jobs()</span></code> function applied on the project object. The results are stored in two lists one for the volumes (<code class="docutils literal notranslate"><span class="pre">volume_lst</span></code>) and one for the total energies (<code class="docutils literal notranslate"><span class="pre">energy_lst</span></code>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">volume_lst</span><span class="p">,</span> <span class="n">energy_lst</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="n">pr</span><span class="o">.</span><span class="n">iter_jobs</span><span class="p">():</span>
+    <span class="n">volume_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">get_volume</span><span class="p">(</span><span class="n">job</span><span class="o">=</span><span class="n">job</span><span class="p">))</span>
+    <span class="n">energy_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">get_energy_tot</span><span class="p">(</span><span class="n">job</span><span class="o">=</span><span class="n">job</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "30c5d8d6b4aa4d99bd25f4b8ad918895", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<p>As a next step we can visualize the aggregated data using the matplotlib library:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">volume_lst</span><span class="p">,</span> <span class="n">energy_lst</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Volume $\AA^3$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Energy (eV)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Energy (eV)&#39;)
+</pre></div>
+</div>
+<img alt="_images/118090801faabbfcd7d8161c80c6c3cb06b7fbdadab8b83702c3849162200617.png" src="_images/118090801faabbfcd7d8161c80c6c3cb06b7fbdadab8b83702c3849162200617.png" />
+</div>
+</div>
+</section>
+<section id="inspect-mode">
+<h2>Inspect mode<a class="headerlink" href="#inspect-mode" title="Permalink to this heading">#</a></h2>
+<p>While iterating over 11 job objects is sufficiently fast, the <code class="docutils literal notranslate"><span class="pre">iter_jobs()</span></code> function has an optional <code class="docutils literal notranslate"><span class="pre">convert_to_object</span></code> parameter. By setting the <code class="docutils literal notranslate"><span class="pre">convert_to_object</span></code> parameter to <code class="docutils literal notranslate"><span class="pre">False</span></code> the <code class="docutils literal notranslate"><span class="pre">iter_jobs()</span></code> function internally uses the <code class="docutils literal notranslate"><span class="pre">inspect()</span></code> function rather than the <code class="docutils literal notranslate"><span class="pre">load()</span></code> function. This can be several orders of magnitude faster depending on the size of your job objects:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">volume_lst</span><span class="p">,</span> <span class="n">energy_lst</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="n">pr</span><span class="o">.</span><span class="n">iter_jobs</span><span class="p">(</span><span class="n">convert_to_object</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">volume_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">get_volume</span><span class="p">(</span><span class="n">job</span><span class="o">=</span><span class="n">job</span><span class="p">))</span>
+    <span class="n">energy_lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">get_energy_tot</span><span class="p">(</span><span class="n">job</span><span class="o">=</span><span class="n">job</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "35c2576ae2ef459f8d44f57025337813", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<p>The output is exactly the same, so we can use the same commands as above to plot the same energy volume curve.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">volume_lst</span><span class="p">,</span> <span class="n">energy_lst</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Volume $\AA^3$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Energy (eV)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Energy (eV)&#39;)
+</pre></div>
+</div>
+<img alt="_images/118090801faabbfcd7d8161c80c6c3cb06b7fbdadab8b83702c3849162200617.png" src="_images/118090801faabbfcd7d8161c80c6c3cb06b7fbdadab8b83702c3849162200617.png" />
+</div>
+</div>
+<p>This ability to drastically accelerate the execution of your simulation workflows by setting specific parameters is a core feature for pyiron. By default we try to provide the users with as much flexibility as possible but at the same time we provide expert users with optional settings to drastically accelerate their simulation workflows.</p>
+</section>
+<section id="pyiron-table">
+<h2>pyiron table<a class="headerlink" href="#pyiron-table" title="Permalink to this heading">#</a></h2>
+<p>To further simplify the analysis step, pyiron also provides the pyiron tables class. The advantage of this separate class is the ability to submit the analysis to the queuing system and receive the aggregated results as a <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> once the map-reduce step is completed. Again, for 11 calculation this might seem like an overhead, but for projects containing thousands of calculation this functionality is essential. The table object is created just like a job object directly from the project.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">pr</span><span class="o">.</span><span class="n">create</span><span class="o">.</span><span class="n">table</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Afterwards the functions defined above, which take a pointer to the HDF5 file of a job object as an input and return a single property are added to the <code class="docutils literal notranslate"><span class="pre">add</span></code> property using the dictionary notation. The keys defined for the individual functions are going to be columns of the resulting <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> and the individual calculation in the project correspond to the rows of the <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>. Once all functions are defined the table object can be executed using the <code class="docutils literal notranslate"><span class="pre">run()</span></code> function just like a job object and after the execution finished the <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> containing all the results is available via the <code class="docutils literal notranslate"><span class="pre">get_dataframe()</span></code> function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table</span><span class="o">.</span><span class="n">add</span><span class="p">[</span><span class="s2">&quot;volume&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_volume</span>
+<span class="n">table</span><span class="o">.</span><span class="n">add</span><span class="p">[</span><span class="s2">&quot;energy_tot&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_energy_tot</span>
+<span class="n">table</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">get_dataframe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job table was saved and received the ID: 2968
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "a684f83afb9441d1be63c04bd2984b8e", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "07985bac9837499dacc4d258e7b8a6c9", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> contains the <code class="docutils literal notranslate"><span class="pre">volume</span></code> and the <code class="docutils literal notranslate"><span class="pre">energy_tot</span></code> as columns in addition to the <code class="docutils literal notranslate"><span class="pre">job_id</span></code> which is always included and each row represents one of the 11 calculation in the project.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>job_id</th>
+      <th>volume</th>
+      <th>energy_tot</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2957</td>
+      <td>56.955528</td>
+      <td>-13.060681</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2958</td>
+      <td>58.773123</td>
+      <td>-13.204749</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2959</td>
+      <td>60.628981</td>
+      <td>-13.309295</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2960</td>
+      <td>62.523502</td>
+      <td>-13.381820</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2961</td>
+      <td>64.457084</td>
+      <td>-13.425410</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2962</td>
+      <td>66.430125</td>
+      <td>-13.440000</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2963</td>
+      <td>68.443024</td>
+      <td>-13.425492</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2964</td>
+      <td>70.496180</td>
+      <td>-13.382455</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>2965</td>
+      <td>72.589991</td>
+      <td>-13.311268</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>2966</td>
+      <td>74.724856</td>
+      <td>-13.213377</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>2967</td>
+      <td>76.901173</td>
+      <td>-13.092677</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>In analogy to the plot above, the <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> can also be used to visualize the results using matplotlib.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;volume&quot;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;energy_tot&quot;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Volume $\AA^3$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Energy (eV)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Energy (eV)&#39;)
+</pre></div>
+</div>
+<img alt="_images/118090801faabbfcd7d8161c80c6c3cb06b7fbdadab8b83702c3849162200617.png" src="_images/118090801faabbfcd7d8161c80c6c3cb06b7fbdadab8b83702c3849162200617.png" />
+</div>
+</div>
+<p>Again using a <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> might look overly complicated for just plotting an energy volume curve, but the intention of this functionality is to analyse hundreds or thousands of calculation. In addition the <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> format is supported by a wide range of machine learning packages, so the output of the pyiron table can be directly integrated in an machine learning workflow.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="murnaghan-class">
+<h1>Murnaghan class<a class="headerlink" href="#murnaghan-class" title="Permalink to this heading">#</a></h1>
+<p>Still calculating energy volume curves is such a standard task in particular in the ab-initio community, that pyiron provides another abstraction layer. The <code class="docutils literal notranslate"><span class="pre">Murnaghan</span></code> job object named after the Murnaghan, named after the <a class="reference external" href="https://en.wikipedia.org/wiki/Murnaghan_equation_of_state">Murnaghan equation of state</a> is a <code class="docutils literal notranslate"><span class="pre">GenericMaster</span></code> job object, which basically means it is a job object creating other job objects.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">murn</span> <span class="o">=</span> <span class="n">pr</span><span class="o">.</span><span class="n">create</span><span class="o">.</span><span class="n">job</span><span class="o">.</span><span class="n">Murnaghan</span><span class="p">(</span><span class="n">job_name</span><span class="o">=</span><span class="s2">&quot;murn&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">GenericMaster</span></code> job objects take a reference job as an input <code class="docutils literal notranslate"><span class="pre">ref_job</span></code> and internally copy this reference job using the <code class="docutils literal notranslate"><span class="pre">copy_to()</span></code> function as demonstrated above.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">murn</span><span class="o">.</span><span class="n">ref_job</span> <span class="o">=</span> <span class="n">job_template</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Beyond the <code class="docutils literal notranslate"><span class="pre">ref_job</span></code> the <code class="docutils literal notranslate"><span class="pre">Murnaghan</span></code> job object defines a series of further input arguments, like the number of sample points or the volume range which can all be set via the <code class="docutils literal notranslate"><span class="pre">input</span></code> property using the dictionary notation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">murn</span><span class="o">.</span><span class="n">input</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Parameter</th>
+      <th>Value</th>
+      <th>Comment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>num_points</td>
+      <td>11</td>
+      <td>number of sample points</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>fit_type</td>
+      <td>polynomial</td>
+      <td>['polynomial', 'birch', 'birchmurnaghan', 'murnaghan', 'pouriertarantola', 'vinet']</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>fit_order</td>
+      <td>3</td>
+      <td>order of the fit polynom</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>vol_range</td>
+      <td>0.1</td>
+      <td>relative volume variation around volume defined by ref_ham</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>axes</td>
+      <td>[x, y, z]</td>
+      <td>Axes along which the strain will be applied</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>strains</td>
+      <td>None</td>
+      <td>List of strains that should be calculated.  If given vol_range and num_points take no effect.</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>allow_aborted</td>
+      <td>0</td>
+      <td>The number of child jobs that are allowed to abort, before the whole job is considered aborted.</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>After both the reference job and the input for the <code class="docutils literal notranslate"><span class="pre">GenericMaster</span></code> job object are defined the <code class="docutils literal notranslate"><span class="pre">GenericMaster</span></code> job object can be executed like any other job object by calling the <code class="docutils literal notranslate"><span class="pre">run()</span></code> function. In particular, this also means that the whole <code class="docutils literal notranslate"><span class="pre">GenericMaster</span></code> job object can be submitted to the queuing system to execute multiple individual calculation either in serial if the number of cores <code class="docutils literal notranslate"><span class="pre">job.server.cores</span></code> of the reference job is euqal to the number of cores of the <code class="docutils literal notranslate"><span class="pre">GenericMaster</span></code> job object <code class="docutils literal notranslate"><span class="pre">murn.server.cores</span></code> or in parallel if the number of cores for the <code class="docutils literal notranslate"><span class="pre">GenericMaster</span></code> job object is sufficiently large.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">murn</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job murn was saved and received the ID: 2969
+The job murn_0_9 was saved and received the ID: 2970
+The job murn_0_92 was saved and received the ID: 2971
+The job murn_0_94 was saved and received the ID: 2972
+The job murn_0_96 was saved and received the ID: 2973
+The job murn_0_98 was saved and received the ID: 2974
+The job murn_1_0 was saved and received the ID: 2975
+The job murn_1_02 was saved and received the ID: 2976
+The job murn_1_04 was saved and received the ID: 2977
+The job murn_1_06 was saved and received the ID: 2978
+The job murn_1_08 was saved and received the ID: 2979
+The job murn_1_1 was saved and received the ID: 2980
+</pre></div>
+</div>
+</div>
+</div>
+<p>In addition to simplifying the submission and execution of the calculation the <code class="docutils literal notranslate"><span class="pre">Murnaghan</span></code> job object also provides utility functions like the ability to plot the energy volume curve directly using the <code class="docutils literal notranslate"><span class="pre">plot()</span></code> function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">murn</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/848335403bdfc6953593c0868982c35b0f1f7e0b16bd353d2d2c39265092ddff.png" src="_images/848335403bdfc6953593c0868982c35b0f1f7e0b16bd353d2d2c39265092ddff.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: title={&#39;center&#39;: &#39;Murnaghan: error: 1.065833723414086e-08&#39;}, xlabel=&#39;Volume ($\\AA^3$)&#39;, ylabel=&#39;energy (eV)&#39;&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="loop-over-interatomic-potentials">
+<h1>Loop over interatomic potentials<a class="headerlink" href="#loop-over-interatomic-potentials" title="Permalink to this heading">#</a></h1>
+<p>As already indicated in the beginning we can now combine the functionality of the <code class="docutils literal notranslate"><span class="pre">Murnaghan</span></code> job object and the pyiron table object and iterate over a series of interatomic potentials to compare their equilibrium properties. To do so we create a new project named <code class="docutils literal notranslate"><span class="pre">potentials</span></code>. Again in this project we delete all existing calculation to have a fresh start.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pr</span> <span class="o">=</span> <span class="n">Project</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;potentials&quot;</span><span class="p">)</span>
+<span class="n">pr</span><span class="o">.</span><span class="n">remove_jobs</span><span class="p">(</span><span class="n">silently</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "288fbcff877f470ebeac4fc3ef59837a", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<p>We restrict ourselves to the first ten interatomic potentials for aluminium from the <code class="docutils literal notranslate"><span class="pre">list_potentials()</span></code> function, to reduce the number of calculation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">potential_lst</span> <span class="o">=</span> <span class="n">job_template</span><span class="o">.</span><span class="n">list_potentials</span><span class="p">()[:</span><span class="mi">10</span><span class="p">]</span>
+<span class="n">potential_lst</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;1995--Angelo-J-E--Ni-Al-H--LAMMPS--ipr1&#39;,
+ &#39;1996--Farkas-D--Nb-Ti-Al--LAMMPS--ipr1&#39;,
+ &#39;1997--Liu-X-Y--Al-Mg--LAMMPS--ipr1&#39;,
+ &#39;1998--Liu-X-Y--Al-Mg--LAMMPS--ipr1&#39;,
+ &#39;1999--Liu-X-Y--Al-Cu--LAMMPS--ipr1&#39;,
+ &#39;1999--Mishin-Y--Al--LAMMPS--ipr1&#39;,
+ &#39;2000--Landa-A--Al-Pb--LAMMPS--ipr1&#39;,
+ &#39;2000--Sturgeon-J-B--Al--LAMMPS--ipr1&#39;,
+ &#39;2002--Mishin-Y--Ni-Al--LAMMPS--ipr1&#39;,
+ &#39;2003--Lee-B-J--Al--LAMMPS--ipr1&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>In addition, we introduce another command to accelerate the execution. This command is switching the <code class="docutils literal notranslate"><span class="pre">run_mode</span></code> from <code class="docutils literal notranslate"><span class="pre">modal</span></code> which is the default to <code class="docutils literal notranslate"><span class="pre">interactive</span></code>. In terms of the LAMMPS execution this means, rather than writing input files and parsing output files we now use the LAMMPS Python interface and directly communicate with it using Python variables. This switch of <code class="docutils literal notranslate"><span class="pre">run_mode</span></code> drastically reduces the I/O overhead and consequently accelerates the calculations.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job_template</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">run_mode</span><span class="o">.</span><span class="n">interactive</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now iterating over the list of interatomic potentials is as easy as iterating over the different strains in the previous example. We notice that rather than creating a single LAMMPS job object for each strain of a given <code class="docutils literal notranslate"><span class="pre">Murnaghan</span></code> job object, the interactive <code class="docutils literal notranslate"><span class="pre">run_mode</span></code> allows us to reuse the LAMMPS job object, resulting in only one LAMMPS job object for each <code class="docutils literal notranslate"><span class="pre">Murnaghan</span></code> job object.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">potential</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">potential_lst</span><span class="p">):</span> 
+    <span class="n">murn</span> <span class="o">=</span> <span class="n">pr</span><span class="o">.</span><span class="n">create</span><span class="o">.</span><span class="n">job</span><span class="o">.</span><span class="n">Murnaghan</span><span class="p">(</span><span class="n">job_name</span><span class="o">=</span><span class="s2">&quot;murn_&quot;</span> <span class="o">+</span> <span class="n">potential</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">))</span>
+    <span class="n">job_pot</span> <span class="o">=</span> <span class="n">job_template</span><span class="o">.</span><span class="n">copy_to</span><span class="p">(</span>
+        <span class="n">new_job_name</span><span class="o">=</span><span class="s2">&quot;lmp_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> 
+        <span class="n">new_database_entry</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
+    <span class="n">job_pot</span><span class="o">.</span><span class="n">potential</span> <span class="o">=</span> <span class="n">potential</span> 
+    <span class="n">murn</span><span class="o">.</span><span class="n">ref_job</span> <span class="o">=</span> <span class="n">job_pot</span>
+    <span class="n">murn</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job murn_1995__Angelo_J_E__Ni_Al_H__LAMMPS__ipr1 was saved and received the ID: 2981
+The job murn_1995__Angelo_J_E__Ni_Al_H__LAMMPS__ipr1_lmp_0 was saved and received the ID: 2982
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:502: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+  warnings.warn(
+/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:131: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job murn_1996__Farkas_D__Nb_Ti_Al__LAMMPS__ipr1 was saved and received the ID: 2983
+The job murn_1996__Farkas_D__Nb_Ti_Al__LAMMPS__ipr1_lmp_1 was saved and received the ID: 2984
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:502: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+  warnings.warn(
+/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:131: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+  warnings.warn(
+2023-08-10 20:07:42,882 - pyiron_log - WARNING - Minimum could not be found!
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job murn_1997__Liu_X_Y__Al_Mg__LAMMPS__ipr1 was saved and received the ID: 2985
+The job murn_1997__Liu_X_Y__Al_Mg__LAMMPS__ipr1_lmp_2 was saved and received the ID: 2986
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:502: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+  warnings.warn(
+/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:131: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job murn_1998__Liu_X_Y__Al_Mg__LAMMPS__ipr1 was saved and received the ID: 2987
+The job murn_1998__Liu_X_Y__Al_Mg__LAMMPS__ipr1_lmp_3 was saved and received the ID: 2988
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:502: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+  warnings.warn(
+/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:131: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job murn_1999__Liu_X_Y__Al_Cu__LAMMPS__ipr1 was saved and received the ID: 2989
+The job murn_1999__Liu_X_Y__Al_Cu__LAMMPS__ipr1_lmp_4 was saved and received the ID: 2990
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:502: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+  warnings.warn(
+/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:131: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job murn_1999__Mishin_Y__Al__LAMMPS__ipr1 was saved and received the ID: 2991
+The job murn_1999__Mishin_Y__Al__LAMMPS__ipr1_lmp_5 was saved and received the ID: 2992
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:502: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+  warnings.warn(
+/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:131: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job murn_2000__Landa_A__Al_Pb__LAMMPS__ipr1 was saved and received the ID: 2993
+The job murn_2000__Landa_A__Al_Pb__LAMMPS__ipr1_lmp_6 was saved and received the ID: 2994
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:502: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+  warnings.warn(
+/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:131: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job murn_2000__Sturgeon_J_B__Al__LAMMPS__ipr1 was saved and received the ID: 2995
+The job murn_2000__Sturgeon_J_B__Al__LAMMPS__ipr1_lmp_7 was saved and received the ID: 2996
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:502: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+  warnings.warn(
+/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:131: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job murn_2002__Mishin_Y__Ni_Al__LAMMPS__ipr1 was saved and received the ID: 2997
+The job murn_2002__Mishin_Y__Ni_Al__LAMMPS__ipr1_lmp_8 was saved and received the ID: 2998
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:502: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+  warnings.warn(
+/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:131: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job murn_2003__Lee_B_J__Al__LAMMPS__ipr1 was saved and received the ID: 2999
+The job murn_2003__Lee_B_J__Al__LAMMPS__ipr1_lmp_9 was saved and received the ID: 3000
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:502: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+  warnings.warn(
+/Users/janssen/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py:131: UserWarning: Warning: setting upper trangular matrix might slow down the calculation
+  warnings.warn(
+</pre></div>
+</div>
+</div>
+</div>
+<p>Again analogy to analysing the energy volume curve above, we first start by analysing the <code class="docutils literal notranslate"><span class="pre">output</span></code> of a single murnaghan object and then define the functions which are applied to each <code class="docutils literal notranslate"><span class="pre">Murnaghan</span></code> job object afterwards.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">murn</span><span class="p">[</span><span class="s2">&quot;output/equilibrium_energy&quot;</span><span class="p">],</span> <span class="n">murn</span><span class="p">[</span><span class="s2">&quot;output/equilibrium_bulk_modulus&quot;</span><span class="p">],</span> <span class="n">murn</span><span class="p">[</span><span class="s2">&quot;output/equilibrium_volume&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-13.440482175734004, 81.39064021275028, 66.17077428883863)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_equilibrium_energy</span><span class="p">(</span><span class="n">job</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">job</span><span class="p">[</span><span class="s2">&quot;output/equilibrium_energy&quot;</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">get_equilibrium_volume</span><span class="p">(</span><span class="n">job</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">job</span><span class="p">[</span><span class="s2">&quot;output/equilibrium_volume&quot;</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">get_equilibrium_bulk_modulus</span><span class="p">(</span><span class="n">job</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">job</span><span class="p">[</span><span class="s2">&quot;output/equilibrium_bulk_modulus&quot;</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">get_potential_name</span><span class="p">(</span><span class="n">job</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">job</span><span class="o">.</span><span class="n">job_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;murn_&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As the project now contains both LAMMPS job objects as well as the <code class="docutils literal notranslate"><span class="pre">Murnaghan</span></code> job objects we define an additional filter function, which filters the job objects based on the <code class="docutils literal notranslate"><span class="pre">hamilton</span></code> entry in the <code class="docutils literal notranslate"><span class="pre">database_entry</span></code>. The filter function again receives a the pointer to the HDF5 file of a job object and returns either <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code> if the job should be included in the map-reduce step or not.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">murn</span><span class="o">.</span><span class="n">database_entry</span><span class="o">.</span><span class="n">hamilton</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Murnaghan&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">filter_jobs</span><span class="p">(</span><span class="n">job</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">job</span><span class="o">.</span><span class="n">database_entry</span><span class="o">.</span><span class="n">hamilton</span> <span class="o">==</span> <span class="s1">&#39;Murnaghan&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Finally, The pyiron table is created in analogy to the previous example, the filter function is assigned to the table object in addition to the analysis functions. After the definition of the pyiron table object is completed it is applied to the project by calling the <code class="docutils literal notranslate"><span class="pre">run()</span></code> function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">pr</span><span class="o">.</span><span class="n">create</span><span class="o">.</span><span class="n">table</span><span class="p">(</span><span class="n">job_name</span><span class="o">=</span><span class="s2">&quot;potentials&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table</span><span class="o">.</span><span class="n">filter_function</span> <span class="o">=</span> <span class="n">filter_jobs</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table</span><span class="o">.</span><span class="n">add</span><span class="p">[</span><span class="s2">&quot;potential_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_potential_name</span>
+<span class="n">table</span><span class="o">.</span><span class="n">add</span><span class="p">[</span><span class="s2">&quot;equilibrium_energy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_equilibrium_energy</span>
+<span class="n">table</span><span class="o">.</span><span class="n">add</span><span class="p">[</span><span class="s2">&quot;equilibrium_volume&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_equilibrium_volume</span>
+<span class="n">table</span><span class="o">.</span><span class="n">add</span><span class="p">[</span><span class="s2">&quot;equilibrium_bulk_modulus&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_equilibrium_bulk_modulus</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job potentials was saved and received the ID: 3001
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "cfd35b2b4bbd4d86aaff1e3a7f636f63", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "362e0c5bec2545f1ad430fba8be7faf9", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<p>The table lists the properties calculated for the individual interatomic potentials in a <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table</span><span class="o">.</span><span class="n">get_dataframe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>job_id</th>
+      <th>potential_name</th>
+      <th>equilibrium_energy</th>
+      <th>equilibrium_volume</th>
+      <th>equilibrium_bulk_modulus</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2981</td>
+      <td>1995--Angelo-J-E--Ni-Al-H--LAMMPS--ipr1</td>
+      <td>-13.440397</td>
+      <td>66.427847</td>
+      <td>81.040441</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2985</td>
+      <td>1997--Liu-X-Y--Al-Mg--LAMMPS--ipr1</td>
+      <td>-13.440589</td>
+      <td>65.580479</td>
+      <td>83.498560</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2987</td>
+      <td>1998--Liu-X-Y--Al-Mg--LAMMPS--ipr1</td>
+      <td>-13.441401</td>
+      <td>65.619037</td>
+      <td>90.567634</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2989</td>
+      <td>1999--Liu-X-Y--Al-Cu--LAMMPS--ipr1</td>
+      <td>-13.440403</td>
+      <td>65.579624</td>
+      <td>83.423053</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2991</td>
+      <td>1999--Mishin-Y--Al--LAMMPS--ipr1</td>
+      <td>-13.439988</td>
+      <td>66.426610</td>
+      <td>77.697753</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2993</td>
+      <td>2000--Landa-A--Al-Pb--LAMMPS--ipr1</td>
+      <td>-13.437999</td>
+      <td>65.511564</td>
+      <td>78.213776</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2995</td>
+      <td>2000--Sturgeon-J-B--Al--LAMMPS--ipr1</td>
+      <td>-13.560872</td>
+      <td>66.447223</td>
+      <td>80.266269</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2997</td>
+      <td>2002--Mishin-Y--Ni-Al--LAMMPS--ipr1</td>
+      <td>-13.447738</td>
+      <td>66.534453</td>
+      <td>95.971718</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>2999</td>
+      <td>2003--Lee-B-J--Al--LAMMPS--ipr1</td>
+      <td>-13.440482</td>
+      <td>66.170774</td>
+      <td>81.390640</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="summary">
+<h1>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h1>
+<p>The second tutorial illustrates two things, on the one hand how the pre-defined classes in pyiron allow the user to up-scale their simulation protocols and on the other hand how expert commands like the <code class="docutils literal notranslate"><span class="pre">inspect()</span></code> function or switching the <code class="docutils literal notranslate"><span class="pre">run_mode</span></code> can be leveraged in pyiron to drastically accelerate the execution of a given simulation protocol. This combination makes pyiron suitable for parameter studies for interatomic potentials.</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="part_1.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Introduction to pyiron for LAMMPS users</p>
+      </div>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Beyond a single LAMMPS calculation</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#start-with-an-empty-project">Start with an empty Project</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#loop-over-different-strain-values">Loop over different strain values</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-template-job">Create a template job</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#for-loop">For loop</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#collect-the-results">Collect the results</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iterate-over-jobs-in-project">Iterate over jobs in project</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-mode">Inspect mode</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyiron-table">pyiron table</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#murnaghan-class">Murnaghan class</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#loop-over-interatomic-potentials">Loop over interatomic potentials</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By pyiron
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

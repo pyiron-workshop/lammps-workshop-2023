@@ -1,0 +1,2173 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Introduction to pyiron for LAMMPS users &#8212; lammps-workshop-2023</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'part_1';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Beyond a single LAMMPS calculation" href="part_2.html" />
+    <link rel="prev" title="pyiron publication template" href="README.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="README.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo_dark.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo_dark.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="README.html">
+                    pyiron publication template
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction to pyiron for LAMMPS users</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="part_2.html">Beyond a single LAMMPS calculation</a></li>
+
+
+
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/pyiron/lammps-workshop-2023/master?urlpath=lab/tree/part_1.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/part_1.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Introduction to pyiron for LAMMPS users</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Introduction to pyiron for LAMMPS users</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-new-project-in-pyiron">Create a new project in pyiron</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#atomistic-structures">Atomistic structures</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-an-atomistic-structure">Create an atomistic structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-an-atomistic-structure">Visualize an atomistic structure</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#run-a-lammps-calculation-with-pyiron">Run a LAMMPS calculation with pyiron</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assign-the-atomistic-structure-to-the-lammps-calculation">Assign the atomistic structure to the LAMMPS calculation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#select-an-interatomic-potential-for-the-lammps-calculation">Select an interatomic potential for the LAMMPS calculation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-the-lammps-calculation">Setting up the LAMMPS calculation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generic-pyiron-commands">Generic pyiron commands</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lammps-input-commands">LAMMPS input commands</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#execute-the-lammps-calculation">Execute the LAMMPS calculation</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-results-of-a-lammps-calculation">Plot the results of a LAMMPS calculation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#temperature-equilibration">Temperature equilibration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-the-vibration-of-the-individual-atoms">Visualize the vibration of the individual atoms</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#different-levels-of-output">Different levels of output</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hdf5-interface">HDF5 interface</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#direct-access-to-the-output-files">Direct access to the output files</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#publish-your-results">Publish your results</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-pyiron-for-lammps-users">
+<h1>Introduction to pyiron for LAMMPS users<a class="headerlink" href="#introduction-to-pyiron-for-lammps-users" title="Permalink to this heading">#</a></h1>
+<p>Author: <a class="reference external" href="https://jan-janssen.com">jan-janssen</a></p>
+<p>The <a class="reference external" href="https://pyiron.org">pyiron framework</a> enables rapid prototyping and up-scaling of simulation protocols. In pyiron simulation protocols are developed in jupyter notebooks using the Python programming language. This has two advantages, on the one hand documentation, code and results can be combined in the same document to maintain their provenance and on the other hand the user no longer has to switch between different interfaces, setting up the calculation, submitting it to an high performance computing (HPC) cluster and analysing the results of the finished calculation can all be done in the same document.</p>
+<p>While LAMMPS already has a Python interface to access the <a class="reference external" href="https://docs.lammps.org/Python_module.html">LAMMPS library</a> from Python as well as the ability to call <a class="reference external" href="https://docs.lammps.org/Python_call.html">Python within your LAMMPS simulation protocol</a>, pyiron adds an abstraction layer on top of this functionality. In particular pyiron provides job management and data management for LAMMPS calculation. This enables users to run parameter studies over hundreds or thousands of parameters. Consequently, pyiron is very beneficial to up-scale simulation protocols to iterate over the periodic table and identify chemical trends.</p>
+<p>This tutorial covers the basic usage of the pyiron framework:</p>
+<ul class="simple">
+<li><p>Create a new project in pyiron</p></li>
+<li><p>Create an atomistic structure</p></li>
+<li><p>Visualize an atomistic structure</p></li>
+<li><p>Run a LAMMPS calculation with pyiron</p></li>
+<li><p>Plot the results of a LAMMPS calculation</p></li>
+</ul>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="create-a-new-project-in-pyiron">
+<h1>Create a new project in pyiron<a class="headerlink" href="#create-a-new-project-in-pyiron" title="Permalink to this heading">#</a></h1>
+<p>To simplify the use of pyiron inside jupyter notebooks, the pyiron framework only requires a single import statement. As LAMMPS is an atomistic simulation code, we are going to import the <code class="docutils literal notranslate"><span class="pre">Project</span></code> class from the <code class="docutils literal notranslate"><span class="pre">pyiron_atomistics</span></code> module.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyiron_atomistics</span> <span class="kn">import</span> <span class="n">Project</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "0498f88678504eb7b7edca51877ac9b1", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">Project</span></code> class in pyiron behaves just like a folder on the filesystem. In contrast to other workflow systems in pyiron the user does not have to interact with the underlying database directly but rather pyiron leverages the filesystem to structure individual calculation into projects. So we can create a first project named <code class="docutils literal notranslate"><span class="pre">test</span></code> to get started.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pr</span> <span class="o">=</span> <span class="n">Project</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;test&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>For validation we can use the <code class="docutils literal notranslate"><span class="pre">ls</span></code> command on the commandline to see that the project folder named test was actually created:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>ls
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Blue">evcurve</span>         part_2_v1.ipynb pyiron.log      <span class=" -Color -Color-Blue">test</span>
+part_1_v1.ipynb <span class=" -Color -Color-Blue">potentials</span>      resize.ipynb
+</pre></div>
+</div>
+</div>
+</div>
+<p>In addition to creating new projects, the project class can also be used to list the calculation inside a given project <code class="docutils literal notranslate"><span class="pre">pr.job_table()</span></code> and delete the calculation inside a given project <code class="docutils literal notranslate"><span class="pre">pr.remove_jobs()</span></code> if you want to start fresh. The goal of the database in pyiron is store all the calculation that you executed, so if you execute the same jupyter notebook again the results are reloaded rather than being recalculated. Still for this example we are going to delete all existing calculation:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pr</span><span class="o">.</span><span class="n">job_table</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>status</th>
+      <th>chemicalformula</th>
+      <th>job</th>
+      <th>subjob</th>
+      <th>projectpath</th>
+      <th>project</th>
+      <th>timestart</th>
+      <th>timestop</th>
+      <th>totalcputime</th>
+      <th>computer</th>
+      <th>hamilton</th>
+      <th>hamversion</th>
+      <th>parentid</th>
+      <th>masterid</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2762</td>
+      <td>finished</td>
+      <td>Al4</td>
+      <td>lmp</td>
+      <td>/lmp</td>
+      <td>/Users/janssen/pyiron/projects/</td>
+      <td>2023/2023-08-08-lammps-talk/test/</td>
+      <td>2023-08-10 18:13:41.052492</td>
+      <td>2023-08-10 18:13:41.849984</td>
+      <td>0.0</td>
+      <td>pyiron@pn2035881.lanl.gov#1</td>
+      <td>Lammps</td>
+      <td>0.1</td>
+      <td>None</td>
+      <td>None</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pr</span><span class="o">.</span><span class="n">remove_jobs</span><span class="p">(</span><span class="n">silently</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "7b2a21db4c354e89a9a6e24fe9921dab", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="atomistic-structures">
+<h1>Atomistic structures<a class="headerlink" href="#atomistic-structures" title="Permalink to this heading">#</a></h1>
+<p>After the <code class="docutils literal notranslate"><span class="pre">Project</span></code> class the next object we want to introduce is the atomistic structure object. The pyiron atomistic structure is base on the <code class="docutils literal notranslate"><span class="pre">ase.atoms.Atom</span></code> class from the <a class="reference external" href="https://wiki.fysik.dtu.dk/ase/">atomic simulation environment (ASE)</a>.</p>
+<section id="create-an-atomistic-structure">
+<h2>Create an atomistic structure<a class="headerlink" href="#create-an-atomistic-structure" title="Permalink to this heading">#</a></h2>
+<p>For demonstration purposes we create a bulk aluminium structure. Rather than having to import a separate module to create the structure object, in pyiron we can use the <code class="docutils literal notranslate"><span class="pre">Project</span></code> instance defined above and then use autocompletion (by clicking <code class="docutils literal notranslate"><span class="pre">&lt;tab&gt;</span></code> on your keyboard) to select the <code class="docutils literal notranslate"><span class="pre">pr.create.structure.ase.bulk()</span></code> function. The function takes an element as input and in addition we use the optional parameter <code class="docutils literal notranslate"><span class="pre">cubic=True</span></code> to generate a cubic aluminium cell.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">structure</span> <span class="o">=</span> <span class="n">pr</span><span class="o">.</span><span class="n">create</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">ase</span><span class="o">.</span><span class="n">bulk</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Al&quot;</span><span class="p">,</span> <span class="n">cubic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="visualize-an-atomistic-structure">
+<h2>Visualize an atomistic structure<a class="headerlink" href="#visualize-an-atomistic-structure" title="Permalink to this heading">#</a></h2>
+<p>Another focus of pyiron is to represent each pyiron object inside the jupyter environment. So in addtion to the string based representation from ASE you can use the <code class="docutils literal notranslate"><span class="pre">plot3d()</span></code> function of the structure object to visualize it using the <a class="reference external" href="http://nglviewer.org/nglview/latest/">Nglview</a> package. The Nglview package provides a fully interactive visualization integrated in the jupyter notebook environment.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">structure</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Al: [0. 0. 0.]
+Al: [0.    2.025 2.025]
+Al: [2.025 0.    2.025]
+Al: [2.025 2.025 0.   ]
+tags: 
+    indices: [0 0 0 0]
+pbc: [ True  True  True]
+cell: 
+Cell([4.05, 4.05, 4.05])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">structure</span><span class="o">.</span><span class="n">plot3d</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "e752773ad686409aa17e868dda63a33f", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="run-a-lammps-calculation-with-pyiron">
+<h1>Run a LAMMPS calculation with pyiron<a class="headerlink" href="#run-a-lammps-calculation-with-pyiron" title="Permalink to this heading">#</a></h1>
+<p>After creating the structure object, the next step is setting up the LAMMPS calculation. In pyiron individual calculation are called <code class="docutils literal notranslate"><span class="pre">jobs</span></code>. So we can create a LAMMPS object, in analogy to creating an atomistic structure object, using <code class="docutils literal notranslate"><span class="pre">pr.create.job.Lammps()</span></code>. The create job function takes a <code class="docutils literal notranslate"><span class="pre">job_name</span></code> as input argument. This <code class="docutils literal notranslate"><span class="pre">job_name</span></code> is used in the pyiron database to differentiate individual calculation and to allow pyiron to reload existing calculation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lmp</span> <span class="o">=</span> <span class="n">pr</span><span class="o">.</span><span class="n">create</span><span class="o">.</span><span class="n">job</span><span class="o">.</span><span class="n">Lammps</span><span class="p">(</span><span class="n">job_name</span><span class="o">=</span><span class="s2">&quot;lmp&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="assign-the-atomistic-structure-to-the-lammps-calculation">
+<h2>Assign the atomistic structure to the LAMMPS calculation<a class="headerlink" href="#assign-the-atomistic-structure-to-the-lammps-calculation" title="Permalink to this heading">#</a></h2>
+<p>In the next step we can assign the atomistic structure <code class="docutils literal notranslate"><span class="pre">structure</span></code> created above to the LAMMPS calculation. By setting the <code class="docutils literal notranslate"><span class="pre">structure</span></code> property of the LAMMPS job object:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lmp</span><span class="o">.</span><span class="n">structure</span> <span class="o">=</span> <span class="n">structure</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="select-an-interatomic-potential-for-the-lammps-calculation">
+<h2>Select an interatomic potential for the LAMMPS calculation<a class="headerlink" href="#select-an-interatomic-potential-for-the-lammps-calculation" title="Permalink to this heading">#</a></h2>
+<p>After the atomistic structure is assigned to the LAMMPS job object, pyiron is internally aware of the elements of the structure. In this particular case pyiron knows an aluminium structure was assinged. So when we want to select an interatomic potential, pyiron automatically queries both the <a class="reference external" href="https://www.ctcms.nist.gov/potentials/">NIST database</a> as well as the <a class="reference external" href="https://openkim.org">OpenKIM database</a> to list available interatomic potentials for aluminium. All this is done with the simple <code class="docutils literal notranslate"><span class="pre">lmp.list_potentials()</span></code> call. Alternatively, you can also use the <code class="docutils literal notranslate"><span class="pre">lmp.view_potentials()</span></code> function to get more details about the individual potentials:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lmp</span><span class="o">.</span><span class="n">list_potentials</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;1995--Angelo-J-E--Ni-Al-H--LAMMPS--ipr1&#39;,
+ &#39;1996--Farkas-D--Nb-Ti-Al--LAMMPS--ipr1&#39;,
+ &#39;1997--Liu-X-Y--Al-Mg--LAMMPS--ipr1&#39;,
+ &#39;1998--Liu-X-Y--Al-Mg--LAMMPS--ipr1&#39;,
+ &#39;1999--Liu-X-Y--Al-Cu--LAMMPS--ipr1&#39;,
+ &#39;1999--Mishin-Y--Al--LAMMPS--ipr1&#39;,
+ &#39;2000--Landa-A--Al-Pb--LAMMPS--ipr1&#39;,
+ &#39;2000--Sturgeon-J-B--Al--LAMMPS--ipr1&#39;,
+ &#39;2002--Mishin-Y--Ni-Al--LAMMPS--ipr1&#39;,
+ &#39;2003--Lee-B-J--Al--LAMMPS--ipr1&#39;,
+ &#39;2003--Zope-R-R--Al--LAMMPS--ipr1&#39;,
+ &#39;2003--Zope-R-R--Ti-Al--LAMMPS--ipr1&#39;,
+ &#39;2004--Liu-X-Y--Al--LAMMPS--ipr1&#39;,
+ &#39;2004--Mishin-Y--Ni-Al--LAMMPS--ipr1&#39;,
+ &#39;2004--Mishin-Y--Ni-Al--LAMMPS--ipr2&#39;,
+ &#39;2004--Zhou-X-W--Al--LAMMPS--ipr2&#39;,
+ &#39;2005--Mendelev-M-I--Al-Fe--LAMMPS--ipr1&#39;,
+ &#39;2007--Silva-A-C--Al-Ni--LAMMPS--ipr1&#39;,
+ &#39;2008--Mendelev-M-I--Al--LAMMPS--ipr1&#39;,
+ &#39;2009--Kim-Y-M--Mg-Al--LAMMPS--ipr1&#39;,
+ &#39;2009--Mendelev-M-I--Al-Mg--LAMMPS--ipr1&#39;,
+ &#39;2009--Purja-Pun-G-P--Ni-Al--LAMMPS--ipr1&#39;,
+ &#39;2009--Zhakhovskii-V-V--Al--LAMMPS--ipr2&#39;,
+ &#39;2010--Lee-E--Fe-Al--LAMMPS--ipr1&#39;,
+ &#39;2010--Mendelev-M-I--fictional-Al-1--LAMMPS--ipr1&#39;,
+ &#39;2010--Mendelev-M-I--fictional-Al-2--LAMMPS--ipr1&#39;,
+ &#39;2010--Mendelev-M-I--fictional-Al-3--LAMMPS--ipr1&#39;,
+ &#39;2010--Winey-J-M--Al--LAMMPS--ipr1&#39;,
+ &#39;2011--Apostol-F--Al-Cu--LAMMPS--ipr1&#39;,
+ &#39;2011--Ko-W-S--Al-H--LAMMPS--ipr1&#39;,
+ &#39;2012--Dong-W-P--Co-Al--LAMMPS--ipr1&#39;,
+ &#39;2012--Jelinek-B--Al-Si-Mg-Cu-Fe--LAMMPS--ipr2&#39;,
+ &#39;2012--Schopf-D--Al-Mn-Pd--LAMMPS--ipr1&#39;,
+ &#39;2013--Shim-J-H--V-Al--LAMMPS--ipr1&#39;,
+ &#39;2013--Shim-J-H--V-Al-H--LAMMPS--ipr1&#39;,
+ &#39;2015--Choudhary-K--Al--LAMMPS--ipr1&#39;,
+ &#39;2015--Choudhary-K--Al-O--LAMMPS--ipr1&#39;,
+ &#39;2015--Kim-Y-K--Ni-Al-Co--LAMMPS--ipr1&#39;,
+ &#39;2015--Kumar-A--Al-Ni--LAMMPS--ipr1&#39;,
+ &#39;2015--Kumar-A--Al-Ni-O--LAMMPS--ipr1&#39;,
+ &#39;2015--Mendelev-M-I--Al-Sm--LAMMPS--ipr1&#39;,
+ &#39;2015--Pascuet-M-I--Al--LAMMPS--ipr1&#39;,
+ &#39;2015--Pascuet-M-I--Al-U--LAMMPS--ipr2&#39;,
+ &#39;2015--Purja-Pun-G-P--Al-Co--LAMMPS--ipr2&#39;,
+ &#39;2015--Purja-Pun-G-P--Ni-Al-Co--LAMMPS--ipr2&#39;,
+ &#39;2016--Kim-Y-K--Al-Ti--LAMMPS--ipr1&#39;,
+ &#39;2016--Zhou-X-W--Al-Cu--LAMMPS--ipr2&#39;,
+ &#39;2017--Botu-V--Al--LAMMPS--ipr1&#39;,
+ &#39;2017--Kim-J-S--Pt-Al--LAMMPS--ipr1&#39;,
+ &#39;2017--Kim-Y-K--Ni-Al-Ti--LAMMPS--ipr1&#39;,
+ &#39;2018--Dickel-D-E--Mg-Al-Zn--LAMMPS--ipr1&#39;,
+ &#39;2018--Jeong-G-U--Pd-Al--LAMMPS--ipr1&#39;,
+ &#39;2018--Zhou-X-W--Al-Cu-H--LAMMPS--ipr1&#39;,
+ &#39;2019--Plummer-G--Ti-Al-C--LAMMPS--ipr1&#39;,
+ &#39;2020--Farkas-D--Fe-Ni-Cr-Co-Al--LAMMPS--ipr1&#39;,
+ &#39;2020--Purja-Pun-G-P--Al--LAMMPS--ipr1&#39;,
+ &#39;2020--Starikov-S--Si-Au-Al--LAMMPS--ipr1&#39;,
+ &#39;2020--Starikov-S--Si-Au-Al--LAMMPS--ipr2&#39;,
+ &#39;2021--Plummer-G--Ti-Al-C--LAMMPS--ipr1&#39;,
+ &#39;2021--Song-H--Al-Sm--LAMMPS--ipr1&#39;,
+ &#39;2022--Fereidonnejad-R--Al-Hf--LAMMPS--ipr1&#39;,
+ &#39;2022--Fereidonnejad-R--Al-Nb--LAMMPS--ipr1&#39;,
+ &#39;2022--Fereidonnejad-R--Al-Ta--LAMMPS--ipr1&#39;,
+ &#39;2022--Fereidonnejad-R--Al-Ti--LAMMPS--ipr1&#39;,
+ &#39;2022--Fereidonnejad-R--Al-Zr--LAMMPS--ipr1&#39;,
+ &#39;2022--Mahata-A--Al-Cu--LAMMPS--ipr1&#39;,
+ &#39;2022--Mahata-A--Al-Fe--LAMMPS--ipr1&#39;,
+ &#39;2022--Mahata-A--Al-Ni--LAMMPS--ipr1&#39;,
+ &#39;2022--Mendelev-M-I--Ni-Al--LAMMPS--ipr1&#39;,
+ &#39;EAM_CubicNaturalSpline_ErcolessiAdams_1994_Al__MO_800509458712_002&#39;,
+ &#39;EAM_Dynamo_AngeloMoodyBaskes_1995_NiAlH__MO_418978237058_005&#39;,
+ &#39;EAM_Dynamo_CaiYe_1996_AlCu__MO_942551040047_005&#39;,
+ &#39;EAM_Dynamo_ErcolessiAdams_1994_Al__MO_123629422045_005&#39;,
+ &#39;EAM_Dynamo_FarkasJones_1996_NbTiAl__MO_042691367780_000&#39;,
+ &#39;EAM_Dynamo_JacobsenNorskovPuska_1987_Al__MO_411692133366_000&#39;,
+ &#39;EAM_Dynamo_LandaWynblattSiegel_2000_AlPb__MO_699137396381_005&#39;,
+ &#39;EAM_Dynamo_LiuAdams_1998_AlMg__MO_019873715786_000&#39;,
+ &#39;EAM_Dynamo_LiuErcolessiAdams_2004_Al__MO_051157671505_000&#39;,
+ &#39;EAM_Dynamo_LiuLiuBorucki_1999_AlCu__MO_020851069572_000&#39;,
+ &#39;EAM_Dynamo_LiuOhotnickyAdams_1997_AlMg__MO_559870613549_000&#39;,
+ &#39;EAM_Dynamo_MendelevAstaRahman_2009_AlMg__MO_658278549784_005&#39;,
+ &#39;EAM_Dynamo_MendelevFangYe_2015_AlSm__MO_338600200739_000&#39;,
+ &#39;EAM_Dynamo_MendelevKramerBecker_2008_Al__MO_106969701023_005&#39;,
+ &#39;EAM_Dynamo_MendelevSrolovitzAckland_2005_AlFe__MO_577453891941_005&#39;,
+ &#39;EAM_Dynamo_MishinFarkasMehl_1999_Al__MO_651801486679_005&#39;,
+ &#39;EAM_Dynamo_MishinMehlPapaconstantopoulos_2002_NiAl__MO_109933561507_005&#39;,
+ &#39;EAM_Dynamo_Mishin_2004_NiAl__MO_101214310689_005&#39;,
+ &#39;EAM_Dynamo_PunMishin_2009_NiAl__MO_751354403791_005&#39;,
+ &#39;EAM_Dynamo_PunYamakovMishin_2013_AlCo__MO_678952612413_000&#39;,
+ &#39;EAM_Dynamo_PunYamakovMishin_2013_NiAlCo__MO_826591359508_000&#39;,
+ &#39;EAM_Dynamo_SchopfBrommerFrigan_2012_AlMnPd__MO_137572817842_000&#39;,
+ &#39;EAM_Dynamo_SturgeonLaird_2000_Al__MO_120808805541_005&#39;,
+ &#39;EAM_Dynamo_VailheFarkas_1997_CoAl__MO_284963179498_005&#39;,
+ &#39;EAM_Dynamo_WineyKubotaGupta_2010_Al__MO_149316865608_005&#39;,
+ &#39;EAM_Dynamo_Zhakhovsky_2009_Al__MO_519613893196_000&#39;,
+ &#39;EAM_Dynamo_ZhouJohnsonWadley_2004NISTretabulation_Al__MO_060567868558_000&#39;,
+ &#39;EAM_Dynamo_ZhouJohnsonWadley_2004_Al__MO_131650261510_005&#39;,
+ &#39;EAM_Dynamo_ZhouWadleyJohnson_2001_Al__MO_049243498555_000&#39;,
+ &#39;EAM_Dynamo_ZopeMishin_2003_Al__MO_664470114311_005&#39;,
+ &#39;EAM_Dynamo_ZopeMishin_2003_TiAl__MO_117656786760_005&#39;,
+ &#39;EAM_ErcolessiAdams_1994_Al__MO_324507536345_003&#39;,
+ &#39;EAM_IMD_BrommerGaehler_2006A_AlNiCo__MO_122703700223_003&#39;,
+ &#39;EAM_IMD_BrommerGaehler_2006B_AlNiCo__MO_128037485276_003&#39;,
+ &#39;EAM_IMD_SchopfBrommerFrigan_2012_AlMnPd__MO_878712978062_003&#39;,
+ &#39;EAM_QuinticClampedSpline_ErcolessiAdams_1994_Al__MO_450093727396_002&#39;,
+ &#39;EAM_QuinticHermiteSpline_ErcolessiAdams_1994_Al__MO_781138671863_002&#39;,
+ &#39;EMT_Asap_Standard_JacobsenStoltzeNorskov_1996_AlAgAuCuNiPdPt__MO_115316750986_001&#39;,
+ &#39;EMT_Asap_Standard_JacobsenStoltzeNorskov_1996_Al__MO_623376124862_001&#39;,
+ &#39;MEAM_LAMMPS_AlmyrasSangiovanniSarakinos_2019_NAlTi__MO_958395190627_000&#39;,
+ &#39;MEAM_LAMMPS_CostaAgrenClavaguera_2007_AlNi__MO_131642768288_000&#39;,
+ &#39;MEAM_LAMMPS_DongKimKo_2012_CoAl__MO_099716416216_000&#39;,
+ &#39;MEAM_LAMMPS_JelinekGrohHorstemeyer_2012_AlSiMgCuFe__MO_262519520678_000&#39;,
+ &#39;MEAM_LAMMPS_JeongParkDo_2018_PdAl__MO_616482358807_000&#39;,
+ &#39;MEAM_LAMMPS_KimJungLee_2015_NiAlCo__MO_876687166519_000&#39;,
+ &#39;MEAM_LAMMPS_KimKimJung_2016_AlTi__MO_618133763375_000&#39;,
+ &#39;MEAM_LAMMPS_KimKimJung_2017_NiAlTi__MO_478967255435_000&#39;,
+ &#39;MEAM_LAMMPS_KimKimLee_2009_AlMg__MO_058537087384_000&#39;,
+ &#39;MEAM_LAMMPS_KimSeolJi_2017_PtAl__MO_793141037706_000&#39;,
+ &#39;MEAM_LAMMPS_KoShimLee_2011_AlH__MO_127847080751_000&#39;,
+ &#39;MEAM_LAMMPS_LeeLee_2010_FeAl__MO_332211522050_000&#39;,
+ &#39;MEAM_LAMMPS_PascuetFernandez_2015_AlU__MO_596300673917_000&#39;,
+ &#39;MEAM_LAMMPS_PascuetFernandez_2015_Al__MO_315820974149_000&#39;,
+ &#39;MEAM_LAMMPS_ShimKoKim_2013_AlVH__MO_344724145339_000&#39;,
+ &#39;Morse_Shifted_GirifalcoWeizer_1959HighCutoff_Al__MO_140175748626_004&#39;,
+ &#39;Morse_Shifted_GirifalcoWeizer_1959LowCutoff_Al__MO_411898953661_004&#39;,
+ &#39;Morse_Shifted_GirifalcoWeizer_1959MedCutoff_Al__MO_279544746097_004&#39;,
+ &#39;Sim_LAMMPS_ADP_ApostolMishin_2011_AlCu__SM_667696763561_000&#39;,
+ &#39;Sim_LAMMPS_ADP_StarikovGordeevLysogorskiy_2020_SiAuAl__SM_113843830602_000&#39;,
+ &#39;Sim_LAMMPS_AGNI_BotuBatraChapman_2017_Al__SM_666183636896_000&#39;,
+ &#39;Sim_LAMMPS_BOP_ZhouWardFoster_2016_AlCu__SM_566399258279_000&#39;,
+ &#39;Sim_LAMMPS_MEAM_AlmyrasSangiovanniSarakinos_2019_NAlTi__SM_871795249052_000&#39;,
+ &#39;Sim_LAMMPS_MEAM_JelinekGrohHorstemeyer_2012_AlSiMgCuFe__SM_656517352485_000&#39;,
+ &#39;Sim_LAMMPS_MEAM_PascuetFernandez_2015_AlU__SM_721930391003_000&#39;,
+ &#39;Sim_LAMMPS_MEAM_PascuetFernandez_2015_Al__SM_811588957187_000&#39;,
+ &#39;Sim_LAMMPS_SMTBQ_SallesPolitanoAmzallag_2016_AlO__SM_853967355976_000&#39;,
+ &#39;Sim_LAMMPS_SMTBQ_SallesPolitanoAmzallag_2016_Al__SM_404097633924_000&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lmp</span><span class="o">.</span><span class="n">view_potentials</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Config</th>
+      <th>Filename</th>
+      <th>Model</th>
+      <th>Name</th>
+      <th>Species</th>
+      <th>Citations</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>38</th>
+      <td>[pair_style eam/alloy\n, pair_coeff * * NiAlH_jea.eam.alloy Ni Al H\n]</td>
+      <td>[potential_LAMMPS/1995--Angelo-J-E--Ni-Al-H--LAMMPS--ipr1/NiAlH_jea.eam.alloy]</td>
+      <td>NISTiprpy</td>
+      <td>1995--Angelo-J-E--Ni-Al-H--LAMMPS--ipr1</td>
+      <td>[Ni, Al, H]</td>
+      <td>[{'Angelo_1995': {'title': 'Trapping of hydrogen to lattice defects in nickel', 'journal': 'Modelling and Simulation in Materials Science and Engineering', 'volume': '3', 'pages': '289--307', 'num...</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>[pair_style eam/alloy\n, pair_coeff * * Farkas_Nb-Ti-Al_1996.eam.alloy Nb Ti Al\n]</td>
+      <td>[potential_LAMMPS/1996--Farkas-D--Nb-Ti-Al--LAMMPS--ipr1/Farkas_Nb-Ti-Al_1996.eam.alloy]</td>
+      <td>NISTiprpy</td>
+      <td>1996--Farkas-D--Nb-Ti-Al--LAMMPS--ipr1</td>
+      <td>[Nb, Ti, Al]</td>
+      <td>[{'Farkas_1996': {'title': 'Interatomic potentials for ternary Nb - Ti - Al alloys', 'journal': 'Modelling and Simulation in Materials Science and Engineering', 'volume': '4', 'pages': '23--32', '...</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>[pair_style eam/alloy\n, pair_coeff * * mg-al-set.eam.alloy Al Mg\n]</td>
+      <td>[potential_LAMMPS/1997--Liu-X-Y--Al-Mg--LAMMPS--ipr1/mg-al-set.eam.alloy]</td>
+      <td>NISTiprpy</td>
+      <td>1997--Liu-X-Y--Al-Mg--LAMMPS--ipr1</td>
+      <td>[Al, Mg]</td>
+      <td>[{'Liu_1997': {'title': 'Anisotropic surface segregation in Al-Mg alloys', 'journal': 'Surface Science', 'volume': '373', 'pages': '357--370', 'number': '2-3', 'doi': '10.1016/s0039-6028(96)01154-...</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>[pair_style eam/alloy\n, pair_coeff * * almg.liu.eam.alloy Al Mg\n]</td>
+      <td>[potential_LAMMPS/1998--Liu-X-Y--Al-Mg--LAMMPS--ipr1/almg.liu.eam.alloy]</td>
+      <td>NISTiprpy</td>
+      <td>1998--Liu-X-Y--Al-Mg--LAMMPS--ipr1</td>
+      <td>[Al, Mg]</td>
+      <td>[{'Liu_1998': {'title': 'Grain-boundary segregation in Al-10%Mg alloys at hot working temperatures', 'journal': 'Acta Materialia', 'volume': '46', 'pages': '3467--3476', 'number': '10', 'doi': '10...</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>[pair_style eam/alloy\n, pair_coeff * * al-cu-set.eam.alloy Al Cu\n]</td>
+      <td>[potential_LAMMPS/1999--Liu-X-Y--Al-Cu--LAMMPS--ipr1/al-cu-set.eam.alloy]</td>
+      <td>NISTiprpy</td>
+      <td>1999--Liu-X-Y--Al-Cu--LAMMPS--ipr1</td>
+      <td>[Al, Cu]</td>
+      <td>[{'Liu_1999': {'title': "A new investigation of copper's role in enhancing Al-Cu interconnect electromigration resistance from an atomistic view", 'journal': 'Acta Materialia', 'volume': '47', 'pa...</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>925</th>
+      <td>[pair_style kim Sim_LAMMPS_MEAM_JelinekGrohHorstemeyer_2012_AlSiMgCuFe__SM_656517352485_000\n, pair_coeff * * Al Si Mg Cu Fe\n]</td>
+      <td>[]</td>
+      <td>OPENKIM</td>
+      <td>Sim_LAMMPS_MEAM_JelinekGrohHorstemeyer_2012_AlSiMgCuFe__SM_656517352485_000</td>
+      <td>[Al, Si, Mg, Cu, Fe]</td>
+      <td>[{'B._2012': {'title': 'Modified embedded atom method potential for Al, Si, Mg, Cu, and Fe alloys', 'volume': '85', 'year': '2012', 'journal': 'Physical Review B', 'doi': '10.1103/PhysRevB.85.2451...</td>
+    </tr>
+    <tr>
+      <th>935</th>
+      <td>[pair_style kim Sim_LAMMPS_MEAM_PascuetFernandez_2015_AlU__SM_721930391003_000\n, pair_coeff * * Al U\n]</td>
+      <td>[]</td>
+      <td>OPENKIM</td>
+      <td>Sim_LAMMPS_MEAM_PascuetFernandez_2015_AlU__SM_721930391003_000</td>
+      <td>[Al, U]</td>
+      <td>[{'M.I._2015': {'title': '{A}tomic interaction of the {MEAM} type for the study of intermetallics in the {A}l–{U} alloy', 'volume': '467', 'year': '2015', 'journal': 'Journal of Nuclear Materials'...</td>
+    </tr>
+    <tr>
+      <th>936</th>
+      <td>[pair_style kim Sim_LAMMPS_MEAM_PascuetFernandez_2015_Al__SM_811588957187_000\n, pair_coeff * * Al\n]</td>
+      <td>[]</td>
+      <td>OPENKIM</td>
+      <td>Sim_LAMMPS_MEAM_PascuetFernandez_2015_Al__SM_811588957187_000</td>
+      <td>[Al]</td>
+      <td>[{'M.I._2015': {'title': '{A}tomic interaction of the {MEAM} type for the study of intermetallics in the {A}l–{U} alloy', 'volume': '467', 'year': '2015', 'journal': 'Journal of Nuclear Materials'...</td>
+    </tr>
+    <tr>
+      <th>956</th>
+      <td>[pair_style kim Sim_LAMMPS_SMTBQ_SallesPolitanoAmzallag_2016_AlO__SM_853967355976_000\n, pair_coeff * * Al O\n]</td>
+      <td>[]</td>
+      <td>OPENKIM</td>
+      <td>Sim_LAMMPS_SMTBQ_SallesPolitanoAmzallag_2016_AlO__SM_853967355976_000</td>
+      <td>[Al, O]</td>
+      <td>[{'N._2016': {'title': 'Molecular dynamics study of high-pressure alumina polymorphs with a tight-binding variable-charge model', 'volume': '111', 'year': '2016', 'journal': 'Computational Materia...</td>
+    </tr>
+    <tr>
+      <th>957</th>
+      <td>[pair_style kim Sim_LAMMPS_SMTBQ_SallesPolitanoAmzallag_2016_Al__SM_404097633924_000\n, pair_coeff * * Al\n]</td>
+      <td>[]</td>
+      <td>OPENKIM</td>
+      <td>Sim_LAMMPS_SMTBQ_SallesPolitanoAmzallag_2016_Al__SM_404097633924_000</td>
+      <td>[Al]</td>
+      <td>[{'N._2016': {'title': 'Molecular dynamics study of high-pressure alumina polymorphs with a tight-binding variable-charge model', 'volume': '111', 'year': '2016', 'journal': 'Computational Materia...</td>
+    </tr>
+  </tbody>
+</table>
+<p>136 rows × 6 columns</p>
+</div></div></div>
+</div>
+<p>To assign a specific interatomic potential for our LAMMPS calculation, we can simply set the name of the potential as a parameter to the <code class="docutils literal notranslate"><span class="pre">potential</span></code> property of the LAMMPS job object:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lmp</span><span class="o">.</span><span class="n">potential</span> <span class="o">=</span> <span class="s1">&#39;2002--Mishin-Y--Ni-Al--LAMMPS--ipr1&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="setting-up-the-lammps-calculation">
+<h2>Setting up the LAMMPS calculation<a class="headerlink" href="#setting-up-the-lammps-calculation" title="Permalink to this heading">#</a></h2>
+<p>pyiron provides two options to setting up LAMMPS calculation. The first is using the traditional LAMMPS commands you know from the LAMMPS input files, the second is using the generic pyiron commands, which are not only implemented for LAMMPS but also for many other simulation codes. So the advantage of the generic pyiron commands is that the same commands can be applied for both a density functional theory (DFT) simulation code like the Vienna Ab initio Simulation Package (VASP) as well as interatomic potential based simulation codes like LAMMPS to simplify switching between them, for example for fitting machine learning interatomic potentials. q</p>
+<section id="generic-pyiron-commands">
+<h3>Generic pyiron commands<a class="headerlink" href="#generic-pyiron-commands" title="Permalink to this heading">#</a></h3>
+<p>In this example we are going to calculate a molecular dynamics calculation at 500K, zero pressure and run it for 10000 steps, using the <code class="docutils literal notranslate"><span class="pre">calc_md()</span></code> function. Again, you can use the <code class="docutils literal notranslate"><span class="pre">&lt;tab&gt;</span></code> based autocompletion to get a list of available input commands. Alternatively you can call <code class="docutils literal notranslate"><span class="pre">calc_md?</span></code> to get a list of all input parameters:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>lmp.calc_md<span class="o">?</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Red">Signature:</span>
+lmp<span class=" -Color -Color-Blue">.</span>calc_md<span class=" -Color -Color-Blue">(</span>
+    temperature<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
+    pressure<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
+    n_ionic_steps<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">1000</span><span class=" -Color -Color-Blue">,</span>
+    time_step<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">1.0</span><span class=" -Color -Color-Blue">,</span>
+    n_print<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">100</span><span class=" -Color -Color-Blue">,</span>
+    temperature_damping_timescale<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">100.0</span><span class=" -Color -Color-Blue">,</span>
+    pressure_damping_timescale<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Cyan">1000.0</span><span class=" -Color -Color-Blue">,</span>
+    seed<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
+    tloop<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
+    initial_temperature<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
+    langevin<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">,</span>
+    delta_temp<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
+    delta_press<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
+<span class=" -Color -Color-Blue">)</span>
+<span class=" -Color -Color-Red">Docstring:</span>
+Set an MD calculation within LAMMPS. Nosé Hoover is used by default.
+
+Args:
+    temperature (None/float/list): Target temperature value(-s). If set to None, an NVE
+        calculation is performed. It is required when the pressure is set or langevin is set
+        It can be a list of temperature values, containing the initial target temperature and
+        the final target temperature (in between the target value is varied linearly).
+    pressure (None/float/numpy.ndarray/list): Target pressure. If set to None, an NVE or an
+        NVT calculation is performed. If set to a scalar, the shear of the cell and the
+        ratio of the x, y, and z components is kept constant, while an isotropic, hydrostatic
+        pressure is applied. A list of up to length 6 can be given to specify xx, yy, zz, xy,
+        xz, and yz components of the pressure tensor, respectively. These values can mix
+        floats and `None` to allow only certain degrees of cell freedom to change. (Default
+        is None, run isochorically.)
+    n_ionic_steps (int): Number of ionic steps
+    time_step (float): Step size in fs between two steps.
+    n_print (int):  Print frequency
+    temperature_damping_timescale (float): The time associated with the thermostat adjusting
+        the temperature.  (In fs. After rescaling to appropriate time units, is equivalent to
+        Lammps&#39; `Tdamp`.)
+    pressure_damping_timescale (float): The time associated with the barostat adjusting the
+        temperature.  (In fs. After rescaling to appropriate time units, is equivalent to
+        Lammps&#39; `Pdamp`.)
+    seed (int):  Seed for the random number generation used for the intiial velocity creation
+        and langevin dynamics - otherwise ignored. If not specified, the seed is created via
+        job name
+    tloop:
+    initial_temperature (None/float):  Initial temperature according to which the initial
+        velocity field is created. If None, the initial temperature will be twice the target
+        temperature (which would go immediately down to the target temperature as described
+        in equipartition theorem). If 0, the velocity field is not initialized (in which case
+        the initial velocity given in structure will be used). If any other number is given,
+        this value is going to be used for the initial temperature.
+    langevin (bool): (True or False) Activate Langevin dynamics
+    delta_temp (float): Thermostat timescale, but in your Lammps time units, whatever those
+        are. (DEPRECATED.)
+    delta_press (float): Barostat timescale, but in your Lammps time units, whatever those
+        are. (DEPRECATED.)
+    job_name (str): Job name of the job to generate a unique random seed.
+    rotation_matrix (numpy.ndarray): The rotation matrix from the pyiron to Lammps coordinate
+        frame.
+<span class=" -Color -Color-Red">File:</span>      ~/PycharmProjects/pyiron_atomistics/pyiron_atomistics/lammps/interactive.py
+<span class=" -Color -Color-Red">Type:</span>      method
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lmp</span><span class="o">.</span><span class="n">calc_md</span><span class="p">(</span><span class="n">temperature</span><span class="o">=</span><span class="mf">500.0</span><span class="p">,</span> <span class="n">pressure</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">n_ionic_steps</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="lammps-input-commands">
+<h3>LAMMPS input commands<a class="headerlink" href="#lammps-input-commands" title="Permalink to this heading">#</a></h3>
+<p>While this generic set of pyiron commands is helpful for users who are not yet familiar with the LAMMPS input file commands, pyiron also addresses the needs of expert users, by providing direct access to the underlying input files. So to see the current input of the LAMMPS calculation you can simply use <code class="docutils literal notranslate"><span class="pre">lmp.input.control</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lmp</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">control</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Parameter</th>
+      <th>Value</th>
+      <th>Comment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>units</td>
+      <td>metal</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>dimension</td>
+      <td>3</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>boundary</td>
+      <td>p p p</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>atom_style</td>
+      <td>atomic</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>read_data</td>
+      <td>structure.inp</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>include</td>
+      <td>potential.inp</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>fix___ensemble</td>
+      <td>all npt temp 500.0 500.0 0.1 iso 0.0 0.0 1.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>variable___dumptime</td>
+      <td>equal 100</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>variable___thermotime</td>
+      <td>equal 100</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>timestep</td>
+      <td>0.001</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>velocity</td>
+      <td>all create 1000.0 61040 dist gaussian</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>dump___1</td>
+      <td>all custom ${dumptime} dump.out id type xsu ysu zsu fx fy fz vx vy vz</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>dump_modify___1</td>
+      <td>sort id format line "%d %d %20.15g %20.15g %20.15g %20.15g %20.15g %20.15g %20.15g %20.15g %20.15g"</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>thermo_style</td>
+      <td>custom step temp pe etotal pxx pxy pxz pyy pyz pzz vol</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>thermo_modify</td>
+      <td>format float %20.15g</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>thermo</td>
+      <td>${thermotime}</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>run</td>
+      <td>10000</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>You see how pyiron converted the generic pyiron command <code class="docutils literal notranslate"><span class="pre">calc_md()</span></code> to the LAMMPS specific input commands. It changed the <code class="docutils literal notranslate"><span class="pre">fix___ensemble</span></code> to <code class="docutils literal notranslate"><span class="pre">npt</span></code>, created initial velocities for equilibration using the <code class="docutils literal notranslate"><span class="pre">velocity</span></code> command and defined the number of steps to run in the <code class="docutils literal notranslate"><span class="pre">run</span></code> command. Each of these entries can be modified using the python dictionary syntax. So to change the number of steps to run from 10000 to 100000 you can use:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lmp</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">control</span><span class="p">[</span><span class="s2">&quot;run&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100000</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To validate the input file is updated correspondingly we can execute the previous command again:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lmp</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">control</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Parameter</th>
+      <th>Value</th>
+      <th>Comment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>units</td>
+      <td>metal</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>dimension</td>
+      <td>3</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>boundary</td>
+      <td>p p p</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>atom_style</td>
+      <td>atomic</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>read_data</td>
+      <td>structure.inp</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>include</td>
+      <td>potential.inp</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>fix___ensemble</td>
+      <td>all npt temp 500.0 500.0 0.1 iso 0.0 0.0 1.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>variable___dumptime</td>
+      <td>equal 100</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>variable___thermotime</td>
+      <td>equal 100</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>timestep</td>
+      <td>0.001</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>velocity</td>
+      <td>all create 1000.0 61040 dist gaussian</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>dump___1</td>
+      <td>all custom ${dumptime} dump.out id type xsu ysu zsu fx fy fz vx vy vz</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>dump_modify___1</td>
+      <td>sort id format line "%d %d %20.15g %20.15g %20.15g %20.15g %20.15g %20.15g %20.15g %20.15g %20.15g"</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>thermo_style</td>
+      <td>custom step temp pe etotal pxx pxy pxz pyy pyz pzz vol</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>thermo_modify</td>
+      <td>format float %20.15g</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>thermo</td>
+      <td>${thermotime}</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>run</td>
+      <td>100000</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Alternatively to updating one command at a time, you can also load existing LAMMPS input scripts directly, using the <code class="docutils literal notranslate"><span class="pre">load_string()</span></code> function. Still there are two constratins with this method:</p>
+<ul class="simple">
+<li><p>First you want to use the <code class="docutils literal notranslate"><span class="pre">read_data</span></code> command to read the <code class="docutils literal notranslate"><span class="pre">structure.inp</span></code> file and the <code class="docutils literal notranslate"><span class="pre">include</span></code> command to load the <code class="docutils literal notranslate"><span class="pre">potential.inp</span></code> file. You could also create your own structure and define your own potential, but in those cases pyiron is not aware of these changes, so they are not recommended.</p></li>
+<li><p>Second, pyiron expects each input script to have only one <code class="docutils literal notranslate"><span class="pre">run</span></code> or <code class="docutils literal notranslate"><span class="pre">minimize</span></code> command. This is required as the pyiron parser expects on set of <code class="docutils literal notranslate"><span class="pre">dump</span></code> and <code class="docutils literal notranslate"><span class="pre">thermo</span></code> output. To combine multiple calculation steps it is recommended to combine multiple LAMMPS job objects.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lmp</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">load_string</span><span class="p">(</span><span class="n">input_str</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
+<span class="s2">units metal</span>
+<span class="s2">dimension 3</span>
+<span class="s2">boundary p p p</span>
+<span class="s2">atom_style atomic</span>
+<span class="s2">read_data structure.inp</span>
+<span class="s2">include potential.inp</span>
+<span class="s2">fix ensemble all npt temp 500.0 500.0 0.1 iso 0.0 0.0 1.0</span>
+<span class="s2">variable dumptime  equal 100</span>
+<span class="s2">variable thermotime  equal 100</span>
+<span class="s2">timestep 0.001</span>
+<span class="s2">velocity all create 1000.0 61040 dist gaussian</span>
+<span class="s2">dump 1 all custom $</span><span class="si">{dumptime}</span><span class="s2"> dump.out id type xsu ysu zsu fx fy fz vx vy vz</span>
+<span class="s2">dump_modify 1 sort id format line &quot;</span><span class="si">%d</span><span class="s2"> </span><span class="si">%d</span><span class="s2"> </span><span class="si">%20.15g</span><span class="s2"> </span><span class="si">%20.15g</span><span class="s2"> </span><span class="si">%20.15g</span><span class="s2"> </span><span class="si">%20.15g</span><span class="s2"> </span><span class="si">%20.15g</span><span class="s2"> </span><span class="si">%20.15g</span><span class="s2"> </span><span class="si">%20.15g</span><span class="s2"> </span><span class="si">%20.15g</span><span class="s2"> </span><span class="si">%20.15g</span><span class="s2">&quot;</span>
+<span class="s2">thermo_style custom step temp pe etotal pxx pxy pxz pyy pyz pzz vol</span>
+<span class="s2">thermo_modify format float </span><span class="si">%20.15g</span>
+<span class="s2">thermo $</span><span class="si">{thermotime}</span>
+<span class="s2">run 10000&quot;&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>After loading the input string we can validate that the number of run steps was correctly reset to 10000:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lmp</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">control</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Parameter</th>
+      <th>Value</th>
+      <th>Comment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>units</td>
+      <td>metal</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>dimension</td>
+      <td>3</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>boundary</td>
+      <td>p p p</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>atom_style</td>
+      <td>atomic</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>read_data</td>
+      <td>structure.inp</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>include</td>
+      <td>potential.inp</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>fix</td>
+      <td>ensemble all npt temp 500.0 500.0 0.1 iso 0.0 0.0 1.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>variable</td>
+      <td>dumptime  equal 100</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>variable</td>
+      <td>thermotime  equal 100</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>timestep</td>
+      <td>0.001</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>velocity</td>
+      <td>all create 1000.0 61040 dist gaussian</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>dump</td>
+      <td>1 all custom ${dumptime} dump.out id type xsu ysu zsu fx fy fz vx vy vz</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>dump_modify</td>
+      <td>1 sort id format line "%d %d %20.15g %20.15g %20.15g %20.15g %20.15g %20.15g %20.15g %20.15g %20.15g"</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>thermo_style</td>
+      <td>custom step temp pe etotal pxx pxy pxz pyy pyz pzz vol</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>thermo_modify</td>
+      <td>format float %20.15g</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>thermo</td>
+      <td>${thermotime}</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>run</td>
+      <td>10000</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="execute-the-lammps-calculation">
+<h2>Execute the LAMMPS calculation<a class="headerlink" href="#execute-the-lammps-calculation" title="Permalink to this heading">#</a></h2>
+<p>After defining the atomistic structure, selecting an interatomic potential and defining the LAMMPS input we can now run the calculation. Still if we just call the <code class="docutils literal notranslate"><span class="pre">run()</span></code> function directly, this calculation is executed on our local computer. To submit the calculation to a specific high performance computing cluster the pyiron job object defines a server object, which contains all the settings for the submission. In this virtual environment we use the <a class="reference external" href="https://flux-framework.org">flux-framework</a> as queuing system. But pyiron supports a wide range of different queuing systems. A full list of the supported queuing systems is available as part of the python simple queuing system adapter package <a class="reference external" href="https://pysqa.readthedocs.io/en/latest/queue.html">pysqa</a>.</p>
+<p>We start by listing the available queues, in this case only the <code class="docutils literal notranslate"><span class="pre">flux</span></code> queue is defined:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lmp</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">list_queues</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;flux&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the next step we select the <code class="docutils literal notranslate"><span class="pre">flux</span></code> you as active queue by assigning it to the <code class="docutils literal notranslate"><span class="pre">lmp.server.queue</span></code> property and set the number of cores to two:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># lmp.server.queue = &quot;flux&quot;</span>
+<span class="c1"># lmp.server.cores = 2 </span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Finally, you can also switch between different versions of LAMMPS executables. As we are using the flux queuing system here we have to select an executable which supports flux. In contrast to the basic version this executable uses the <code class="docutils literal notranslate"><span class="pre">flux</span> <span class="pre">run</span></code> command rather than <code class="docutils literal notranslate"><span class="pre">mpiexec</span></code>. But the executable script could also contain additional commands like <code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">load</span></code>. By leveraging these kind of shell script templates pyiron is easily customizable.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lmp</span><span class="o">.</span><span class="n">executable</span><span class="o">.</span><span class="n">list_executables</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;2020.03.03&#39;, &#39;2020.03.03_mpi&#39;, &#39;2022.11.03_flux&#39;, &#39;2022.11.03_flux_mpi&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># lmp.executable.version = &#39;2022.11.03_flux&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>cat<span class="w"> </span><span class="nv">$lmp</span>.executable
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>#!/bin/bash
+exec lmp_serial -in control.inp;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we start the calculation by calling the <code class="docutils literal notranslate"><span class="pre">run()</span></code> function of the job object:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lmp</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The job lmp was saved and received the ID: 2884
+</pre></div>
+</div>
+</div>
+</div>
+<p>After the calculation is started, it is also included in the <code class="docutils literal notranslate"><span class="pre">job_table()</span></code> of the specific project object:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pr</span><span class="o">.</span><span class="n">job_table</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>status</th>
+      <th>chemicalformula</th>
+      <th>job</th>
+      <th>subjob</th>
+      <th>projectpath</th>
+      <th>project</th>
+      <th>timestart</th>
+      <th>timestop</th>
+      <th>totalcputime</th>
+      <th>computer</th>
+      <th>hamilton</th>
+      <th>hamversion</th>
+      <th>parentid</th>
+      <th>masterid</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2884</td>
+      <td>finished</td>
+      <td>Al4</td>
+      <td>lmp</td>
+      <td>/lmp</td>
+      <td>/Users/janssen/pyiron/projects/</td>
+      <td>2023/2023-08-08-lammps-talk/test/</td>
+      <td>2023-08-10 18:37:47.928950</td>
+      <td>2023-08-10 18:37:48.632596</td>
+      <td>0.0</td>
+      <td>pyiron@pn2035881.lanl.gov#1</td>
+      <td>Lammps</td>
+      <td>0.1</td>
+      <td>None</td>
+      <td>None</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="plot-the-results-of-a-lammps-calculation">
+<h1>Plot the results of a LAMMPS calculation<a class="headerlink" href="#plot-the-results-of-a-lammps-calculation" title="Permalink to this heading">#</a></h1>
+<p>To analyse the output of the LAMMPS calculation pyiron automatically parses the output. So rather than interacting with the underlying output of the calculation you can use the <code class="docutils literal notranslate"><span class="pre">output</span></code> property to access the output of the LAMMPS calculation. Again, you can use the <code class="docutils literal notranslate"><span class="pre">&lt;tab&gt;</span></code>-based autocompletion to browse through the different output properties.</p>
+<section id="temperature-equilibration">
+<h2>Temperature equilibration<a class="headerlink" href="#temperature-equilibration" title="Permalink to this heading">#</a></h2>
+<p>Here we just print the temperature to analyse how it changes over time:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lmp</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">temperature</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1000.        ,  103.00304968,  578.27246601,  823.29574395,
+        553.20366161,  427.30693999,  328.76338336,  337.28404635,
+        555.28090839,  570.91982962,  734.29756874,  340.04640237,
+        427.67693585,  391.00923285,  280.5868281 ,  537.76398349,
+        576.62724044,  616.14152134,  356.34638353,  482.77315068,
+        232.05516536,  328.77917715, 1188.0353561 ,  282.24679249,
+        521.64066404,  662.49040198,  186.65634774,  425.47644871,
+        587.59395228,  500.75312358,  947.92106636,   64.56283835,
+        255.81108679,  780.60316014,  321.40600247,  159.86655546,
+        500.77062213,  538.69987478,  818.89934081,  768.58557921,
+        450.56733079,  329.74059511,  495.24312177,  870.76916839,
+        259.36339399,  994.97443289,  473.8853916 ,  317.57379037,
+        538.28158529,  474.81269952,  661.72133958,  503.86116539,
+        674.4237787 ,  356.30834974,  252.70287466,  660.53615628,
+        343.3601202 ,  253.71866754,  280.73534596,  305.41311806,
+        743.2418522 ,  541.05031839,  508.41243167,  127.93027593,
+        235.08222253,  323.3973228 ,  272.63915926,  719.92835278,
+        436.37090266,  456.2062489 ,  436.12249284,   84.47839932,
+        355.15357064,  349.00588026,  480.06921001,  500.62714234,
+        667.76439229,  641.651097  ,  317.68150713,  457.5656714 ,
+        250.10715469,  436.37300009,  642.31401382,  421.16752412,
+        583.66393795,  187.88020316,  217.07426552,  144.23256491,
+        257.87157437,  589.80104561,  104.66588194,  850.50511525,
+        859.54353908,  352.96858547,  353.7275847 ,  365.4236996 ,
+        397.09176722,  732.13847422,  763.29564456,  466.68128114,
+        290.16426436])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Obviously, looking at the numbers like this, it is hard to analyse if the structure is equilibrated or not. This is much easier when the temperature is plotted over the number of the time step. To do this we use the <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> package:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<p>Then from the output property we select the both the <code class="docutils literal notranslate"><span class="pre">steps</span></code> property and the <code class="docutils literal notranslate"><span class="pre">temperature</span></code> property and plot both:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lmp</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">steps</span><span class="p">,</span> <span class="n">lmp</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">temperature</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Timesteps&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Temperature (K)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Temperature (K)&#39;)
+</pre></div>
+</div>
+<img alt="_images/bebef4490c253ef58bbc7d281d98e6795999751c2283705201b317e2436423c2.png" src="_images/bebef4490c253ef58bbc7d281d98e6795999751c2283705201b317e2436423c2.png" />
+</div>
+</div>
+<p>The temperature is only poorly equilibrate as the four atoms in the simulation cell are not sufficient. You can increase the supercell before assigning it to the LAMMPS job object by replacing the line <code class="docutils literal notranslate"><span class="pre">lmp.structure</span> <span class="pre">=</span> <span class="pre">structure</span></code> with <code class="docutils literal notranslate"><span class="pre">lmp.structure</span> <span class="pre">=</span> <span class="pre">structure.repeat([4,4,4])</span></code></p>
+</section>
+<section id="visualize-the-vibration-of-the-individual-atoms">
+<h2>Visualize the vibration of the individual atoms<a class="headerlink" href="#visualize-the-vibration-of-the-individual-atoms" title="Permalink to this heading">#</a></h2>
+<p>Beyond combined properties like the change in temperature over time, we can also analyse the vibration of the atoms in the xy-plane. For this we divide the array of positions <code class="docutils literal notranslate"><span class="pre">lmp.output.positions</span></code> into two separate arrays one for the x-coordinates and one for the y-coordinates and then plot both combined in a two dimensional histogram.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist2d</span><span class="p">(</span><span class="n">lmp</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">positions</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">lmp</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">positions</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x [$\AA$]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y [$\AA$]&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;y [$\\AA$]&#39;)
+</pre></div>
+</div>
+<img alt="_images/bb0cf4a7a8ef833330b4d54bac098cdf2c796d4a0805d64a55ab8b30ee88ee41.png" src="_images/bb0cf4a7a8ef833330b4d54bac098cdf2c796d4a0805d64a55ab8b30ee88ee41.png" />
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="different-levels-of-output">
+<h1>Different levels of output<a class="headerlink" href="#different-levels-of-output" title="Permalink to this heading">#</a></h1>
+<p>The easiest way to access the output of a pyiron job object is using the <code class="docutils literal notranslate"><span class="pre">output</span></code> property as demonstrated above. Internally, pyiron converts the underlying LAMMPS output files <code class="docutils literal notranslate"><span class="pre">log.lammps</span></code> and <code class="docutils literal notranslate"><span class="pre">dump.out</span></code> to <code class="docutils literal notranslate"><span class="pre">numpy</span></code> arrays and then stores these converted <code class="docutils literal notranslate"><span class="pre">numpy</span></code> arrays in an file using the hierachical data format (HDF5).</p>
+<section id="hdf5-interface">
+<h2>HDF5 interface<a class="headerlink" href="#hdf5-interface" title="Permalink to this heading">#</a></h2>
+<p>Each pyiron job object has one associated HDF5 file. To get the path of the HDF5 file for a particiular pyiron job object you can use <code class="docutils literal notranslate"><span class="pre">lmp.project_hdf5.file_name</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lmp</span><span class="o">.</span><span class="n">project_hdf5</span><span class="o">.</span><span class="n">file_name</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;/Users/janssen/pyiron/projects/2023/2023-08-08-lammps-talk/test/lmp.h5&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>The same HDF5 file can be accessed using the dicitonary notiation. The hierachy of the HDF5 format extends the hierachy of the filesystem, so the output properties like temperature and steps are located in the output group under the subgroup generic:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lmp</span><span class="p">[</span><span class="s2">&quot;output/generic&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;groups&#39;: [], &#39;nodes&#39;: [&#39;cells&#39;, &#39;energy_pot&#39;, &#39;energy_tot&#39;, &#39;forces&#39;, &#39;indices&#39;, &#39;natoms&#39;, &#39;positions&#39;, &#39;pressures&#39;, &#39;steps&#39;, &#39;temperature&#39;, &#39;unwrapped_positions&#39;, &#39;velocities&#39;, &#39;volume&#39;]}
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can redo the plot from above using the direct access to the HDF5 file:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lmp</span><span class="p">[</span><span class="s2">&quot;output/generic/steps&quot;</span><span class="p">],</span> <span class="n">lmp</span><span class="p">[</span><span class="s2">&quot;output/generic/temperature&quot;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Timesteps&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Temperature (K)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Temperature (K)&#39;)
+</pre></div>
+</div>
+<img alt="_images/bebef4490c253ef58bbc7d281d98e6795999751c2283705201b317e2436423c2.png" src="_images/bebef4490c253ef58bbc7d281d98e6795999751c2283705201b317e2436423c2.png" />
+</div>
+</div>
+<p>The advantage of the HDF5 interface is that the job object does not have to be reloaded from the database. Rather than calling <code class="docutils literal notranslate"><span class="pre">pr.load(job_name)</span></code> you can use <code class="docutils literal notranslate"><span class="pre">pr.inspect(job_name)</span></code> to access the job object without reloading it. This inspect mode acts like a pointer on the HDF5 file. The capabilities of the inspect mode are introduced in more detail in the following tutorial.</p>
+</section>
+<section id="direct-access-to-the-output-files">
+<h2>Direct access to the output files<a class="headerlink" href="#direct-access-to-the-output-files" title="Permalink to this heading">#</a></h2>
+<p>In case you modified the LAMMPS input files, or in case you are interested in a specific property which is currently not parsed by the LAMMPS output parser, you can directly access the output files from the python interface. The output files are located in the working directory of the job object.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lmp</span><span class="o">.</span><span class="n">working_directory</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;/Users/janssen/pyiron/projects/2023/2023-08-08-lammps-talk/test/lmp_hdf5/lmp&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Still by default they are compressed, so access them we have to decompress the output files by calling the <code class="docutils literal notranslate"><span class="pre">decompress()</span></code> function of the job object:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lmp</span><span class="o">.</span><span class="n">decompress</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now the output files can be accessed in the same way like the output properties stored in the HDF5 file using the dictionary like notation:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lmp</span><span class="p">[</span><span class="s2">&quot;log.lammps&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;LAMMPS (23 Jun 2022 - Update 1)\n&#39;,
+ &#39;units metal\n&#39;,
+ &#39;dimension 3\n&#39;,
+ &#39;boundary p p p\n&#39;,
+ &#39;atom_style atomic\n&#39;,
+ &#39;read_data structure.inp\n&#39;,
+ &#39;Reading data file ...\n&#39;,
+ &#39;  orthogonal box = (0 0 0) to (4.05 4.05 4.05)\n&#39;,
+ &#39;  1 by 1 by 1 MPI processor grid\n&#39;,
+ &#39;  reading atoms ...\n&#39;,
+ &#39;  4 atoms\n&#39;,
+ &#39;  read_data CPU = 0.000 seconds\n&#39;,
+ &#39;include potential.inp\n&#39;,
+ &#39;pair_style eam/alloy\n&#39;,
+ &#39;pair_coeff * * NiAl02.eam.alloy Ni Al\n&#39;,
+ &#39;fix ensemble all npt temp 500.0 500.0 0.1 iso 0.0 0.0 1.0\n&#39;,
+ &#39;variable dumptime  equal 100\n&#39;,
+ &#39;variable thermotime  equal 100\n&#39;,
+ &#39;timestep 0.001\n&#39;,
+ &#39;velocity all create 1000.0 61040 dist gaussian\n&#39;,
+ &#39;dump 1 all custom ${dumptime} dump.out id type xsu ysu zsu fx fy fz vx vy vz\n&#39;,
+ &#39;dump 1 all custom 100 dump.out id type xsu ysu zsu fx fy fz vx vy vz\n&#39;,
+ &#39;dump_modify 1 sort id format line &quot;%d %d %20.15g %20.15g %20.15g %20.15g %20.15g %20.15g %20.15g %20.15g %20.15g&quot;\n&#39;,
+ &#39;thermo_style custom step temp pe etotal pxx pxy pxz pyy pyz pzz vol\n&#39;,
+ &#39;thermo_modify format float %20.15g\n&#39;,
+ &#39;thermo ${thermotime}\n&#39;,
+ &#39;thermo 100\n&#39;,
+ &#39;run 10000\n&#39;,
+ &#39;Neighbor list info ...\n&#39;,
+ &#39;  update every 1 steps, delay 10 steps, check yes\n&#39;,
+ &#39;  max neighbors/atom: 2000, page size: 100000\n&#39;,
+ &#39;  master list distance cutoff = 7.954144\n&#39;,
+ &#39;  ghost atom cutoff = 7.954144\n&#39;,
+ &#39;  binsize = 3.977072, bins = 2 2 2\n&#39;,
+ &#39;  1 neighbor lists, perpetual/occasional/extra = 1 0 0\n&#39;,
+ &#39;  (1) pair eam/alloy, perpetual\n&#39;,
+ &#39;      attributes: half, newton on\n&#39;,
+ &#39;      pair build: half/bin/atomonly/newton\n&#39;,
+ &#39;      stencil: half/bin/3d\n&#39;,
+ &#39;      bin: standard\n&#39;,
+ &#39;Per MPI rank memory allocation (min/avg/max) = 4.459 | 4.459 | 4.459 Mbytes\n&#39;,
+ &#39;   Step          Temp          PotEng         TotEng          Pxx            Pxy            Pxz            Pyy            Pyz            Pzz           Volume    \n&#39;,
+ &#39;         0                  1000    -13.4486826111902    -13.0609021761902     7761.54438456978    -7443.22978534658    -866.826476810956       12240.52852859     2194.16099255061     2119.09672807242            66.430125\n&#39;,
+ &#39;       100      103.003049683496     -13.109855097897    -13.0699125304844    -1804.72762979833     21058.7854387891     1208.46784815649    -7271.46175317807    -6072.03223020359    -2951.66517956866     69.3216034371248\n&#39;,
+ &#39;       200      578.272466008621    -13.2331159875497    -13.0088732391324     3924.89980958625     15591.2457976429    -815.938552191451     2315.65920423848     394.496043868415     -11937.212919559     68.4070532175566\n&#39;,
+ &#39;       300      823.295743950509    -13.1481713012739    -12.8289133195512     14024.8693237829    -7549.42144537847     10966.4880817279     11703.0858787683    -5140.22041240876     24908.8269151392     67.8171479951513\n&#39;,
+ &#39;       400      553.203661608797    -13.0935314358175    -12.8790098792752    -22177.5857698734     21883.5750419176     5132.88369585694    -25432.3781646595    -1050.56618879276    -37005.5166910008     71.6587161532975\n&#39;,
+ &#39;       500      427.306939985287    -13.2848528540675    -13.1191515830015     22828.5732714046      9305.6786164535     3707.68561094172     14805.6702055113    -1533.95526131535     18390.0177479903     66.5651770044152\n&#39;,
+ &#39;       600      328.763383359459    -13.3094231396723    -13.1819351318611     14146.0124851326    -5843.94848633404     10797.9751650087     7848.23976233173     1292.75262122413     13002.8694345652     66.8231007650027\n&#39;,
+ &#39;       700      337.284046345081    -13.2527837757992     -13.121991621589    -31872.2230725223     12393.8996719473    -44.0091326050884    -32415.9277107435    -1158.70082854739     -34431.015843623      70.558450154571\n&#39;,
+ &#39;       800      555.280908390331    -13.2470005925373    -13.0316735203345     48792.9831033291    -7455.83622272144     14024.9829449148     33988.4104130842     1166.37531040442     36370.3309275775     65.4862253469865\n&#39;,
+ &#39;       900      570.919829619306    -13.2616987589216    -13.0403072190416    -21505.9946982678      4416.7888680839     10279.0366482861    -26661.3455557073     3734.39625613089    -17739.8314375217     69.7145675920158\n&#39;,
+ &#39;      1000      734.297568742476    -13.3094896524895    -13.0247434218631    -23754.9265422057      3453.8152930206    -6284.14338490496    -30194.6290892062     446.686031567532    -29195.6371864651     69.8521438598901\n&#39;,
+ &#39;      1100      340.046402366515    -13.1275747067968    -12.9957113649669     57266.9789132587    -286.074314231078     21711.2826532612     44791.3558733384     9047.00873469907     53327.3588869301     65.3931365788166\n&#39;,
+ &#39;      1200      427.676935852653    -13.2622318094365    -13.0963870612121    -39129.0505773841      652.42081456036     546.717474372348     -38510.594815421     1555.61728370496    -41605.9455561399     71.1105143894591\n&#39;,
+ &#39;      1300      391.009232850166    -13.3982172998528    -13.2465915694492     7976.60860127093    -2425.22072788274     1832.65779368217     3490.91268153078    -984.337926784403     8552.23613003002     66.5715815962302\n&#39;,
+ &#39;      1400      280.586828103119     -13.349040386894    -13.2402343046369     27587.1396405253     2103.97348561976     6804.68046726373     25202.1493005938     2984.40457230161      26960.452486046      65.551908363197\n&#39;,
+ &#39;      1500      537.763983485425    -13.2180054978992    -13.0094711464559    -43255.0875059953     -9268.5607685514     588.489248751879    -44365.1341660886    -597.453873274541    -50280.6918483503     72.1239633872112\n&#39;,
+ &#39;      1600      576.627240436058     -13.148605639175    -12.9250008770458     39862.5968403574     4634.53971002359     10255.3477339538     32354.8120360818     8667.14356820745     47249.9565698309     66.1505164244757\n&#39;,
+ &#39;      1700       616.14152134373    -13.2655924893527    -13.0266648621844    -9534.08334342861    -4744.77547872514     5302.88443316685    -8108.05296720675     2439.07761863778    -13999.2542286757     68.8354277906336\n&#39;,
+ &#39;      1800      356.346383531123    -13.2339301419354    -13.0957459863191    -35039.4154706707    -9704.40663671139    -1100.13074896509    -38807.4457324069    -501.130988948348    -36334.3631330447     71.0652560853555\n&#39;,
+ &#39;      1900      482.773150678169    -13.2787355073461    -13.0915255249698     65436.8268655702     6990.39211336347    -1503.71450165849     64771.4352795069     7149.06627577536     66173.5133920147     63.5577181765632\n&#39;,
+ &#39;      2000      232.055165363702     -13.253858771438    -13.1638723184693    -35997.7723862375    -7996.30183111174     2277.72293362979    -37600.8704102791    -512.464634066666    -43651.8957577925      71.008781388262\n&#39;,
+ &#39;      2100      328.779177149224    -13.2705577821118     -13.143063649778    -13257.2944708905    -6579.23396498505    -6665.50982393949    -13436.2919167108     1526.24404706124    -13156.4935947035     68.8670966580877\n&#39;,
+ &#39;      2200      1188.03535609797    -13.3578353800605    -12.8971385128774     56541.4702917091     10452.8555028639     3128.77583249346     47325.9346930511    -1847.23502882464     43537.2174053102     64.4018694284187\n&#39;,
+ &#39;      2300      282.246792489802    -12.8938506900356    -12.7844009060665    -45352.4236087469    -24921.6738463341    -1790.56512707375      -47432.59632338      961.65351055276    -56663.2620077846     75.9872672643426\n&#39;,
+ &#39;      2400      521.640664041935    -13.1281627244426    -12.9258806808268     15195.4221391927     555.010274712793    -14432.5729445197      9250.9821568864    -1146.41534823563     20319.0998868338     67.9825216978179\n&#39;,
+ &#39;      2500      662.490401978995    -13.3169022592843    -13.0600014430216     44071.4555465949    -1713.39603420052     9034.92177068928     39029.4496955917     7306.08144325905     43539.7945939376     64.9023627350958\n&#39;,
+ &#39;      2600      186.656347743615    -13.0998654536913    -13.0274837739678    -61850.9183844132    -8939.36025655563    -7376.67209371772    -66094.3129314871     -2985.7376970937    -67692.8105371947     75.0425343750478\n&#39;,
+ &#39;      2700       425.47644870568    -13.2375959169229    -13.0726044745616     70699.8996178106     10278.6422511764     4223.44829349409     68015.3971166627    -966.981854928887      70670.544367229     63.5311306973693\n&#39;,
+ &#39;      2800      587.593952283876    -13.2600678647264    -13.0322104263063    -192.614741060264    -10879.7413211402    -2607.49446499609    -7106.18495223927    -1325.15991641161    -9190.86014874321     68.4790908511871\n&#39;,
+ &#39;      2900      500.753123584334    -12.9198241257248    -12.7256418616336    -57971.7063987204    -8119.39661871526    -13879.0716231657    -63837.9140949962    -9276.61391475597    -56666.7143487364     76.7009545463573\n&#39;,
+ &#39;      3000      947.921066362362    -13.0900329216918    -12.7224476782322     79098.3232242227     24306.1745141287     15981.5059529237     77986.7420297374     9696.74516107729     68337.2103582943     64.3473226416543\n&#39;,
+ &#39;      3100      64.5628383450196    -13.0528691083889    -13.0278329028506    -2580.21604252313    -14295.5005562778    -23399.2519721248    -7657.00677260424    -17385.8264808714    -7519.90137336637     69.9096796816192\n&#39;,
+ &#39;      3200      255.811086791676    -13.0860505836376    -12.9868520491237    -31207.4440708148      11414.630914299     7045.79274084475    -32362.9025935441     1499.85797719653    -39316.6036750229     72.1826016364193\n&#39;,
+ &#39;      3300      780.603160140805    -13.2337510966158     -12.931048463614     67268.6200944025    -9889.89420801535     1553.34848187679     60333.6054852143     1499.51047978411     68549.7133482282     63.9772955543991\n&#39;,
+ &#39;      3400      321.406002469223    -13.1644657038518    -13.0398307444026    -33964.7936663583    -833.733505312005    -11036.1466080313    -35217.6847566788    -11742.2267874647    -31799.6903051247     71.3877755592695\n&#39;,
+ &#39;      3500       159.86655545559    -13.1795404576332    -13.1175473352167     2671.48698185626     6454.35544634718     16180.2333590027    -6528.34133026506     6801.29303046748    -6233.13430145056      68.764331115486\n&#39;,
+ &#39;      3600      500.770622130034    -13.2630082103526    -13.0688191606678     43695.4227310748    -14928.1471515175    -9275.90675500987     40225.7693309052    -5006.97375730238     46014.0675320804     65.1187722811064\n&#39;,
+ &#39;      3700      538.699874782114    -13.2051604205265     -12.996263148749    -34814.4363641544     9464.98181324351     8014.51176805461    -41263.6569658599    -261.997634074809    -42186.4548078504     71.6411236969805\n&#39;,
+ &#39;      3800      818.899340805754    -13.1343783343142    -12.8168251917154     28119.8250543414    -8705.73114042441     15319.7465187911     14835.0237356639     7947.54716000778     6543.64518721734     67.9618097629846\n&#39;,
+ &#39;      3900      768.585579211962    -13.2017244484026     -12.903681998161     2313.72488777301    -9946.47133404597    -6267.51838749851    -2407.23283686553    -1854.42438377269    -4510.34011432399     68.7110985510048\n&#39;,
+ &#39;      4000      450.567330785117    -13.2846343507615    -13.1099131552328    -21971.2459670832     6536.12614527679     5461.24239491328    -28416.1077409368     1339.37551388032    -27153.4221158865     69.7815245011538\n&#39;,
+ &#39;      4100      329.740595112407    -13.2429795140782    -13.1151125626684     45516.3153608514    -16433.3106288341    -1436.34867465509     41695.3803355273    -2332.84911272221     28911.4591295867     65.4823444367585\n&#39;,
+ &#39;      4200      495.243121773346    -13.2889871413773    -13.0969415481853    -22268.6969630206    -2709.17425748941     289.611299888651    -28165.0773302692     641.566350185815    -18077.4318145654     69.5247727854614\n&#39;,
+ &#39;      4300      870.769168393536    -13.3109644221877    -12.9732971752835    -6744.91362263164    -2422.10821129586     2919.89492462769    -8055.53106803759    -169.732149277416    -21572.0002678781     68.7088607541298\n&#39;,
+ &#39;      4400      259.363393987233    -12.8460252530973    -12.7454492033539     53799.9509921353    -44560.9868714192    -16392.0742511037     41037.6360741453    -3369.86361957137     32685.3569933104     67.8756470297431\n&#39;,
+ &#39;      4500      994.974432888805    -13.2365034246075     -12.850671806208    -49708.7296159428     5174.18924296574    -598.487783396103    -46606.0303668381     1218.89628756534    -50038.7939859865     72.4270213470618\n&#39;,
+ &#39;      4600      473.885391604327    -13.3221290189766    -13.1383655356801     22580.9774775484    -9849.53294410309     1768.97365019317     21169.6798087144    -40.4921764524824     16019.6836378411     66.2385160540358\n&#39;,
+ &#39;      4700      317.573790366722    -13.3052361344834    -13.1820872319104     16788.9472955175    -6970.05774063821    -6573.14757887167     17237.8801116259    -2035.35363902046     7210.15554768836     66.7083831213823\n&#39;,
+ &#39;      4800       538.28158528963    -13.2952509583542    -13.0865158910581    -41497.8552180511     1836.17919087837      9674.4342822229    -46242.6891164407     2962.96094231191    -42318.2447130073     71.1413810909118\n&#39;,
+ &#39;      4900      474.812699516412    -13.0616429361606    -12.8775198609986     58840.0943293665    -33784.1801462201    -18289.5933023985     61377.7387204438    -10160.0486724875     41487.3067419374     65.6999820788971\n&#39;,
+ &#39;      5000      661.721339575882    -13.1693674814755     -12.912764892566     -14301.442535779     735.161293639923     13208.3009737821    -24969.6778016645      3506.8308993664    -33077.1630106421     70.7429998846525\n&#39;,
+ &#39;      5100      503.861165392654    -13.1925351823389    -12.9971476804434    -18575.1744314282    -306.132714088228     4061.59358425907    -18806.6363086003    -8509.58927279836     -22402.530220433     70.1034926379059\n&#39;,
+ &#39;      5200      674.423778699556    -13.2713241096077    -13.0097957633292     51867.7978636875    -19140.1373210603     -5619.0619782784     44160.1174206668     1017.06221862265     36141.7252736356     65.0756832970609\n&#39;,
+ &#39;      5300      356.308349740214    -13.1823297540144     -13.044160347158     -29649.263092219     8308.84636258898     16006.6754143954    -37207.5208669765    -4653.66405434462    -32327.1257625853     71.2190020734078\n&#39;,
+ &#39;      5400      252.702874663675    -13.1551555051697    -13.0571622745068     20804.3338303093    -17473.1966792646    -5862.10470598391     16386.8439031696    -5957.52384972943     6855.72894522129     67.6723174061119\n&#39;,
+ &#39;      5500       660.53615627572    -13.2871764919881    -13.0310334939743     25873.7166625378     5489.04304584379     4836.10210743521     16801.2307767282     409.867858561287     15494.0832150974     66.5915945640766\n&#39;,
+ &#39;      5600      343.360120196588    -13.1834070307655     -13.050258693994    -36935.3839970137    -809.264739145772     8232.02409152831    -39326.4871519105    -8347.15197969723    -36527.3032231323     71.5824626752602\n&#39;,
+ &#39;      5700      253.718667535529     -13.249265440754    -13.1508783054894      42961.306115144    -10037.2153962895    -9453.30178812943     41458.9810418848     2080.23549234931     33152.6242253188     65.3856509999721\n&#39;,
+ &#39;      5800      280.735345962158    -13.3114533364907    -13.2025896619137    -1558.05248799026     11075.5703841941     6698.35388843434    -2520.19846876606     -4647.6279881511       -2704.58926927     67.7380351321642\n&#39;,
+ &#39;      5900      305.413118064607    -13.2191593839675    -13.1007261521897    -22602.6607408668    -12050.0882576289     147.746671179952    -25608.2104489982     -3129.5654652922     -28106.238701842     70.2134222915031\n&#39;,
+ &#39;      6000      743.241852195095     -13.186361848903    -12.8981472001485     47566.2089025851      13562.522974857    -5314.30249525378     50466.8796812624     5344.99496900093     31237.8707451981     65.7452836360361\n&#39;,
+ &#39;      6100      541.050318390118    -13.1405201247346    -12.9307113969124    -25606.6009900802     11137.3836046396     11774.5096144291    -32813.8251714906    -6946.07585283913     -28214.357178469     71.3172054434705\n&#39;,
+ &#39;      6200      508.412431665661     -13.234725273219    -13.0375728793083    -1317.24043992253    -16950.0600035789    -8581.52212673166    -5499.30853704834     933.875841509092     -13508.336872967     68.7374020139082\n&#39;,
+ &#39;      6300      127.930275934781    -13.2438312063301    -13.1942223482785     44558.7850119756     15447.4698316512     7332.08865971897     40764.7552722759    -359.990508837362     33109.5464137793     65.3443765264001\n&#39;,
+ &#39;      6400      235.082222527314    -13.3553240012894    -13.2641637147769    -36362.8415940535    -510.419536402887    -1588.26735564532    -37785.7595953638    -84.8569288306254     -36694.332734364     69.9496323909846\n&#39;,
+ &#39;      6500      323.397322795169    -13.3608609515344    -13.2354537970231     30077.9935550998     1296.16054921995      1393.0865906018     25844.8319476482     328.476552537575     21170.6053003792     65.5447700356462\n&#39;,
+ &#39;      6600      272.639159262809     -13.258969506678     -13.153245374901     7950.69642562588     15731.5012855415     4014.28558016745     3342.40165657402    -1411.21437519274    -4683.39034888901     67.7947193537582\n&#39;,
+ &#39;      6700      719.928352784374    -13.3058624251522    -13.0266882953406    -33705.1816369424    -6206.97576279379    -2663.52865561092    -40033.7537607898    -2670.38635424738     -36400.244870148      70.597677694454\n&#39;,
+ &#39;      6800      436.370902661663    -13.1225954766663    -12.9533793782108     55124.3615648545     28584.8869242508     7988.46555826374     44150.5887313155     341.814989588574     31844.3727915557      65.974578876546\n&#39;,
+ &#39;      6900      456.206248901499    -13.2009939096016    -13.0240860519529    -15884.7303201358     8716.43874022025     2831.58659088147    -20907.1894302627    -4982.83499313886    -23797.9288716246      70.040725239463\n&#39;,
+ &#39;      7000      436.122492842276     -13.368204953838    -13.1990851838504    -13547.9177178718    -1745.19953662835    -4386.32169896191    -19332.3018061269      2334.7433028266     -19310.480066802     68.4663203867372\n&#39;,
+ &#39;      7100      84.4783993220974    -13.2822021425913    -13.2494430721541     49192.2333595474     12814.9319046279     1647.97197609655      46620.830576199    -987.464232343033     44089.1828451969     64.6058943507191\n&#39;,
+ &#39;      7200      355.153570640338     -13.341367048355    -13.2036454422402     -37647.850532697    -3666.93195112178    -502.181060385374    -37965.7347430281    -732.677273448015    -43225.6667986576     70.3388571384572\n&#39;,
+ &#39;      7300        349.0058802645    -13.2760464715238    -13.1407088194573     20596.4990558273     12227.0643490869    -7873.86153384263     13382.6370553776     5470.64688703757     16762.3423802876     66.7016605308041\n&#39;,
+ &#39;      7400      480.069210009373    -13.2706524998561    -13.0844910527685     15592.7412442527     6932.10073417644     4571.73622044051     18810.2872901787    -4244.28121960729    -328.941733777457     67.1783889414788\n&#39;,
+ &#39;      7500      500.627142336746    -13.1857346011105    -12.9916011900824     -29772.849989443    -3387.61198030754    -15389.1807493155    -37656.2723881774     8642.81671877869    -29643.6692007617      71.191480987548\n&#39;,
+ &#39;      7600      667.764392286551    -13.1392314533706    -12.8802854868522      41855.223476144     27338.8440345994    -4164.77414129942     43114.7330235142     3015.65694735951     27112.5850963961     66.3836051672704\n&#39;,
+ &#39;      7700      641.651097000616    -13.1462278084525    -12.8974080669394    -7782.37364652996    -10064.6079930213    -7091.86251327428    -10615.6335255155     4693.14907683596    -23993.3886999797     70.1082364491354\n&#39;,
+ &#39;      7800      317.681507127165    -13.2221251927708    -13.0989345197455    -22334.6353008235     3918.69076686558    -13015.0218724911    -25604.7790274388     5892.63407750396    -25353.4741259198     70.1031312117777\n&#39;,
+ &#39;      7900      457.565671402135    -13.3146402967963    -13.1372052816989     57132.9172412944     976.046273908274     4634.82509423324     52637.4252473411    -230.172548492898     45733.4024783101     64.2019121764453\n&#39;,
+ &#39;      8000      250.107154694794    -13.2422755955609    -13.1452889343168    -32046.2700362444    -7177.30580204771    -8777.35109451223    -34486.6944110422     2349.27314026454     -33767.158263298      70.645596915716\n&#39;,
+ &#39;      8100      436.373000087565    -13.1332906088066    -12.9640736970104     22607.3732695653     18389.1685961575    -11857.2208469885     12146.2760890193     2944.73310000215     1386.83437926382     68.0916400001298\n&#39;,
+ &#39;      8200      642.314013820221    -13.1325310664565    -12.8834542587707     29546.5245260393    -32554.9960806622     3369.35710452081     25303.0813621301    -4656.63083983955     7992.21994242164     67.5270460023219\n&#39;,
+ &#39;      8300      421.167524118018    -13.1294497362508    -12.9661292105405    -31563.0171193675     6014.86058547875    -19923.2894218695    -42174.2106001191     2665.31311573893    -33604.0358548013     71.9747795717745\n&#39;,
+ &#39;      8400      583.663937950805    -13.2926151501279    -13.0662816943755     41925.7694961974     5601.28403079548     4374.16996044108     37331.8880323326    -1867.17548571929     24923.6357781968     65.5206732193237\n&#39;,
+ &#39;      8500       187.88020316283    -13.2554976078016    -13.1826413408913     846.263214095228    -14566.4251101684    -7075.41209049463    -2322.57779467826    -1665.61916075081    -9600.72132505102     68.2059196285657\n&#39;,
+ &#39;      8600      217.074265519099    -13.3574644964965    -13.2732873433862    -30558.1637625686     5424.90206560765    -1045.06879700061    -29945.2034533309     812.951773905968    -31937.5607758436     69.4481567986434\n&#39;,
+ &#39;      8700      144.232564911414    -13.3241651965945     -13.268234629832     58638.5273989514    -7467.80185309463     849.328031693908     55415.1672622568     -492.03220103338     50034.7804309726     63.8171905007757\n&#39;,
+ &#39;      8800      257.871574370649    -13.2896640921602    -13.1896665408766    -28977.5373310664    -4782.41869010034    -6449.38805300469    -30971.3476833546    -96.0679838812352    -32916.9083943917     70.0425823082043\n&#39;,
+ &#39;      8900      589.801045605614    -13.3441653907735    -13.1154520847451    -7617.20779743891     5717.24632868955     5065.92496028948     -7479.2575629165    -430.673360944237    -18158.3494279923      68.260615429961\n&#39;,
+ &#39;      9000      104.665881943126     -13.058292154732    -13.0177047735025     56778.6801250332    -35572.8682834548    -3382.96954635757     50482.5245601762     -4151.6734431708     33990.9492895759     66.0410390326355\n&#39;,
+ &#39;      9100      850.505115248484    -13.2670394747159    -12.9372302311551    -46835.9186264721     1078.50461556106     2451.37805779019    -42858.5588119948     2293.68856973469    -51606.2928132256     71.8881319158121\n&#39;,
+ &#39;      9200      859.543539078105    -13.2523585999787    -12.9190444324936     12084.0294692347    -10224.6587932468    -10283.8761968597     17797.3528548543    -7410.34975680017      3319.1051289352     67.4724063857478\n&#39;,
+ &#39;      9300      352.968585473421    -13.1885290694136    -13.0516547577973     17421.8817674659    -21655.8245321158     2607.34507977781     15789.1849699621     1362.82880114146    -2767.18218669184     67.7782684377014\n&#39;,
+ &#39;      9400      353.727584702415    -13.3152739182025     -13.178105281535    -27959.9965127089     3438.25006097216    -7076.55897234712    -31324.7773071258    -961.682523210131    -29416.8254751475      69.760043084359\n&#39;,
+ &#39;      9500      365.423699596291    -13.3063558169014    -13.1646516557126     41269.4782825565    -13015.5268304973     1779.43186152903     42604.0905067271    -1273.99565955556     33658.1064683209     65.0463933975239\n&#39;,
+ &#39;      9600      397.091767221879     -13.211534502547    -13.0575500843188    -5722.85286731334     -1001.4095270933     -5997.2468494349    -14298.8765007585     1626.77604496653    -26225.4954492323     69.5444810739791\n&#39;,
+ &#39;      9700      732.138474215932    -13.1146692206989    -12.8307602446872    -8731.38493258324     5572.49011034661     -16078.504968419    -15517.5190643092    -3812.99303469099    -11872.0089277863     70.2017361612823\n&#39;,
+ &#39;      9800      763.295644563586    -13.1977166244024      -12.90172550732     28672.9140216495     -22932.734133394     8751.91067934712     22199.3710371399     1341.78646434889     3000.58945553936     67.3353427531155\n&#39;,
+ &#39;      9900      466.681281143973    -13.2603094146594     -13.079339544451    -9841.41927434645     7364.24459527174    -11731.9793136008    -20996.9081990912    -763.913762824274    -21694.1817089139      69.331342991903\n&#39;,
+ &#39;     10000      290.164264355789    -13.2576687918073     -13.145148767154      10761.664575491    -7767.37387132217    -6254.82291160261     10370.1867546648     4030.87385842822     5940.29071749746      67.354469691041\n&#39;,
+ &#39;Loop time of 0.099441 on 1 procs for 10000 steps with 4 atoms\n&#39;,
+ &#39;\n&#39;,
+ &#39;Performance: 8688.570 ns/day, 0.003 hours/ns, 100562.153 timesteps/s\n&#39;,
+ &#39;97.5% CPU use with 1 MPI tasks x no OpenMP threads\n&#39;,
+ &#39;\n&#39;,
+ &#39;MPI task timing breakdown:\n&#39;,
+ &#39;Section |  min time  |  avg time  |  max time  |%varavg| %total\n&#39;,
+ &#39;---------------------------------------------------------------\n&#39;,
+ &#39;Pair    | 0.068525   | 0.068525   | 0.068525   |   0.0 | 68.91\n&#39;,
+ &#39;Neigh   | 0          | 0          | 0          |   0.0 |  0.00\n&#39;,
+ &#39;Comm    | 0.012698   | 0.012698   | 0.012698   |   0.0 | 12.77\n&#39;,
+ &#39;Output  | 0.004875   | 0.004875   | 0.004875   |   0.0 |  4.90\n&#39;,
+ &#39;Modify  | 0.010854   | 0.010854   | 0.010854   |   0.0 | 10.91\n&#39;,
+ &#39;Other   |            | 0.00249    |            |       |  2.50\n&#39;,
+ &#39;\n&#39;,
+ &#39;Nlocal:              4 ave           4 max           4 min\n&#39;,
+ &#39;Histogram: 1 0 0 0 0 0 0 0 0 0\n&#39;,
+ &#39;Nghost:            360 ave         360 max         360 min\n&#39;,
+ &#39;Histogram: 1 0 0 0 0 0 0 0 0 0\n&#39;,
+ &#39;Neighs:            268 ave         268 max         268 min\n&#39;,
+ &#39;Histogram: 1 0 0 0 0 0 0 0 0 0\n&#39;,
+ &#39;\n&#39;,
+ &#39;Total # of neighbors = 268\n&#39;,
+ &#39;Ave neighs/atom = 67\n&#39;,
+ &#39;Neighbor list builds = 0\n&#39;,
+ &#39;Dangerous builds = 0\n&#39;,
+ &#39;Total wall time: 0:00:00\n&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="publish-your-results">
+<h1>Publish your results<a class="headerlink" href="#publish-your-results" title="Permalink to this heading">#</a></h1>
+<p>To support users in publishing their simulation protocols and the results derived from corresponding calculation pyiron provides a <code class="docutils literal notranslate"><span class="pre">list_publications()</span></code> function to list all publication involved in creating the simulation protocol. In this particular case these are four publication:</p>
+<ul class="simple">
+<li><p>the pyiron paper, as pyiron was used to develop the simulation protocol.</p></li>
+<li><p>the ASE paper, as ASE was used to create the atomistic structure.</p></li>
+<li><p>the LAMMPS paper, as LAMMPS was used to execute the calculation.</p></li>
+<li><p>the paper for the interatomic potential which defines the interaction between the atoms.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pr</span><span class="o">.</span><span class="n">list_publications</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>author</th>
+      <th>title</th>
+      <th>journal</th>
+      <th>volume</th>
+      <th>pages</th>
+      <th>issn</th>
+      <th>doi</th>
+      <th>url</th>
+      <th>year</th>
+      <th>number</th>
+      <th>publisher</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>[Jan Janssen, Sudarsan Surendralal, Yury Lysogorskiy, Mira Todorova, Tilmann Hickel, Ralf Drautz, Jörg Neugebauer]</td>
+      <td>pyiron: An integrated development environment for computational materials science</td>
+      <td>Computational Materials Science</td>
+      <td>161</td>
+      <td>24 - 36</td>
+      <td>0927-0256</td>
+      <td>https://doi.org/10.1016/j.commatsci.2018.07.043</td>
+      <td>http://www.sciencedirect.com/science/article/pii/S0927025618304786</td>
+      <td>2019</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>[Ask Hjorth Larsen, Jens Jørgen Mortensen, Jakob Blomqvist, Ivano E Castelli, Rune Christensen, Marcin Dułak, Jesper Friis, Michael N Groves, Bjørk Hammer, Cory Hargus, Eric D Hermes, Paul C Jenni...</td>
+      <td>The atomic simulation environment—a Python library for working with atoms</td>
+      <td>Journal of Physics: Condensed Matter</td>
+      <td>29</td>
+      <td>273002</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>http://stacks.iop.org/0953-8984/29/i=27/a=273002</td>
+      <td>2017</td>
+      <td>27</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>[Steve Plimpton]</td>
+      <td>Fast Parallel Algorithms for Short-Range Molecular Dynamics</td>
+      <td>Journal of Computational Physics</td>
+      <td>117</td>
+      <td>1-19</td>
+      <td>0021-9991</td>
+      <td>10.1006/jcph.1995.1039</td>
+      <td>http://www.sciencedirect.com/science/article/pii/S002199918571039X</td>
+      <td>1995</td>
+      <td>1</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>[Y. Mishin, M. J. Mehl, D. A. Papaconstantopoulos]</td>
+      <td>Embedded-atom potential for B2-NiAl</td>
+      <td>Physical Review B</td>
+      <td>65</td>
+      <td>224114</td>
+      <td>NaN</td>
+      <td>10.1103/physrevb.65.224114</td>
+      <td>https://doi.org/10.1103%2Fphysrevb.65.224114</td>
+      <td>2002</td>
+      <td>22</td>
+      <td>American Physical Society (APS)</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="summary">
+<h1>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h1>
+<p>In this first pyiron LAMMPS tutorial you learned about the three most fundamental objects in an atomistic simulation with pyiron, namely the project object, the atomistic structure object and the LAMMPS job object. You also learned how to create both structure objects and LAMMPS job objects from the project object and finally the tutorial demonstrated the basic settings to setup, run and analyse your LAMMPS simulation.</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="README.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">pyiron publication template</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="part_2.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Beyond a single LAMMPS calculation</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Introduction to pyiron for LAMMPS users</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-new-project-in-pyiron">Create a new project in pyiron</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#atomistic-structures">Atomistic structures</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-an-atomistic-structure">Create an atomistic structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-an-atomistic-structure">Visualize an atomistic structure</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#run-a-lammps-calculation-with-pyiron">Run a LAMMPS calculation with pyiron</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assign-the-atomistic-structure-to-the-lammps-calculation">Assign the atomistic structure to the LAMMPS calculation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#select-an-interatomic-potential-for-the-lammps-calculation">Select an interatomic potential for the LAMMPS calculation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-the-lammps-calculation">Setting up the LAMMPS calculation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generic-pyiron-commands">Generic pyiron commands</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lammps-input-commands">LAMMPS input commands</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#execute-the-lammps-calculation">Execute the LAMMPS calculation</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-results-of-a-lammps-calculation">Plot the results of a LAMMPS calculation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#temperature-equilibration">Temperature equilibration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-the-vibration-of-the-individual-atoms">Visualize the vibration of the individual atoms</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#different-levels-of-output">Different levels of output</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hdf5-interface">HDF5 interface</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#direct-access-to-the-output-files">Direct access to the output files</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#publish-your-results">Publish your results</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By pyiron
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
