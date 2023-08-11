@@ -19,6 +19,9 @@ jobs:
         python-version: "3.10"
         environment-file: .binder/environment.yml
         auto-activate-base: false
+    - name: Fix kernel
+      shell: bash -l {0}
+      run: conda install -c conda-forge -y nb_conda_kernels
     - name: Tests
       shell: bash -l {0}
       run: ./.github/ci_support/build_notebooks.sh
